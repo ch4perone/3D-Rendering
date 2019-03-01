@@ -43,10 +43,10 @@ RM = /snap/clion/61/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chaperone/data/ist/3Dprogramming/project
+CMAKE_SOURCE_DIR = /home/chaperone/data/ist/3Dprogramming/3D-Rendering
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug
+CMAKE_BINARY_DIR = /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/project.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/project.dir/flags.make
 
 CMakeFiles/project.dir/main_V2.cpp.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/main_V2.cpp.o: ../main_V2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/project.dir/main_V2.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/main_V2.cpp.o -c /home/chaperone/data/ist/3Dprogramming/project/main_V2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/project.dir/main_V2.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/main_V2.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp
 
 CMakeFiles/project.dir/main_V2.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/main_V2.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/project/main_V2.cpp > CMakeFiles/project.dir/main_V2.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp > CMakeFiles/project.dir/main_V2.cpp.i
 
 CMakeFiles/project.dir/main_V2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/main_V2.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/project/main_V2.cpp -o CMakeFiles/project.dir/main_V2.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp -o CMakeFiles/project.dir/main_V2.cpp.s
 
 CMakeFiles/project.dir/scene.cpp.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/scene.cpp.o: ../scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/project.dir/scene.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/scene.cpp.o -c /home/chaperone/data/ist/3Dprogramming/project/scene.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/project.dir/scene.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/scene.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.cpp
 
 CMakeFiles/project.dir/scene.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/scene.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/project/scene.cpp > CMakeFiles/project.dir/scene.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.cpp > CMakeFiles/project.dir/scene.cpp.i
 
 CMakeFiles/project.dir/scene.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/scene.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/project/scene.cpp -o CMakeFiles/project.dir/scene.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.cpp -o CMakeFiles/project.dir/scene.cpp.s
 
 # Object files for target project
 project_OBJECTS = \
@@ -95,7 +95,7 @@ project: CMakeFiles/project.dir/main_V2.cpp.o
 project: CMakeFiles/project.dir/scene.cpp.o
 project: CMakeFiles/project.dir/build.make
 project: CMakeFiles/project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -108,6 +108,6 @@ CMakeFiles/project.dir/clean:
 .PHONY : CMakeFiles/project.dir/clean
 
 CMakeFiles/project.dir/depend:
-	cd /home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chaperone/data/ist/3Dprogramming/project /home/chaperone/data/ist/3Dprogramming/project /home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug /home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug /home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/CMakeFiles/project.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chaperone/data/ist/3Dprogramming/3D-Rendering /home/chaperone/data/ist/3Dprogramming/3D-Rendering /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles/project.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/project.dir/depend
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/chaperone/data/ist/3Dprogramming/project
+# Install script for directory: /home/chaperone/data/ist/3Dprogramming/3D-Rendering
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

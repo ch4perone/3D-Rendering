@@ -8,28 +8,28 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug"/>
+				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug"/>
+				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="project">
-				<Option output="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug"/>
+				<Option output="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -44,15 +44,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 project"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="project/fast">
-				<Option output="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug"/>
+				<Option output="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -67,33 +67,33 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 project/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug"/>
+				<Option working_dir="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/project/main_V2.cpp">
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/project/scene.cpp">
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.cpp">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/project/scene.h">
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/project/CMakeLists.txt">
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

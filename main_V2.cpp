@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 #include "scene.h"
+// -lglut -lGLU -lGL -lGLEW
+
 
 #define MAX_DEPTH 6
 
