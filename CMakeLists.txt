@@ -3,4 +3,4 @@ project(project)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(project main_V2.cpp scene.h scene.cpp)
+add_executable(project main_V2.cpp scene.h scene.cpp Camera.cpp Camera.h)

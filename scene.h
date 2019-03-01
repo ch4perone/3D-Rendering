@@ -2,7 +2,9 @@
 #define EXERCISE1_SCENE_H
 
 #include <vector>
+#include <string>
 #include "defaultStructs.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -13,10 +15,12 @@ class Scene {
 
 public:
 
-    Scene() {};
-    Camera *getCamera() {
-        return camera;
-    }
+    Scene();
+
+    bool load_nff(string path);
+
+    //Getter
+    Camera *getCamera();
 
 
 

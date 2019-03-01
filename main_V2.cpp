@@ -3,7 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 #include "scene.h"
-// -lglut -lGLU -lGL -lGLEW
+// g++ main_V2.cpp -o test -lglut -lGLU -lGL
+// ... -lGLEW
 
 
 #define MAX_DEPTH 6
@@ -24,7 +25,11 @@ void reshape(int w, int h)
     glLoadIdentity();
 }
 // Draw function by primary ray casting from the eye towards the scene's objects
+Color rayTracing(Ray ray, int depth, int    indexOfRefraction) {
+    //TODO
 
+
+}
 
 void drawScene()
 {
@@ -32,8 +37,8 @@ void drawScene()
     {
         for (int x = 0; x < RES_X; x++)
         {
-            //Ray ray = scene->GetCamera()->PrimaryRay(x, y);
-            //Color color=rayTracing(ray, 1, 1.0 ); //depth=1, ior=1.0
+            Ray ray = scene->getCamera()->PrimaryRay(x, y);
+            Color color=rayTracing(ray, 1, 1.0 ); //depth=1, ior=1.0
             glBegin(GL_POINTS);
             //glColor3f(color.r(), color.g(), color.b());
             glColor3f(1.0f, 0, 0);
@@ -42,7 +47,7 @@ void drawScene()
             glFlush();
         }
     }
-    printf("Terminou!\n");
+    printf("Terminated!\n");
 }
 
 
@@ -50,7 +55,10 @@ int main(int argc, char**argv)
 {
 
     scene = new Scene();
-    //if(!(scene->load_nff("jap.nff"))) return 0;
+    if(!(scene->load_nff("jap.nff"))) {
+        return 0;
+    }
+
     RES_X = 512; //scene->GetCamera()->GetResX();
     RES_Y = 512; //scene->GetCamera()->GetResY();
     printf("resx = %dresy= %d.\n", RES_X, RES_Y);
@@ -58,13 +66,12 @@ int main(int argc, char**argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowSize(RES_X, RES_Y);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("JAP Ray Tracing");
+    glutCreateWindow("Group 14: Ray Tracing");
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     glutReshapeFunc(reshape);
     glutDisplayFunc(drawScene);
     glDisable(GL_DEPTH_TEST);
-    std::cout << "0" << std::endl;
     glutMainLoop();
     return 0;
 }
