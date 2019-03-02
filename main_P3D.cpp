@@ -20,7 +20,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include "scene.h"
+#include "Scene.h"
 
 #define CAPTION "ray tracer"
 

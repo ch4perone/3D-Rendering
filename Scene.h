@@ -5,12 +5,15 @@
 #include <string>
 #include "defaultStructs.h"
 #include "Camera.h"
+#include "Object.h"
+#include "Sphere.h"
+#include "Plane.h"
 
 using namespace std;
 
 class Scene {
 
-    vector<Vector> objects;
+    vector<Object> objects;
     Camera * camera;
     Color backgroundColor = Color(0, 0, 0);
 

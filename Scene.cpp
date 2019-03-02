@@ -1,4 +1,5 @@
-#include "scene.h"
+#include "Scene.h"
+#include "defaultStructs.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -17,7 +18,7 @@ bool Scene::load_nff(string path) {
 
 
     //fields
-    //Material currentMaterial;
+    Material currentMaterial;
 
     ifstream f(path, ios::in);
     if (!f.good()) {
@@ -49,15 +50,15 @@ bool Scene::load_nff(string path) {
         if (label == "f") {
             cout << "load material" << endl;
             Color color(values[0], values[1], values[2]);
-            //currentMaterial = Material(color, values[3], values[4], values[5], values[6], values[7])
+            currentMaterial = Material(color, values[3], values[4], values[5], values[6], values[7]);
         }
         if (label == "s") {
             cout << "load sphere" << endl;
             Vector pos(values[0], values[1], values[2]);
             float radius = values[3];
 
-            //Sphere sphere(pos, radius, currentMaterial);
-            //objects.pushback(sphere);
+            Sphere sphere(pos, radius, currentMaterial);
+            objects.push_back(sphere);
         }
     }
 

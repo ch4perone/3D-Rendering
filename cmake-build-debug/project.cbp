@@ -90,13 +90,31 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Camera.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Object.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Object.h">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Plane.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Plane.h">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Scene.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Scene.h">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Sphere.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Sphere.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp">
-			<Option target="project"/>
-		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.cpp">
-			<Option target="project"/>
-		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/scene.h">
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/CMakeLists.txt">
