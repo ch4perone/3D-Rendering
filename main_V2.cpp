@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "scene.h"
-// g++ main_V2.cpp -o test -lglut -lGLU -lGL
+//  g++ main_V2.cpp scene.cpp Camera.cpp -o test -lglut -lGLU -lGL
 // ... -lGLEW
 
 
@@ -25,7 +25,7 @@ void reshape(int w, int h)
     glLoadIdentity();
 }
 // Draw function by primary ray casting from the eye towards the scene's objects
-Color rayTracing(Ray ray, int depth, int    indexOfRefraction) {
+Color rayTracing(Ray ray, int depth, int indexOfRefraction) {
     //TODO
 
 
@@ -55,7 +55,7 @@ int main(int argc, char**argv)
 {
 
     scene = new Scene();
-    if(!(scene->load_nff("jap.nff"))) {
+    if(!(scene->load_nff("./scenes/balls_low.nff"))) {
         return 0;
     }
 

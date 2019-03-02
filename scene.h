@@ -12,6 +12,7 @@ class Scene {
 
     vector<Vector> objects;
     Camera * camera;
+    Color backgroundColor = Color(0, 0, 0);
 
 public:
 
