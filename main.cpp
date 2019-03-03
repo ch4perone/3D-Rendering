@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
+#include "VectorMath.cpp"
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -framework OpenGL -framework GLUT
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
@@ -73,6 +75,13 @@ int main(int argc, char**argv)
     if(!(scene->load_nff("./scenes/balls_low.nff"))) {
         return 0;
     }
+    std::cout << "test intersect" << std::endl;
+    Ray ray(Vector(0.3, 0.3, 0.6), Vector(0, 0.1, -0.1));
+    Material mat;
+    Sphere sphere(Vector(0.3,0.3,0.5), 0.2f, mat);
+    sphere.intersect(ray);
+    Vector intersection(vectorAdd(ray.ori, vectorScale(ray.dir, ray.t)));
+    vectorPrint(intersection);
 
     RES_X = 512; //scene->GetCamera()->GetResX();
     RES_Y = 512; //scene->GetCamera()->GetResY();

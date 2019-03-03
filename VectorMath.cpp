@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include <cmath>
 #include "defaultStructs.h"
 
@@ -11,6 +11,9 @@ static Vector vectorAdd(Vector v1, Vector v2) {
     return Vector(v1.x + v2.x, v1.y + v2.y,  v1.z + v2.z);
 }
 
+static Vector vectorSubstract(Vector v1, Vector v2) {
+    return Vector(v1.x - v2.x, v1.y - v2.y,  v1.z - v2.z);
+}
 
 static Vector vectorDirection(Vector ori, Vector to) {
     return Vector(to.x - ori.x, to.y - ori.y,  to.z - ori.z);
@@ -37,4 +40,6 @@ static float vectorDotProduct(Vector v1, Vector v2) {
     return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 }
 
-
+static void vectorPrint(Vector v) {
+  std::cout << "Vector: " << v.x << " " << v.y << " " << v.z << std::endl;
+}

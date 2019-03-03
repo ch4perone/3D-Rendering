@@ -1,5 +1,7 @@
 #include "Sphere.h"
+#include "VectorMath.cpp"
 #include <iostream>
+#include <cmath>
 
 // Ray Camera::getPrimaryRay(int x, int y) {
 //     return Ray(Vector(1,1,1), Vector(0,0,0));
@@ -40,8 +42,8 @@ bool Sphere::intersect(Ray &r) {
 // bool getLowestRoot(float a, float b, float c, float maxR, float* root) {
 
     float a = vectorDotProduct(r.dir, r.dir);
-    float b = vectorDotProduct(r.dir, (2.0f * (r.ori - pos)));
-    float c = vectorDotProduct((r.ori - pos), (r.ori - pos)) - radius*radius;
+    float b = vectorDotProduct(r.dir, vectorScale((vectorSubstract(r.ori, pos)), 2.f));
+    float c = vectorDotProduct(vectorSubstract(r.ori, pos), vectorSubstract(r.ori, pos)) - radius*radius;
 
     // float *root;
 
@@ -64,20 +66,20 @@ bool Sphere::intersect(Ray &r) {
     }
     // Get lowest root: && r1 < maxR
     if (r1 > 0) {
-      *t = r1;
+      r.t = r1;
       return true;
     }
     // It is possible that we want x2 - this can happen
     // if x1 < 0 , ray origin inside sphere
     // && r2 < maxR
     if (r2 > 0) {
-      *t = r2;
+      r.t = r2;
       return true;
     }
 
-    float distance = sqrtf(a)*t;
-    Vector hitpoint = r.ori + t*r.dir;
-    Vector normal = (hitpoint - pos) / radius;
+    // float distance = sqrtf(a)*r.t;
+    // Vector hitpoint = vectorAdd(r.ori, r.t*r.dir);
+    // Vector normal = vectorScale(vectorSubstract(hitpoint, pos), 1.f / radius);
 
     // No (valid) solutions
   //   return false;
