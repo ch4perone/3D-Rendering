@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include <iostream>
 
-// Ray Camera::PrimaryRay(int x, int y) {
+// Ray Camera::getPrimaryRay(int x, int y) {
 //     return Ray(Vector(1,1,1), Vector(0,0,0));
 // }
 
@@ -33,6 +33,5 @@ bool Sphere::intersect(Ray &r) {
       //   //complex roots, no intersection
       // }
 
-
-      return false;
+    return false;
 }

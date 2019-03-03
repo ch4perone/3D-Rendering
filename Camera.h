@@ -4,19 +4,23 @@
 #include "defaultStructs.h"
 
 class Camera {
-
+public:
     Vector eye, at, up;
     float fovy;
 
+    float hither;
     float near, far;
+    float df;
     int ResX, ResY;
 
     float w,h;
     Vector xe, ye,ze; //uvn
 
 
-public:
-    Ray PrimaryRay(int x, int y);
+    Camera();
+    bool completeSetup();
+
+    Ray getPrimaryRay(int x, int y);
 
 };
 

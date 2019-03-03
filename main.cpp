@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp -o app -lglut -lGLU -lGL
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
 //#include <OpenGL/gl.h>
@@ -48,7 +48,7 @@ void drawScene()
           //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
           //   // MojaveWorkAround = false;
           // }
-            Ray ray = scene->getCamera()->PrimaryRay(x, y);
+            Ray ray = scene->getCamera()->getPrimaryRay(x, y);
             Color color=rayTracing(ray, 1, 1.0 ); //depth=1, ior=1.0
             glBegin(GL_POINTS);
             //glColor3f(color.r(), color.g(), color.b());
