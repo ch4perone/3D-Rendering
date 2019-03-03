@@ -1,14 +1,14 @@
 #include <stdlib.h>
-#include <GL/glut.h>
+// #include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 6
