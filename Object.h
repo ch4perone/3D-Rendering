@@ -4,7 +4,7 @@
 #include "defaultStructs.h"
 
 class Object {
-
+protected:
     // float size;
     Vector pos;
     Material material;
