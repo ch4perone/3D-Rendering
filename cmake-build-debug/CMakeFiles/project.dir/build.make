@@ -57,18 +57,18 @@ include CMakeFiles/project.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/project.dir/flags.make
 
-CMakeFiles/project.dir/main_V2.cpp.o: CMakeFiles/project.dir/flags.make
-CMakeFiles/project.dir/main_V2.cpp.o: ../main_V2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/project.dir/main_V2.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/main_V2.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp
+CMakeFiles/project.dir/main.cpp.o: CMakeFiles/project.dir/flags.make
+CMakeFiles/project.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/project.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/main.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main.cpp
 
-CMakeFiles/project.dir/main_V2.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/main_V2.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp > CMakeFiles/project.dir/main_V2.cpp.i
+CMakeFiles/project.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main.cpp > CMakeFiles/project.dir/main.cpp.i
 
-CMakeFiles/project.dir/main_V2.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/main_V2.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp -o CMakeFiles/project.dir/main_V2.cpp.s
+CMakeFiles/project.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/main.cpp -o CMakeFiles/project.dir/main.cpp.s
 
 CMakeFiles/project.dir/Scene.cpp.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/Scene.cpp.o: ../Scene.cpp
@@ -137,7 +137,7 @@ CMakeFiles/project.dir/Plane.cpp.s: cmake_force
 
 # Object files for target project
 project_OBJECTS = \
-"CMakeFiles/project.dir/main_V2.cpp.o" \
+"CMakeFiles/project.dir/main.cpp.o" \
 "CMakeFiles/project.dir/Scene.cpp.o" \
 "CMakeFiles/project.dir/Camera.cpp.o" \
 "CMakeFiles/project.dir/Object.cpp.o" \
@@ -147,7 +147,7 @@ project_OBJECTS = \
 # External object files for target project
 project_EXTERNAL_OBJECTS =
 
-project: CMakeFiles/project.dir/main_V2.cpp.o
+project: CMakeFiles/project.dir/main.cpp.o
 project: CMakeFiles/project.dir/Scene.cpp.o
 project: CMakeFiles/project.dir/Camera.cpp.o
 project: CMakeFiles/project.dir/Object.cpp.o

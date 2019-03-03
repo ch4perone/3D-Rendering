@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
-//  g++ main_V2.cpp scene.cpp Camera.cpp -o test -lglut -lGLU -lGL
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
 //#include <OpenGL/gl.h>

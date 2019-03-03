@@ -258,32 +258,32 @@ Sphere.cpp.s:
 	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Sphere.cpp.s
 .PHONY : Sphere.cpp.s
 
-main_V2.o: main_V2.cpp.o
+main.o: main.cpp.o
 
-.PHONY : main_V2.o
+.PHONY : main.o
 
 # target to build an object file
-main_V2.cpp.o:
-	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_V2.cpp.o
-.PHONY : main_V2.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-main_V2.i: main_V2.cpp.i
+main.i: main.cpp.i
 
-.PHONY : main_V2.i
+.PHONY : main.i
 
 # target to preprocess a source file
-main_V2.cpp.i:
-	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_V2.cpp.i
-.PHONY : main_V2.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-main_V2.s: main_V2.cpp.s
+main.s: main.cpp.s
 
-.PHONY : main_V2.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-main_V2.cpp.s:
-	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_V2.cpp.s
-.PHONY : main_V2.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -309,9 +309,9 @@ help:
 	@echo "... Sphere.o"
 	@echo "... Sphere.i"
 	@echo "... Sphere.s"
-	@echo "... main_V2.o"
-	@echo "... main_V2.i"
-	@echo "... main_V2.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

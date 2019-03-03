@@ -114,7 +114,7 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Sphere.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/main_V2.cpp">
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/main.cpp">
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/CMakeLists.txt">
