@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/project.dir/main.cpp.o CMakeFiles/project.dir/Scene.cpp.o CMakeFiles/project.dir/Camera.cpp.o CMakeFiles/project.dir/Object.cpp.o CMakeFiles/project.dir/Sphere.cpp.o CMakeFiles/project.dir/Plane.cpp.o  -o project 
+/usr/bin/c++  -g   CMakeFiles/project.dir/main.cpp.o CMakeFiles/project.dir/Scene.cpp.o CMakeFiles/project.dir/Camera.cpp.o CMakeFiles/project.dir/Object.cpp.o CMakeFiles/project.dir/Sphere.cpp.o CMakeFiles/project.dir/Plane.cpp.o CMakeFiles/project.dir/VectorMath.cpp.o  -o project 

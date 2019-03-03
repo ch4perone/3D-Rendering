@@ -19,6 +19,7 @@ bool Scene::load_nff(string path) {
 
     //fields
     Material currentMaterial;
+    camera = new Camera();
 
     ifstream f(path, ios::in);
     if (!f.good()) {
@@ -47,6 +48,25 @@ bool Scene::load_nff(string path) {
             cout << "load background color" << endl;
             backgroundColor = Color(values[0], values[1], values[2]);
         }
+        if (label == "from") {
+            camera->eye = Vector(values[0], values[1], values[2]);
+        }
+        if (label == "at") {
+            camera->at = Vector(values[0], values[1], values[2]);
+        }
+        if (label == "up") {
+            camera->up = Vector(values[0], values[1], values[2]);
+        }
+        if (label == "angle") {
+            camera->fovy = values[0];
+        }
+        if (label == "hither") {
+            camera->hither = values[0];
+        }
+        if (label == "resolution") {
+            camera->ResX = static_cast<int>(values[0]);
+            camera->ResY = static_cast<int>(values[1]);
+        }
         if (label == "f") {
             cout << "load material" << endl;
             Color color(values[0], values[1], values[2]);
@@ -62,5 +82,8 @@ bool Scene::load_nff(string path) {
         }
     }
 
+    if(camera->completeSetup()) {
+        cout << "camera setup complete" << endl;
+    }
     return true;
 }

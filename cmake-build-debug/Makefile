@@ -258,6 +258,33 @@ Sphere.cpp.s:
 	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Sphere.cpp.s
 .PHONY : Sphere.cpp.s
 
+VectorMath.o: VectorMath.cpp.o
+
+.PHONY : VectorMath.o
+
+# target to build an object file
+VectorMath.cpp.o:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/VectorMath.cpp.o
+.PHONY : VectorMath.cpp.o
+
+VectorMath.i: VectorMath.cpp.i
+
+.PHONY : VectorMath.i
+
+# target to preprocess a source file
+VectorMath.cpp.i:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/VectorMath.cpp.i
+.PHONY : VectorMath.cpp.i
+
+VectorMath.s: VectorMath.cpp.s
+
+.PHONY : VectorMath.s
+
+# target to generate assembly for a file
+VectorMath.cpp.s:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/VectorMath.cpp.s
+.PHONY : VectorMath.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -309,6 +336,9 @@ help:
 	@echo "... Sphere.o"
 	@echo "... Sphere.i"
 	@echo "... Sphere.s"
+	@echo "... VectorMath.o"
+	@echo "... VectorMath.i"
+	@echo "... VectorMath.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

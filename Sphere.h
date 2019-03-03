@@ -22,7 +22,7 @@ class Sphere : public Object {
 
 
 public:
-    // Ray PrimaryRay(int x, int y);
+    // Ray getPrimaryRay(int x, int y);
     bool intersect(Ray &r);
     //
     // Material getMaterial();
