@@ -3,9 +3,10 @@
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
+#include "RayCast.h"
 #include "VectorMath.cpp"
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -framework OpenGL -framework GLUT
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -lglut -lGLU -lGL
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp  -o app -framework OpenGL -framework GLUT
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
 //#include <OpenGL/gl.h>
@@ -36,25 +37,32 @@ void reshape(int w, int h)
 // Draw function by primary ray casting from the eye towards the scene's objects
 Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
-    Object *frontObject = nullptr;
-    float distance = 1000000.f;
-    bool doesIntersect = false;
-    for (Object *candidateObject : scene->getObjects()) {
-        if (candidateObject->intersect(ray)) {
-            //cout << "intersection observed" << endl;
-            if (ray.t < distance && ray.t > 0) {
-                doesIntersect = true;
-                frontObject=candidateObject;
-                distance = ray.t;
+    RayCast rayCast(ray, scene);
+    if (rayCast.doesIntersect) {
+        //Compute Shading
+        float shittyLightThing = 0;
+        Vector ori = rayCast.intersectionPoint;
+        for (Light &light : scene->getLightSources()) {
+            Vector dir = vectorDirection(ori, light.pos);
+            float lightDistance = vectorDistance(ori, light.pos);
+
+            Ray shadowRay = Ray(ori, dir);
+            shadowRay.glitchForward();
+
+
+            if(rayCast.castNewRay(shadowRay, scene)) {
+                if (rayCast.distanceToIntersection < lightDistance) {
+                    continue;
+                }
             }
+            shittyLightThing += 1.f;
         }
+        Color materialColor = rayCast.frontObject->getMaterial().color;
+        materialColor.r *= shittyLightThing / float(scene->getLightSources().size());
+        materialColor.g *= shittyLightThing / float(scene->getLightSources().size());
+        materialColor.b *= shittyLightThing / float(scene->getLightSources().size());
+        return materialColor;
     }
-
-    if (doesIntersect) {
-        return frontObject->getMaterial().color;
-    }
-
-
     return scene->getBackgroundColor();
 }
 
@@ -70,7 +78,7 @@ void drawScene()
             //   // MojaveWorkAround = false;
             // }
             Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-            Color color=rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
+            Color color = rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
             glBegin(GL_POINTS);
             glColor3f(color.r, color.g, color.b);
             //glColor3f(1.0f, 0, 0);

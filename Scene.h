@@ -13,8 +13,10 @@ using namespace std;
 
 class Scene {
 
+    Camera* camera;
     vector<Object*> objects;
-    Camera * camera;
+    vector<Light> lightSources;
+
     Color backgroundColor = Color(0, 0, 0);
 
 public:
@@ -26,6 +28,8 @@ public:
     //Getter
     Camera *getCamera();
     vector<Object*> getObjects();
+    vector<Light> getLightSources();
+
     Color getBackgroundColor();
 
 

@@ -204,6 +204,33 @@ Plane.cpp.s:
 	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Plane.cpp.s
 .PHONY : Plane.cpp.s
 
+RayCast.o: RayCast.cpp.o
+
+.PHONY : RayCast.o
+
+# target to build an object file
+RayCast.cpp.o:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RayCast.cpp.o
+.PHONY : RayCast.cpp.o
+
+RayCast.i: RayCast.cpp.i
+
+.PHONY : RayCast.i
+
+# target to preprocess a source file
+RayCast.cpp.i:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RayCast.cpp.i
+.PHONY : RayCast.cpp.i
+
+RayCast.s: RayCast.cpp.s
+
+.PHONY : RayCast.s
+
+# target to generate assembly for a file
+RayCast.cpp.s:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RayCast.cpp.s
+.PHONY : RayCast.cpp.s
+
 Scene.o: Scene.cpp.o
 
 .PHONY : Scene.o
@@ -330,6 +357,9 @@ help:
 	@echo "... Plane.o"
 	@echo "... Plane.i"
 	@echo "... Plane.s"
+	@echo "... RayCast.o"
+	@echo "... RayCast.i"
+	@echo "... RayCast.s"
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"

@@ -20,8 +20,22 @@ struct Ray {
 
     float t;
 
-    Ray(Vector ori, Vector dir) : ori(ori), dir(dir) {}
+    Ray(Vector ori, Vector dir) : ori(ori), dir(dir) {
 
+    }
+
+    void glitchForward() {
+        ori.x = ori.x + dir.x*0.00001f;
+        ori.y = ori.y + dir.y*0.00001f;
+        ori.z = ori.z + dir.z*0.00001f;
+    }
+};
+
+struct Light {
+    Vector pos;
+    Color color;
+
+    Light(Vector pos, Color color) : pos(pos), color(color) {}
 };
 
 struct Material {

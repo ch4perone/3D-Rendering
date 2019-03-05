@@ -67,6 +67,12 @@ bool Scene::load_nff(string path) {
             camera->ResX = static_cast<int>(values[0]);
             camera->ResY = static_cast<int>(values[1]);
         }
+        if (label == "l") {
+            cout << "load light source" << endl;
+            Vector pos(values[0], values[1], values[2]);
+            Color color(values[3], values[4], values[5]);
+            lightSources.push_back(Light(pos, color));
+        }
         if (label == "f") {
             cout << "load material" << endl;
             Color color(values[0], values[1], values[2]);
@@ -94,4 +100,8 @@ vector<Object*> Scene::getObjects() {
 
 Color Scene::getBackgroundColor() {
     return backgroundColor;
+}
+
+vector<Light> Scene::getLightSources() {
+    return lightSources;
 }

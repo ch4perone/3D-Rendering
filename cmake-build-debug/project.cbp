@@ -102,6 +102,12 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Plane.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/RayCast.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/RayCast.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Scene.cpp">
 			<Option target="project"/>
 		</Unit>
