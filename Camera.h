@@ -3,6 +3,8 @@
 
 #include "defaultStructs.h"
 
+using namespace std;
+
 class Camera {
 public:
     Vector eye, at, up;
@@ -19,8 +21,10 @@ public:
 
     Camera();
     bool completeSetup();
+    void printCameraSetup();
 
     Ray getPrimaryRay(int x, int y);
+
 
 };
 

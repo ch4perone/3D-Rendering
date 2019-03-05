@@ -10,10 +10,14 @@ Material Object::getMaterial() {
 }
 
 bool Object::intersect(Ray &r) {
-      std::cout << "Warning: intersect of super object called!" << '\n';
+      std::cout << "Warning: intersect() of super object called!" << '\n';
       return false;
 }
 
 Object::Object(Vector pos, Material material) : pos(pos), material(material) {
+
+}
+
+Object::Object() {
 
 }

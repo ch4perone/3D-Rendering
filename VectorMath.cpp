@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cmath>
 #include "defaultStructs.h"
 
@@ -42,4 +43,8 @@ static float vectorDotProduct(Vector v1, Vector v2) {
 
 static void vectorPrint(Vector v) {
   std::cout << "Vector: " << v.x << " " << v.y << " " << v.z << std::endl;
+}
+
+static void vectorPrint(Vector v, std::string name) {
+    std::cout << name << ": " << v.x << " " << v.y << " " << v.z << std::endl;
 }

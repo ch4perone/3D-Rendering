@@ -21,13 +21,14 @@ protected:
 
 public:
     // Ray getPrimaryRay(int x, int y);
-    bool intersect(Ray &r);
+    virtual bool intersect(Ray &r);
 
     Material getMaterial();
 
     Object(Vector pos, Material material);
 
 
+    Object();
 };
 
 

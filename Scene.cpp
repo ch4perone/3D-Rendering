@@ -77,7 +77,7 @@ bool Scene::load_nff(string path) {
             Vector pos(values[0], values[1], values[2]);
             float radius = values[3];
 
-            Sphere sphere(pos, radius, currentMaterial);
+            Sphere *sphere = new Sphere(pos, radius, currentMaterial);
             objects.push_back(sphere);
         }
     }
@@ -86,4 +86,12 @@ bool Scene::load_nff(string path) {
         cout << "camera setup complete" << endl;
     }
     return true;
+}
+
+vector<Object*> Scene::getObjects() {
+    return objects;
+}
+
+Color Scene::getBackgroundColor() {
+    return backgroundColor;
 }

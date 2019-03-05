@@ -1,5 +1,5 @@
 #include <stdlib.h>
-// #include <GL/glut.h>
+#include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include "Scene.h"
@@ -8,9 +8,9 @@
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-#include <OpenGL/gl.h>
-#include <OpenGl/glu.h>
-#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGl/glu.h>
+//#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 6
@@ -34,10 +34,28 @@ void reshape(int w, int h)
     // glutReshapeWindow (RES_X, RES_Y);
 }
 // Draw function by primary ray casting from the eye towards the scene's objects
-Color rayTracing(Ray ray, int depth, int indexOfRefraction) {
-    //TODO
+Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
+
+    Object *frontObject = nullptr;
+    float distance = 1000000.f;
+    bool doesIntersect = false;
+    for (Object *candidateObject : scene->getObjects()) {
+        if (candidateObject->intersect(ray)) {
+            //cout << "intersection observed" << endl;
+            if (ray.t < distance && ray.t > 0) {
+                doesIntersect = true;
+                frontObject=candidateObject;
+                distance = ray.t;
+            }
+        }
+    }
+
+    if (doesIntersect) {
+        return frontObject->getMaterial().color;
+    }
 
 
+    return scene->getBackgroundColor();
 }
 
 void drawScene()
@@ -46,20 +64,21 @@ void drawScene()
     {
         for (int x = 0; x < RES_X; x++)
         {
-          // if(MojaveWorkAround){
-          //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
-          //   // MojaveWorkAround = false;
-          // }
+
+            // if(MojaveWorkAround){
+            //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
+            //   // MojaveWorkAround = false;
+            // }
             Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-            Color color=rayTracing(ray, 1, 1.0 ); //depth=1, ior=1.0
+            Color color=rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
             glBegin(GL_POINTS);
-            //glColor3f(color.r(), color.g(), color.b());
-            glColor3f(1.0f, 0, 0);
+            glColor3f(color.r, color.g, color.b);
+            //glColor3f(1.0f, 0, 0);
             glVertex2f(x, y);
-            glEnd();
-            glFlush();
         }
     }
+    glEnd();
+    glFlush();
     printf("Terminated!\n");
     // if(MojaveWorkAround){
     //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
@@ -78,14 +97,15 @@ int main(int argc, char**argv)
     std::cout << "test intersect" << std::endl;
     Ray ray(Vector(0.3, 0.3, 0.6), Vector(0, 0.1, -0.1));
     Material mat;
-    Sphere sphere(Vector(0.3,0.3,0.5), 0.2f, mat);
-    sphere.intersect(ray);
+    Object *sphere = new Sphere(Vector(0.3,0.3,0.5), 0.2f, mat);
+    sphere->intersect(ray);
     Vector intersection(vectorAdd(ray.ori, vectorScale(ray.dir, ray.t)));
     vectorPrint(intersection);
 
-    RES_X = 512; //scene->GetCamera()->GetResX();
-    RES_Y = 512; //scene->GetCamera()->GetResY();
-    printf("resx = %dresy= %d.\n", RES_X, RES_Y);
+    RES_X = scene->getCamera()->ResX;
+    RES_Y = scene->getCamera()->ResY;
+    scene->getCamera()->printCameraSetup();
+    //printf("resx = %dresy= %d.\n", RES_X, RES_Y);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowSize(RES_X, RES_Y);
