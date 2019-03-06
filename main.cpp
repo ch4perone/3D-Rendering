@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
+#include <chrono>
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
@@ -34,11 +35,17 @@ void reshape(int w, int h)
     glLoadIdentity();
     // glutReshapeWindow (RES_X, RES_Y);
 }
+
 // Draw function by primary ray casting from the eye towards the scene's objects
 Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
+    /*
+     * Cast Ray
+     */
+
     RayCast rayCast(ray, scene);
     if (rayCast.doesIntersect) {
+
         //Compute Shading
         float shittyLightThing = 0;
         Vector ori = rayCast.intersectionPoint;
@@ -68,6 +75,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
 void drawScene()
 {
+    auto start = std::chrono::high_resolution_clock::now();
     for (int y = 0; y < RES_Y; y++)
     {
         for (int x = 0; x < RES_X; x++)
@@ -85,9 +93,14 @@ void drawScene()
             glVertex2f(x, y);
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end-start;
+    cout << "Rendering computation time: " << diff.count() << " s\n";
+
     glEnd();
     glFlush();
     printf("Terminated!\n");
+
     // if(MojaveWorkAround){
     //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
     //   // MojaveWorkAround = false;
@@ -103,7 +116,7 @@ int main(int argc, char**argv)
         return 0;
     }
     std::cout << "test intersect" << std::endl;
-    Ray ray(Vector(0.3, 0.3, 0.6), Vector(0, 0.1, -0.1));
+    Ray ray(Vector(0.3, 0.3, 0.6), Vector(0, 0.1f, -0.1f));
     Material mat;
     Object *sphere = new Sphere(Vector(0.3,0.3,0.5), 0.2f, mat);
     sphere->intersect(ray);
