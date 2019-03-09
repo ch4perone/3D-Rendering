@@ -1,18 +1,18 @@
 #include <stdlib.h>
-#include <GL/glut.h>
+// #include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp  -o app -framework OpenGL -framework GLUT
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp  -o app -framework OpenGL -framework GLUT -Wno-deprecated
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 6
@@ -20,7 +20,7 @@
 Scene* scene = NULL;
 int RES_X, RES_Y;
 
-// bool MojaveWorkAround = 1;
+bool MojaveWorkAround = 1;
 
 void reshape(int w, int h)
 {
@@ -80,7 +80,6 @@ void drawScene()
     {
         for (int x = 0; x < RES_X; x++)
         {
-
             // if(MojaveWorkAround){
             //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
             //   // MojaveWorkAround = false;
@@ -101,10 +100,10 @@ void drawScene()
     glFlush();
     printf("Terminated!\n");
 
-    // if(MojaveWorkAround){
-    //   glutReshapeWindow(2 * RES_X,2 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
-    //   // MojaveWorkAround = false;
-    // }
+    if(MojaveWorkAround){
+      glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
+      // MojaveWorkAround = false;
+    }
 }
 
 

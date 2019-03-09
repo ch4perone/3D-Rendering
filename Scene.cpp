@@ -86,6 +86,16 @@ bool Scene::load_nff(string path) {
             Sphere *sphere = new Sphere(pos, radius, currentMaterial);
             objects.push_back(sphere);
         }
+        if (label == "pl") {
+            cout << "load plane" << endl;
+            Vector pos(values[0], values[1], values[2]);
+            Vector pos2(values[3], values[4], values[5]);
+            Vector pos3(values[6], values[7], values[8]);
+            // float radius = values[3];
+
+            Plane *plane = new Plane(pos, pos2, pos3, currentMaterial);
+            objects.push_back(plane);
+        }
     }
 
     if(camera->completeSetup()) {
