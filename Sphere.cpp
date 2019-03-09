@@ -102,3 +102,8 @@ bool Sphere::intersect(Ray &r) {
 
       return false;
 }
+
+Vector Sphere::getNormalInPoint(Vector point) {
+    Vector normal = Vector((point.x - pos.x) / radius, (point.y - pos.y) / radius, (point.z - pos.z) / radius);
+    return normal; //TODO is this normalized already. I think so
+}

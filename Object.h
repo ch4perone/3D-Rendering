@@ -2,6 +2,9 @@
 #define PROJECT_OBJECT_H
 
 #include "defaultStructs.h"
+#include <vector>
+
+using namespace std;
 
 class Object {
 protected:
@@ -20,15 +23,15 @@ protected:
 
 
 public:
-    // Ray getPrimaryRay(int x, int y);
-    virtual bool intersect(Ray &r);
-
-    Material getMaterial();
-
-    Object(Vector pos, Material material);
-
 
     Object();
+    Object(Vector pos, Material material);
+    virtual bool intersect(Ray &r);
+    Color computeShading(Vector intersectionPoint, Vector eyePosition, vector<Light> &activeLightSources);
+
+    //getter
+    Material getMaterial();
+    virtual Vector getNormalInPoint(Vector point);
 };
 
 

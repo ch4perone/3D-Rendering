@@ -16,8 +16,8 @@ static Vector vectorSubstract(Vector v1, Vector v2) {
     return Vector(v1.x - v2.x, v1.y - v2.y,  v1.z - v2.z);
 }
 
-static Vector vectorDirection(Vector ori, Vector to) {
-    return Vector(to.x - ori.x, to.y - ori.y,  to.z - ori.z);
+static Vector vectorDirection(Vector from, Vector to) {
+    return Vector(to.x - from.x, to.y - from.y,  to.z - from.z);
 }
 
 static float vectorDistance(Vector v1, Vector v2) {
@@ -47,4 +47,12 @@ static void vectorPrint(Vector v) {
 
 static void vectorPrint(Vector v, std::string name) {
     std::cout << name << ": " << v.x << " " << v.y << " " << v.z << std::endl;
+}
+
+static Vector vectorFromColor(Color c) {
+    return Vector(c.r, c.g, c.b);
+}
+
+static Color vectorToColor(Vector v) {
+    return Color(v.x, v.y, v.z);
 }

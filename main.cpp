@@ -48,27 +48,29 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
         //Compute Shading
         float shittyLightThing = 0;
-        Vector ori = rayCast.intersectionPoint;
+        Object *frontObject = rayCast.frontObject;
+        Vector intersectionPoint = rayCast.intersectionPoint;
+        vector<Light> activeLights;
         for (Light &light : scene->getLightSources()) {
-            Vector dir = vectorDirection(ori, light.pos);
-            float lightDistance = vectorDistance(ori, light.pos);
+            Vector dir = vectorDirection(intersectionPoint, light.pos);
+            float lightDistance = vectorDistance(intersectionPoint, light.pos);
 
-            Ray shadowRay = Ray(ori, dir);
+            Ray shadowRay = Ray(intersectionPoint, dir);
             shadowRay.glitchForward();
-
 
             if(rayCast.castNewRay(shadowRay, scene)) {
                 if (rayCast.distanceToIntersection < lightDistance) {
                     continue;
                 }
             }
-            shittyLightThing += 1.f;
+            activeLights.push_back(light);
         }
-        Color materialColor = rayCast.frontObject->getMaterial().color;
+        Color materialColor = frontObject->getMaterial().color;
         materialColor.r *= shittyLightThing / float(scene->getLightSources().size());
         materialColor.g *= shittyLightThing / float(scene->getLightSources().size());
         materialColor.b *= shittyLightThing / float(scene->getLightSources().size());
-        return materialColor;
+        Color realColor = frontObject->computeShading(intersectionPoint, scene->getCamera()->eye, activeLights);
+        return realColor;
     }
     return scene->getBackgroundColor();
 }

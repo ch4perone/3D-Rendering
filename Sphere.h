@@ -22,13 +22,10 @@ class Sphere : public Object {
 
 
 public:
-    // Ray getPrimaryRay(int x, int y);
-    bool intersect(Ray &r);
-    //
-    // Material getMaterial();
-
     Sphere(Vector pos, float radius, Material material);
 
+    bool intersect(Ray &r);
+    virtual Vector getNormalInPoint(Vector point);
 
 };
 
