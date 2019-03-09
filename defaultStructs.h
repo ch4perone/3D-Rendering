@@ -34,13 +34,14 @@ struct Ray {
 struct Light {
     Vector pos;
     Color color;
-    float intensity = 0.25f;
+    float intensity = 1.f;// 0.25f;
 
     Light(Vector pos, Color color) : pos(pos), color(color) {}
 };
 
 struct Material {
     Color color;
+    float ambientComponent = 0.1f;
     float diffuseComponent;
     float specularComponent;
     float shininess;

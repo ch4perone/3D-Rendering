@@ -8,6 +8,7 @@ class Plane : public Object {
 
     // pos, pos2, pos3 define the three positions that define the plane
     Vector pos2, pos3;
+    Vector normal;
 
     // float size;
     // Vector pos;
@@ -30,6 +31,9 @@ public:
     // Material getMaterial();
 
     Plane(Vector pos, Vector pos2, Vector pos3, Material material);
+
+    Vector getNormalInPoint(Vector point) override;
+
 
 
 };

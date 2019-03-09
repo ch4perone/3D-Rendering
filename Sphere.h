@@ -25,7 +25,8 @@ public:
     Sphere(Vector pos, float radius, Material material);
 
     bool intersect(Ray &r);
-    virtual Vector getNormalInPoint(Vector point);
+
+    Vector getNormalInPoint(Vector point) override;
 
 };
 
