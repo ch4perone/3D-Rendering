@@ -25,9 +25,9 @@ struct Ray {
     }
 
     void glitchForward() {
-        ori.x = ori.x + dir.x*0.00001f;
-        ori.y = ori.y + dir.y*0.00001f;
-        ori.z = ori.z + dir.z*0.00001f;
+        ori.x = ori.x + dir.x*0.001f;
+        ori.y = ori.y + dir.y*0.001f;
+        ori.z = ori.z + dir.z*0.001f;
     }
 };
 

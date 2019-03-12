@@ -7,12 +7,13 @@ Camera::Camera() {
 }
 
 Ray Camera::getPrimaryRay(int x, int y) {
-    //TODO
+    //TODO figure shit out
     Vector ori = eye; // shouldn't this be the exact Pixel position in the hither plane?
-    Vector d = vectorAdd(vectorAdd(vectorScale(ze, -df), vectorScale(ye, h*((y+0.5f)/ResY - 1.f/2.f))), vectorScale(xe, w*((x+0.5f)/ResX - 1.f/2.f)));
+    Vector d = vectorAdd(vectorAdd(vectorScale(ze, -df), vectorScale(ye, h*(float(y + 0.5f)/ResY - 0.5f))), vectorScale(xe, w*(float(x + 0.5f)/ResX - 0.5f)));
 
+    //ori = vectorAdd(ori, d);
 
-    Ray primaryRay(ori, d);
+    Ray primaryRay(ori, vectorNormalize(d));
     return primaryRay;
 }
 
@@ -23,7 +24,7 @@ bool Camera::completeSetup() {
 
     ze = vectorNormalize(vectorDirection(at, eye));
     xe = vectorNormalize(vectorCrossProduct(up, ze));
-    ye = vectorCrossProduct(ze, xe);
+    ye = vectorNormalize(vectorCrossProduct(ze, xe));
 
     return true;
 }

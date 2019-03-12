@@ -15,10 +15,10 @@
 //#include <GLUT/glut.h>
 
 
-#define MAX_DEPTH 6
+#define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_high.nff";
+string scene_path = "./scenes/balls_low.nff";
 int RES_X, RES_Y;
 
 bool MojaveWorkAround = false;
@@ -66,14 +66,14 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             }
             activeLights.push_back(light);
         }
-        Color color = frontObject->computeShading(intersectionPoint, scene->getCamera()->eye, activeLights);
+        Color color = frontObject->computeShading(intersectionPoint, ray.ori, activeLights); //TODO Camera->eye
 
         if (depth >= MAX_DEPTH) {
             return color;
         }
 
         if (frontObject->isReflective()) {
-            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, scene->getCamera()->eye);
+            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori);
             Ray reflectedRay(intersectionPoint, direction);
             reflectedRay.glitchForward();
 
@@ -98,6 +98,8 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 void drawScene()
 {
     auto start = std::chrono::high_resolution_clock::now();
+
+    //#pragma omp parallel for
     for (int y = 0; y < RES_Y; y++)
     {
         for (int x = 0; x < RES_X; x++)

@@ -39,7 +39,7 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
         sumOfReflectionColors = vectorAdd(sumOfReflectionColors, diffuseColor);
 
 
-        Vector r = vectorScale(vectorSubstract(normalVector, L), 2.f*vectorDotProduct(L, normalVector));
+        Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(L, normalVector)), L);
         Vector v = vectorNormalize(vectorDirection(intersectionPoint, eyePosition));
         float rv = pow(fmaxf(0.f, vectorDotProduct(r, v)), material.shininess);
         //float rv = pow(vectorDotProduct(r,v), material.shininess);
@@ -71,7 +71,7 @@ bool Object::isTranslucid() {
 Vector Object::getReflectionInPoint(Vector point, Vector eyePosition) {
     Vector V = vectorNormalize(vectorDirection(point, eyePosition));
     Vector normalVector = getNormalInPoint(point);
-    Vector r = vectorScale(vectorSubstract(normalVector, V), 2.f*vectorDotProduct(V, normalVector));
+    Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(V, normalVector)), V);
 
     return r;
 }
