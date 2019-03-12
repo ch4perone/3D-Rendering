@@ -59,3 +59,19 @@ Vector Object::getNormalInPoint(Vector point) {
     std::cout << "Warning: getNormalInPoint() of super object called!" << '\n';
     return Vector(0,0,0);
 }
+
+bool Object::isReflective() {
+    return getMaterial().specularComponent > 0.f;
+}
+
+bool Object::isTranslucid() {
+    return getMaterial().transmittance > 0.f;
+}
+
+Vector Object::getReflectionInPoint(Vector point, Vector eyePosition) {
+    Vector V = vectorNormalize(vectorDirection(point, eyePosition));
+    Vector normalVector = getNormalInPoint(point);
+    Vector r = vectorScale(vectorSubstract(normalVector, V), 2.f*vectorDotProduct(V, normalVector));
+
+    return r;
+}

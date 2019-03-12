@@ -32,6 +32,10 @@ public:
     //getter
     Material getMaterial();
     virtual Vector getNormalInPoint(Vector point);
+    Vector getReflectionInPoint(Vector point, Vector eyePosition);
+
+    bool isReflective();
+    bool isTranslucid();
 };
 
 

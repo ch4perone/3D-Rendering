@@ -18,6 +18,7 @@
 #define MAX_DEPTH 6
 
 Scene* scene = NULL;
+string scene_path = "./scenes/balls_high.nff";
 int RES_X, RES_Y;
 
 bool MojaveWorkAround = false;
@@ -65,13 +66,32 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             }
             activeLights.push_back(light);
         }
-        Color materialColor = frontObject->getMaterial().color;
-        materialColor.r *= shittyLightThing / float(scene->getLightSources().size());
-        materialColor.g *= shittyLightThing / float(scene->getLightSources().size());
-        materialColor.b *= shittyLightThing / float(scene->getLightSources().size());
-        Color realColor = frontObject->computeShading(intersectionPoint, scene->getCamera()->eye, activeLights);
-        return realColor;
+        Color color = frontObject->computeShading(intersectionPoint, scene->getCamera()->eye, activeLights);
+
+        if (depth >= MAX_DEPTH) {
+            return color;
+        }
+
+        if (frontObject->isReflective()) {
+            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, scene->getCamera()->eye);
+            Ray reflectedRay(intersectionPoint, direction);
+            reflectedRay.glitchForward();
+
+            Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
+
+            float specular = frontObject->getMaterial().specularComponent;
+            color.r = color.r + reflectedColor.r * specular;
+            color.g = color.g + reflectedColor.g * specular;
+            color.b = color.b + reflectedColor.b * specular;
+        }
+
+        if(frontObject->isTranslucid()) {
+            //TODO
+        }
+
+        return color;
     }
+
     return scene->getBackgroundColor();
 }
 
@@ -113,7 +133,7 @@ int main(int argc, char**argv)
 {
 
     scene = new Scene();
-    if(!(scene->load_nff("./scenes/balls_low.nff"))) {
+    if(!(scene->load_nff(scene_path))) {
         return 0;
     }
     std::cout << "test intersect" << std::endl;
