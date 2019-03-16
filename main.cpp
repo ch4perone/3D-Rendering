@@ -91,7 +91,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
         //Refraction
         if(frontObject->isTranslucid()) {
             Vector v = vectorNormalize(vectorDirection(intersectionPoint, ray.ori));
-            Vector normal = frontObject->getNormalInPoint(intersectionPoint); //TODO inside object??
+            Vector normal = frontObject->getNormalInPoint(intersectionPoint);
 
             if (ray.interiorMedium) {
                 normal = vectorScale(normal, -1.f);
@@ -100,7 +100,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             Vector v_t = vectorSubstract(vectorScale(normal, vectorDotProduct(v, normal)), v);
 
             float sinTeta_i = vectorLength(v_t);
-            float sinTeta_t = indexOfRefraction / frontObject->getMaterial().indexOfRefraction * sinTeta_i;
+            float sinTeta_t = (indexOfRefraction / frontObject->getMaterial().indexOfRefraction) * sinTeta_i;
 
             if(abs(sinTeta_t) > 1.f) {
                 cout << "ERROR: sin teta t > 1, infact is: " << sinTeta_t << endl;
@@ -114,9 +114,9 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
             Ray refractedRay(intersectionPoint, R);
             refractedRay.glitchForward();
-            refractedRay.interiorMedium = !refractedRay.interiorMedium;
-            Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction);
+            refractedRay.interiorMedium = !ray.interiorMedium;
 
+            Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction);
             refractionColor.scale(frontObject->getMaterial().transmittance);
             color.addColor(refractionColor);
         }
