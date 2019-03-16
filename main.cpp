@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
+#include <cassert>
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
@@ -18,7 +19,7 @@
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low.nff";
+string scene_path = "./scenes/mount_low.nff";
 int RES_X, RES_Y;
 
 bool MojaveWorkAround = false;
@@ -48,7 +49,6 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
     if (rayCast.doesIntersect) {
 
         //Compute Shading
-        float shittyLightThing = 0;
         Object *frontObject = rayCast.frontObject;
         Vector intersectionPoint = rayCast.intersectionPoint;
         vector<Light> activeLights;
@@ -66,27 +66,59 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             }
             activeLights.push_back(light);
         }
-        Color color = frontObject->computeShading(intersectionPoint, ray.ori, activeLights); //TODO Camera->eye
+        Color color = frontObject->computeShading(intersectionPoint, ray.ori, activeLights);
 
         if (depth >= MAX_DEPTH) {
             return color;
         }
 
+        /*
+         * Cast secondary Rays
+         */
+
+        //Reflection
         if (frontObject->isReflective()) {
-            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori);
+            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
             Ray reflectedRay(intersectionPoint, direction);
             reflectedRay.glitchForward();
 
             Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
 
-            float specular = frontObject->getMaterial().specularComponent;
-            color.r = color.r + reflectedColor.r * specular;
-            color.g = color.g + reflectedColor.g * specular;
-            color.b = color.b + reflectedColor.b * specular;
+            reflectedColor.scale(frontObject->getMaterial().specularComponent);
+            color.addColor(reflectedColor);
         }
 
+        //Refraction
         if(frontObject->isTranslucid()) {
-            //TODO
+            Vector v = vectorNormalize(vectorDirection(intersectionPoint, ray.ori));
+            Vector normal = frontObject->getNormalInPoint(intersectionPoint); //TODO inside object??
+
+            if (ray.interiorMedium) {
+                normal = vectorScale(normal, -1.f);
+            }
+
+            Vector v_t = vectorSubstract(vectorScale(normal, vectorDotProduct(v, normal)), v);
+
+            float sinTeta_i = vectorLength(v_t);
+            float sinTeta_t = indexOfRefraction / frontObject->getMaterial().indexOfRefraction * sinTeta_i;
+
+            if(abs(sinTeta_t) > 1.f) {
+                cout << "ERROR: sin teta t > 1, infact is: " << sinTeta_t << endl;
+                abort();
+                return Color(0,0,0);
+            }
+            float cosTeta_t = sqrt(1 - sinTeta_t * sinTeta_t);
+
+            Vector t = vectorNormalize(v_t);
+            Vector R = vectorAdd(vectorScale(t, sinTeta_t), vectorScale(normal, -1.f * cosTeta_t));
+
+            Ray refractedRay(intersectionPoint, R);
+            refractedRay.glitchForward();
+            refractedRay.interiorMedium = !refractedRay.interiorMedium;
+            Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction);
+
+            refractionColor.scale(frontObject->getMaterial().transmittance);
+            color.addColor(refractionColor);
         }
 
         return color;

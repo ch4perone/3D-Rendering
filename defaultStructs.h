@@ -12,6 +12,16 @@ struct Vector {
 struct Color {
     float r,g,b;
     Color(float r, float g, float b) : r(r), g(g), b(b) {}
+    void scale(float factor) {
+        r *= factor;
+        g *= factor;
+        b *= factor;
+    }
+    void addColor(Color color) {
+        r += color.r;
+        g += color.g;
+        b += color.b;
+    }
 };
 
 struct Ray {
@@ -19,8 +29,9 @@ struct Ray {
     Vector dir;
 
     float t;
+    bool interiorMedium;
 
-    Ray(Vector ori, Vector dir) : ori(ori), dir(dir) {
+    Ray(Vector ori, Vector dir, bool interiorMedium = false) : ori(ori), dir(dir), interiorMedium(interiorMedium) {
 
     }
 
@@ -41,7 +52,7 @@ struct Light {
 
 struct Material {
     Color color;
-    float ambientComponent = 0.1f;
+    float ambientComponent = 0.f;
     float diffuseComponent;
     float specularComponent;
     float shininess;

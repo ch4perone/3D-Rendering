@@ -96,6 +96,30 @@ bool Scene::load_nff(string path) {
             Plane *plane = new Plane(pos, pos2, pos3, currentMaterial);
             objects.push_back(plane);
         }
+
+        if (label == "p") {
+            int numVertices = static_cast<int>(values[0]);
+            cout << "load polygone primitiv of size" << numVertices << endl;
+            vector<Vector> points;
+
+            for (int i = 0; i < numVertices; ++i) {
+                values.clear();
+
+                getline(f, line);
+                stringstream ss2(line);
+                while(ss2 >> value) {
+                    values.push_back(value);
+                }
+                Vector polygone(values[0], values[1], values[2]);
+                points.push_back(polygone);
+            }
+
+            if (numVertices == 3) {
+                //Triangle *triangle = new Triangle(points[0], points[1], points[2]);
+            } else {
+                cout << "Warning: complex polygone object. No matching object class." << endl;
+            }
+        }
     }
 
     if(camera->completeSetup()) {

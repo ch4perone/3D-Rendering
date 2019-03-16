@@ -33,17 +33,19 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
         lightVector.x *= material.color.r;
         lightVector.y *= material.color.g;
         lightVector.z *= material.color.b;
-        Vector diffuseColor = vectorScale(lightVector, material.diffuseComponent * nL); //TODO what about diffuse color of the material?? mark
-        //Vector diffuseColor = vectorScale(vectorScale(vectorFromColor(material.color), light.intensity), material.diffuseComponent * nL); //TODO what about diffuse color of the material?? mark
+        Vector diffuseColor = vectorScale(lightVector, material.diffuseComponent * nL);
 
         sumOfReflectionColors = vectorAdd(sumOfReflectionColors, diffuseColor);
 
+        /*
+         * Specular color
+         */
 
-        Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(L, normalVector)), L);
+        Vector r = vectorNormalize(vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(L, normalVector)), L));
         Vector v = vectorNormalize(vectorDirection(intersectionPoint, eyePosition));
         float rv = pow(fmaxf(0.f, vectorDotProduct(r, v)), material.shininess);
         //float rv = pow(vectorDotProduct(r,v), material.shininess);
-        //lightVector = vectorScale(vectorFromColor(light.color), light.intensity);
+        lightVector = vectorScale(vectorFromColor(light.color), light.intensity);
         Vector specularColor = vectorScale(lightVector, material.specularComponent * rv);
         sumOfReflectionColors = vectorAdd(sumOfReflectionColors, specularColor);
 
@@ -68,9 +70,12 @@ bool Object::isTranslucid() {
     return getMaterial().transmittance > 0.f;
 }
 
-Vector Object::getReflectionInPoint(Vector point, Vector eyePosition) {
+Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool interior) {
     Vector V = vectorNormalize(vectorDirection(point, eyePosition));
     Vector normalVector = getNormalInPoint(point);
+    if (interior) {
+        normalVector = vectorScale(normalVector, -1.f);
+    }
     Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(V, normalVector)), V);
 
     return r;

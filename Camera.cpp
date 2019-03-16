@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <iostream>
+#include <cmath>
 #include "VectorMath.cpp"
 
 Camera::Camera() {
@@ -18,6 +19,7 @@ Ray Camera::getPrimaryRay(int x, int y) {
 }
 
 bool Camera::completeSetup() {
+    fovy = static_cast<float>(fovy * M_PI / 180.f);
     df = vectorDistance(eye, at);
     h = 2.f * df * tan(fovy / 2.f);
     w = float(ResX) / float(ResY) * h;

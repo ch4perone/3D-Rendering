@@ -21,7 +21,7 @@
 // }
 
 Sphere::Sphere(Vector pos, float radius, Material material) : radius(radius), Object(pos, material) {
-    std::cout << "Sphere constructor successful!" << '\n';
+    //std::cout << "Sphere constructor successful!" << '\n';
 };
 
 bool Sphere::intersect(Ray &r) {
