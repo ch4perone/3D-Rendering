@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <GL/glut.h>
+// #include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
@@ -7,22 +7,22 @@
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp  -o app -framework OpenGL -framework GLUT -Wno-deprecated
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp VectorMath.cpp RayCast.cpp -o app -lglut -lGLU -lGL
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp  -o app -framework OpenGL -framework GLUT -Wno-deprecated
+// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_low.nff";
+string scene_path = "./scenes/mount_very_high.nff";
 int RES_X, RES_Y;
 
-bool MojaveWorkAround = false;
+bool MojaveWorkAround = 1;
 
 void reshape(int w, int h)
 {
@@ -76,19 +76,19 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
          * Cast secondary Rays
          */
 
-        //Reflection
-        if (frontObject->isReflective()) {
-            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
-            Ray reflectedRay(intersectionPoint, direction);
-            reflectedRay.glitchForward();
-
-            Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
-
-            reflectedColor.scale(frontObject->getMaterial().specularComponent);
-            color.addColor(reflectedColor);
-        }
-
-        //Refraction
+        // Reflection
+        // if (frontObject->isReflective()) {
+        //     Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
+        //     Ray reflectedRay(intersectionPoint, direction);
+        //     reflectedRay.glitchForward();
+        //
+        //     Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
+        //
+        //     reflectedColor.scale(frontObject->getMaterial().specularComponent);
+        //     color.addColor(reflectedColor);
+        // }
+        //
+        // //Refraction
         if(frontObject->isTranslucid()) {
             Vector v = vectorNormalize(vectorDirection(intersectionPoint, ray.ori));
             Vector normal = frontObject->getNormalInPoint(intersectionPoint);

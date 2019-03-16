@@ -115,7 +115,8 @@ bool Scene::load_nff(string path) {
             }
 
             if (numVertices == 3) {
-                //Triangle *triangle = new Triangle(points[0], points[1], points[2]);
+                Triangle *triangle = new Triangle(points[0], points[1], points[2], currentMaterial);
+                objects.push_back(triangle);
             } else {
                 cout << "Warning: complex polygone object. No matching object class." << endl;
             }
