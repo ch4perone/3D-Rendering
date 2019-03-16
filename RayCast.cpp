@@ -12,8 +12,8 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
     doesIntersect = false;
     for (Object *candidateObject : scene->getObjects()) {
         if (candidateObject->intersect(ray)) {
-            doesIntersect = true;
             if (ray.t < distance && ray.t > 0) {
+                doesIntersect = true;
                 frontObject=candidateObject;
                 distance = ray.t;
             }

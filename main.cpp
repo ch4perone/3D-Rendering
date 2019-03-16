@@ -1,5 +1,5 @@
 #include <stdlib.h>
-// #include <GL/glut.h>
+#include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
@@ -11,15 +11,15 @@
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-#include <OpenGL/gl.h>
-#include <OpenGl/glu.h>
-#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGl/glu.h>
+//#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_very_high.nff";
+string scene_path = "./scenes/mount_low.nff";
 int RES_X, RES_Y;
 
 bool MojaveWorkAround = 1;
@@ -76,19 +76,18 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
          * Cast secondary Rays
          */
 
-        // Reflection
-        // if (frontObject->isReflective()) {
-        //     Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
-        //     Ray reflectedRay(intersectionPoint, direction);
-        //     reflectedRay.glitchForward();
-        //
-        //     Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
-        //
-        //     reflectedColor.scale(frontObject->getMaterial().specularComponent);
-        //     color.addColor(reflectedColor);
-        // }
-        //
-        // //Refraction
+        //Reflection
+        if (frontObject->isReflective()) {
+            Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
+            Ray reflectedRay(intersectionPoint, direction);
+            reflectedRay.glitchForward();
+
+            Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
+            reflectedColor.scale(frontObject->getMaterial().specularComponent);
+            color.addColor(reflectedColor);
+        }
+
+        //Refraction
         if(frontObject->isTranslucid()) {
             Vector v = vectorNormalize(vectorDirection(intersectionPoint, ray.ori));
             Vector normal = frontObject->getNormalInPoint(intersectionPoint);
