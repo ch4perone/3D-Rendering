@@ -19,7 +19,8 @@
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_low.nff";
+
+string scene_path = "./scenes/balls_medium.nff";
 int RES_X, RES_Y;
 
 bool MojaveWorkAround = 1;
@@ -130,7 +131,6 @@ void drawScene()
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    //#pragma omp parallel for
     for (int y = 0; y < RES_Y; y++)
     {
         for (int x = 0; x < RES_X; x++)
@@ -161,6 +161,56 @@ void drawScene()
     }
 }
 
+void drawSceneParallel()
+{
+
+    /*
+     * Render pixel color
+     */
+
+    vector<vector<Color>> renderedColors(RES_Y, vector<Color>(RES_X, Color(1,1,1)));
+    auto start = std::chrono::high_resolution_clock::now();
+
+    #pragma omp parallel for
+    for (int y = 0; y < RES_Y; y++)
+    {
+        for (int x = 0; x < RES_X; x++)
+        {
+            Ray ray = scene->getCamera()->getPrimaryRay(x, y);
+            Color pixelColor = rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
+            renderedColors[y][x] = pixelColor;
+        }
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end-start;
+    cout << "Rendering computation time: " << diff.count() << " s" << endl;
+
+    /*
+     * Draw pixel colors
+     */
+    for (int y = 0; y < RES_Y; ++y) {
+        for (int x = 0; x < RES_X; ++x) {
+            Color pixelColor = renderedColors[y][x];
+            glBegin(GL_POINTS);
+            glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
+            //glColor3f(1.0f, 0, 0);
+            glVertex2f(x, y);
+        }
+    }
+
+
+
+    glEnd();
+    glFlush();
+    printf("Terminated!\n");
+
+    if(MojaveWorkAround){
+        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
+        // MojaveWorkAround = false;
+    }
+}
+
+
 
 int main(int argc, char**argv)
 {
@@ -189,7 +239,7 @@ int main(int argc, char**argv)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     glutReshapeFunc(reshape);
-    glutDisplayFunc(drawScene);
+    glutDisplayFunc(drawSceneParallel);
     glDisable(GL_DEPTH_TEST);
     // std::cout << "1" << '\n';
     glutMainLoop();
