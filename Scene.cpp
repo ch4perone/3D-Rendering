@@ -14,20 +14,26 @@ Camera *Scene::getCamera() {
 
 bool Scene::load_nff(string path) {
 
-    //TODO write PARSER for NFF
-
-
-    //fields
+    //initialize fields
     Material currentMaterial;
     camera = new Camera();
+
+    /*
+     * Load file
+     */
 
     ifstream f(path, ios::in);
     if (!f.good()) {
         cout << "Error: File not good. Check path: " << path << endl;
         return false;
     }
-    while(!f.eof()) {
 
+    /*
+     * Iterate over file lines
+     */
+
+    cout << "-------- Scene ---------" << endl;
+    while(!f.eof()) {
         //Read line from file
         string line;
         getline(f, line);
@@ -96,10 +102,9 @@ bool Scene::load_nff(string path) {
             Plane *plane = new Plane(pos, pos2, pos3, currentMaterial);
             objects.push_back(plane);
         }
-
         if (label == "p") {
             int numVertices = static_cast<int>(values[0]);
-            cout << "load polygone primitiv of size" << numVertices << endl;
+            cout << "load polygone primitiv of size " << numVertices << endl;
             vector<Vector> points;
 
             for (int i = 0; i < numVertices; ++i) {
@@ -118,15 +123,16 @@ bool Scene::load_nff(string path) {
                 Triangle *triangle = new Triangle(points[0], points[1], points[2], currentMaterial);
                 objects.push_back(triangle);
             } else {
-                cout << "Warning: complex polygone object. No matching object class." << endl;
+                cout << "Warning: complex polygon object. No matching object class." << endl;
             }
         }
     }
 
     if(camera->completeSetup()) {
         cout << "camera setup complete" << endl;
+        return true;
     }
-    return true;
+    return false;
 }
 
 vector<Object*> Scene::getObjects() {

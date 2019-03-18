@@ -6,21 +6,18 @@
 
 using namespace std;
 
+/**
+ * @class Object
+ * defines required fields and functions for all scene objects.
+ * Super class, will only be used abstactly.
+ * Virtual function are overwritten in sub-classes.
+ *
+ */
+
 class Object {
 protected:
-    // float size;
     Vector pos;
     Material material;
-
-    // Vector eye, at, up;
-    // float fovy;
-    //
-    // float near, far;
-    // int ResX, ResY;
-    //
-    // float w,h;
-    // Vector xe, ye,ze; //uvn
-
 
 public:
 
@@ -33,6 +30,7 @@ public:
     Material getMaterial();
     virtual Vector getNormalInPoint(Vector point);
     Vector getReflectionInPoint(Vector point, Vector eyePosition, bool interior);
+    Vector getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior);
 
     bool isReflective();
     bool isTranslucid();

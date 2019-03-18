@@ -23,7 +23,7 @@ bool Object::intersect(Ray &r) {
 Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vector<Light> &activeLightSources) {
 
     Vector ambientColor = vectorScale(vectorFromColor(material.color), material.ambientComponent);
-    Vector normalVector = getNormalInPoint(intersectionPoint);
+    Vector normalVector = getNormalInPoint(intersectionPoint); //TODO invert if inside object??
 
     Vector sumOfReflectionColors = Vector(0,0,0);
     for (Light &light : activeLightSources) {
@@ -54,6 +54,9 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
 
     Color shading = vectorToColor(vectorAdd(ambientColor, sumOfReflectionColors));
     //vectorPrint(vectorFromColor(shading), "shading");
+    /*if (shading.r < 0 || shading.g < 0 || shading.b < 0 ) {
+        return Color(0,0,0);
+    }*/
     return shading;
 }
 
@@ -79,4 +82,32 @@ Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool inter
     Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(V, normalVector)), V);
 
     return r;
+}
+
+Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior) {
+    Vector v = vectorNormalize(vectorDirection(point, eyePosition));
+    Vector normal = getNormalInPoint(point);
+    float iorMedium = getMaterial().indexOfRefraction;
+    if (interior) {
+        normal = vectorScale(normal, -1.f);
+        iorMedium = 1;
+    }
+
+    if(vectorDotProduct(v, normal) < 0) {
+        return Vector();
+    }
+
+    Vector v_t = vectorSubstract(vectorScale(normal, vectorDotProduct(v, normal)), v);
+    float sinTeta_i = vectorLength(v_t);
+    float sinTeta_t = (indexOfRefraction / iorMedium) * sinTeta_i;
+    if(abs(sinTeta_t) > 1.f) { //total reflection
+        return Vector();
+    }
+    float cosTeta_t = sqrtf(1.f - sinTeta_t * sinTeta_t);
+
+    Vector t = vectorNormalize(v_t);
+    Vector R = vectorAdd(vectorScale(t, sinTeta_t), vectorScale(normal, -1.f * cosTeta_t));
+
+    return R;
+
 }

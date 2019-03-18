@@ -5,10 +5,14 @@
 #include "defaultStructs.h"
 #include "Scene.h"
 
+/**
+ * @class Raycast
+ * provides an exhaustive ray casting algorithm.
+ * Stores results in publicly accessible fields.
+ */
+
 class RayCast {
 public:
-
-    //TODO Ray ray = Ray(Vector(0,0,0), Vector(0,0,0));
     Object *frontObject;
     bool doesIntersect;
     float distanceToIntersection;
@@ -16,7 +20,6 @@ public:
 
     RayCast(Ray ray, Scene *scene);
     bool castNewRay(Ray ray, Scene *scene);
-    //Vector getIntersectionPoint();
 };
 
 

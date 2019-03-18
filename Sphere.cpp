@@ -21,7 +21,7 @@
 // }
 
 Sphere::Sphere(Vector pos, float radius, Material material) : radius(radius), Object(pos, material) {
-    std::cout << "Sphere constructor successful!" << '\n';
+
 };
 
 bool Sphere::intersect(Ray &r) {
@@ -118,7 +118,7 @@ bool Sphere::intersect(Ray &r) {
     // Vector hitpoint = vectorAdd(r.ori, r.t*r.dir);
     // Vector normal = vectorScale(vectorSubstract(hitpoint, pos), 1.f / radius);
 
-    // No (valid) solutions
+    // No (initialized) solutions
   //   return false;
   // }
 
