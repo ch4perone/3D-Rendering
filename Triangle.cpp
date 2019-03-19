@@ -68,7 +68,6 @@ bool Triangle::intersect(Ray &r) {
 
 
     normal = vectorNormalize(vectorCrossProduct(e1,e2));
-    // std::cout << "yes intersect" << endl;
     r.t = - vectorDotProduct(normal,tvec) / vectorDotProduct(r.dir,normal);
     return true;
 

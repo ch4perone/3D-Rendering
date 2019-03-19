@@ -22,41 +22,39 @@ bool Object::intersect(Ray &r) {
 
 Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vector<Light> &activeLightSources) {
 
+    /*
+     * Note that Colors are converted to Vectors to use vector operation (Dot/Cross-product etc.)
+     */
+
+
+     // Ambient Color
+     // > added ambientComponent to Material to get agency over ambient color (currently set to 0)
     Vector ambientColor = vectorScale(vectorFromColor(material.color), material.ambientComponent);
-    Vector normalVector = getNormalInPoint(intersectionPoint); //TODO invert if inside object??
+    Vector normalVector = getNormalInPoint(intersectionPoint);
 
     Vector sumOfReflectionColors = Vector(0,0,0);
     for (Light &light : activeLightSources) {
+
+        //Diffuse Color
         Vector L = vectorNormalize(vectorDirection(intersectionPoint, light.pos));
         float nL = vectorDotProduct(normalVector, L);
-        Vector lightVector = vectorScale(vectorFromColor(light.color), light.intensity); //TODO intensity????? ask the teacher
+        Vector lightVector = vectorScale(vectorFromColor(light.color), light.intensity); //light intensity optional, currently set to 1.f
         lightVector.x *= material.color.r;
         lightVector.y *= material.color.g;
         lightVector.z *= material.color.b;
         Vector diffuseColor = vectorScale(lightVector, material.diffuseComponent * nL);
-
         sumOfReflectionColors = vectorAdd(sumOfReflectionColors, diffuseColor);
 
-        /*
-         * Specular color
-         */
-
+        //Specular Color
         Vector r = vectorNormalize(vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(L, normalVector)), L));
         Vector v = vectorNormalize(vectorDirection(intersectionPoint, eyePosition));
         float rv = pow(fmaxf(0.f, vectorDotProduct(r, v)), material.shininess);
-        //float rv = pow(vectorDotProduct(r,v), material.shininess);
         lightVector = vectorScale(vectorFromColor(light.color), light.intensity);
         Vector specularColor = vectorScale(lightVector, material.specularComponent * rv);
         sumOfReflectionColors = vectorAdd(sumOfReflectionColors, specularColor);
-
     }
-    //vectorPrint(sumOfReflectionColors, "reflection");
 
     Color shading = vectorToColor(vectorAdd(ambientColor, sumOfReflectionColors));
-    //vectorPrint(vectorFromColor(shading), "shading");
-    /*if (shading.r < 0 || shading.g < 0 || shading.b < 0 ) {
-        return Color(0,0,0);
-    }*/
     return shading;
 }
 

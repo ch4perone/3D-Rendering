@@ -8,10 +8,9 @@ Camera::Camera() {
 }
 
 Ray Camera::getPrimaryRay(int x, int y) {
-    Vector ori = eye; // TODO ? shouldn't this be the exact Pixel position in the hither plane?
+    Vector ori = eye;
     Vector d = vectorAdd(vectorAdd(vectorScale(ze, -df), vectorScale(ye, h*(float(y + 0.5f)/ResY - 0.5f))), vectorScale(xe, w*(float(x + 0.5f)/ResX - 0.5f)));
-
-    //ori = vectorAdd(ori, d);
+    //ori = vectorAdd(eye, d);
 
     Ray primaryRay(ori, vectorNormalize(d));
     return primaryRay;
@@ -46,6 +45,4 @@ void Camera::printCameraSetup() {
     cout << "h: " << h << endl;
     cout << "w: " << w << endl;
     cout << "ResX: " << ResX << " ResY: " << ResY << endl;
-
-
 }

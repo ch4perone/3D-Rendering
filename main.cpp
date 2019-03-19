@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
@@ -7,24 +6,39 @@
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
-// g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -lglut -lGLU -lGL
-// ... -lGLEW
 
+
+/*
+ * For linux:
+ */
+
+//Compile command
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -lglut -lGLU -lGL
+
+//Includes
+#include <GL/glut.h>
+
+/*
+ * For macOS
+ */
+
+//Compile command
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
+
+//Includes
 //#include <OpenGL/gl.h>
 //#include <OpenGl/glu.h>
 //#include <GLUT/glut.h>
 
+bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 6
 
 Scene* scene = NULL;
-
 string scene_path = "./scenes/mount_low.nff";
-
 int RES_X, RES_Y;
-bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
+//Reshape function (given)
 void reshape(int w, int h)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -37,7 +51,7 @@ void reshape(int w, int h)
     glLoadIdentity();
 }
 
-// Draw function by primary ray casting from the eye towards the scene's objects
+//Turner W. Ray Tracing algorithm
 Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
 
     /*
@@ -109,7 +123,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
     return scene->getBackgroundColor();
 }
 
-void drawScene()
+void drawScene() //not parallelized
 {
     cout << "-------- Rendering ---------" << endl;
     auto start = std::chrono::high_resolution_clock::now();
@@ -126,7 +140,6 @@ void drawScene()
             Color color = rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
             glBegin(GL_POINTS);
             glColor3f(color.r, color.g, color.b);
-            //glColor3f(1.0f, 0, 0);
             glVertex2f(x, y);
         }
     }
@@ -143,7 +156,7 @@ void drawScene()
      */
 
     if(MojaveWorkAround){
-        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
+        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for macOS Mojave. Has to be different dimensions than in glutInitWindowSize();
         // However, will result in re-rendering.
     }
 }
@@ -184,7 +197,6 @@ void drawSceneParallelized()
             Color pixelColor = renderedColors[y][x];
             glBegin(GL_POINTS);
             glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
-            //glColor3f(1.0f, 0, 0);
             glVertex2f(x, y);
         }
     }
@@ -200,6 +212,7 @@ void drawSceneParallelized()
     if(MojaveWorkAround){
         glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
         // However, will result in re-rendering.
+        MojaveWorkAround = false;
     }
 }
 

@@ -8,6 +8,8 @@ RayCast::RayCast(Ray ray, Scene *scene) {
 bool RayCast::castNewRay(Ray ray, Scene *scene) {
     float distance = 1000000.f;
     doesIntersect = false;
+
+    //Intersect all object of the scene and store closest one
     for (Object *candidateObject : scene->getObjects()) {
         if (candidateObject->intersect(ray)) {
             if (ray.t < distance && ray.t > 0) {
