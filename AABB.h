@@ -1,13 +1,13 @@
-#ifndef PROJECT_PLANE_H
-#define PROJECT_PLANE_H
+#ifndef PROJECT_AABB_H
+#define PROJECT_AABB_H
 
 #include "defaultStructs.h"
 #include "Object.h"
 
-class Plane : public Object {
+class AABB : public Object {
 
-    // pos, pos2, pos3 define the three positions that define the plane
-    Vector pos2, pos3;
+    // pos, pos2, pos3 define the three positions that define the AABB
+    Vector pos2;
     Vector normal;
 
     // float size;
@@ -27,11 +27,10 @@ class Plane : public Object {
 public:
     // Ray getPrimaryRay(int x, int y);
     bool intersect(Ray &r);
-    static bool intersectPlane(Ray &r, Vector normal, Vector position);
     //
     // Material getMaterial();
 
-    Plane(Vector pos, Vector pos2, Vector pos3, Material material);
+    AABB(Vector pos, Vector pos2, Material material);
 
     Vector getNormalInPoint(Vector point) override;
 
@@ -40,4 +39,4 @@ public:
 };
 
 
-#endif //PROJECT_PLANE_H
+#endif //PROJECT_AABB_H
