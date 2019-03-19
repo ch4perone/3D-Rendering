@@ -1,5 +1,5 @@
 #include <stdlib.h>
-// #include <GL/glut.h>
+#include <GL/glut.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
@@ -11,16 +11,16 @@
 // g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -lglut -lGLU -lGL
 // ... -lGLEW
 
-#include <OpenGL/gl.h>
-#include <OpenGl/glu.h>
-#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGl/glu.h>
+//#include <GLUT/glut.h>
 
 
 #define MAX_DEPTH 6
 
 Scene* scene = NULL;
 
-string scene_path = "./scenes/balls_cylinder_low.nff";
+string scene_path = "./scenes/mount_low.nff";
 
 int RES_X, RES_Y;
 bool MojaveWorkAround = 1; //Set to true for macOS Mojave.

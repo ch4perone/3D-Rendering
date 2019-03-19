@@ -100,7 +100,7 @@ Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, f
     Vector v_t = vectorSubstract(vectorScale(normal, vectorDotProduct(v, normal)), v);
     float sinTeta_i = vectorLength(v_t);
     float sinTeta_t = (indexOfRefraction / iorMedium) * sinTeta_i;
-    if(abs(sinTeta_t) > 1.f) { //total reflection
+    if(abs(sinTeta_t) > 1.f) { //total internal reflection
         return Vector();
     }
     float cosTeta_t = sqrtf(1.f - sinTeta_t * sinTeta_t);
