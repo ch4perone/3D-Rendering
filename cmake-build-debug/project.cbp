@@ -90,6 +90,9 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Camera.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cylinder.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Object.cpp">
 			<Option target="project"/>
 		</Unit>
@@ -118,6 +121,12 @@
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Sphere.h">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Triangle.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Triangle.h">
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/VectorMath.cpp">

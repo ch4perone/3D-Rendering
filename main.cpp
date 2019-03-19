@@ -35,7 +35,7 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 #define MAX_DEPTH 6
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low.nff";
+string scene_path = "./scenes/mount_low.nff";
 int RES_X, RES_Y;
 
 

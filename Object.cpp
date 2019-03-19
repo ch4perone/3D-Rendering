@@ -78,7 +78,6 @@ Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool inter
         normalVector = vectorScale(normalVector, -1.f);
     }
     Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(V, normalVector)), V);
-
     return r;
 }
 
