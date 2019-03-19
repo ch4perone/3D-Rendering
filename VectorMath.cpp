@@ -3,6 +3,10 @@
 #include <cmath>
 #include "defaultStructs.h"
 
+/**
+ * @file vectorMath
+ * contains math operation for Vector class
+ */
 
 static float vectorLength(Vector v) {
     return static_cast<float>(sqrt(v.x * v.x + v.y * v.y + v.z * v.z));

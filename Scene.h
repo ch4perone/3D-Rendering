@@ -11,10 +11,16 @@
 #include "Triangle.h"
 #include "Cylinder.h"
 
+
 using namespace std;
 
-class Scene {
+/**
+ * @class Scene
+ * contains all objects and fields necessary for the renderer.
+ * contains functions to load and access objects.
+ */
 
+class Scene {
     Camera* camera;
     vector<Object*> objects;
     vector<Light> lightSources;
@@ -22,23 +28,14 @@ class Scene {
     Color backgroundColor = Color(0, 0, 0);
 
 public:
-
     Scene();
-
     bool load_nff(string path);
 
-    //Getter
+    //Getters
     Camera *getCamera();
     vector<Object*> getObjects();
     vector<Light> getLightSources();
-
     Color getBackgroundColor();
-
-
-private:
-
-
-
 };
 
 

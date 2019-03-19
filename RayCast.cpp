@@ -6,8 +6,6 @@ RayCast::RayCast(Ray ray, Scene *scene) {
 }
 
 bool RayCast::castNewRay(Ray ray, Scene *scene) {
-    //this->ray = Ray(ray.dir, ray.ori);
-
     float distance = 1000000.f;
     doesIntersect = false;
     for (Object *candidateObject : scene->getObjects()) {
@@ -21,11 +19,7 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
     }
 
     distanceToIntersection = distance;
-    //this->ray.t = distance;
+    ray.t = distance;
     intersectionPoint = vectorAdd(ray.ori, vectorScale(ray.dir, distance));
     return doesIntersect;
 }
-
-/*Vector RayCast::getIntersectionPoint() {
-    return vectorAdd(ray.ori, vectorScale(ray.dir, ray.t));
-}*/
