@@ -4,6 +4,12 @@
 #include "defaultStructs.h"
 #include "Object.h"
 
+/**
+ * @headerfile Sphere
+ * inherits from Object class.
+ * defines required fields and functions for the Sphere Object.
+ */
+
 class Sphere : public Object {
 
     float radius;
