@@ -4,6 +4,14 @@
 #include "defaultStructs.h"
 #include "Object.h"
 
+/**
+ * @headerfile Cylinder
+ * inherits from Object class.
+ * defines required fields and functions for the Cylinder Object.
+ * There are three kinds of intersection, with the laternal surface and the two disks,
+ * we go through these cases to find the cloasest intersection.
+ */
+
 class Cylinder : public Object {
 
     enum INTERSECTION_TYPE {
@@ -33,9 +41,6 @@ public:
 
 //private:
     // bool intersectDisk(Ray &ray, INTERSECTION_TYPE disk);
-
-    // bool intersect_base(Ray &r, const Vector& c, float& t);
-
 };
 
 

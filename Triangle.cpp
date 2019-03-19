@@ -3,86 +3,37 @@
 #include <cmath>
 
 
-
-// Ray Camera::getPrimaryRay(int x, int y) {
-//     return Ray(Vector(1,1,1), Vector(0,0,0));
-// }
-
-// Material Object::getMaterial() {
-//       return material;
-// }
-//
-// bool Object::intersect(Ray &r) {
-//       std::cout << "Warning: intersect of super object called!" << '\n';
-//       return false;
-// }
-//
-// Object::Object(){
-//
-// }
-
 Triangle::Triangle(Vector pos, Vector pos2, Vector pos3, Material material) : pos2(pos2), pos3(pos3), Object(pos, material) {
-  // normal = vectorNormalize( vectorCrossProduct ( vectorSubstract(pos2, pos), vectorSubstract(pos3, pos)));
-  // float distance = vectorDotProduct( normal, pos );
 };
 
 bool Triangle::intersect(Ray &r) {
-      //TODO This is where the magic happens
-      // !!! save t in Ray
 
-
-    Vector e1 = vectorSubstract(pos2, pos);
-    Vector e2 = vectorSubstract(pos3, pos);
-
-    Vector pvec = vectorCrossProduct(r.dir, e2);
-
-    float det = vectorDotProduct(pvec, e1);
     float eps = 0.00001f;
+    Vector e1 = vectorSubstract(pos2, pos); // = b - a
+    Vector e2 = vectorSubstract(pos3, pos); // = c - a
 
-    // if (det < eps) return false;
+    Vector pvec = vectorCrossProduct(r.dir, e2); // = d x (c-a)
+    Vector tvec = vectorSubstract(r.ori, pos); // = o - a
+    Vector qvec = vectorCrossProduct(tvec, e1); // = (o-a) x (b-a)
 
-    Vector tvec = vectorSubstract(r.ori, pos);
-    // float u = vectorDotProduct(tvec, pvec);
-    //
-    // if ( u < 0.0f || u > det) return false;
+    float det = vectorDotProduct(pvec, e1); // = d x ( c-a) . (b-a) = det of first vector
 
-    Vector qvec = vectorCrossProduct(tvec, e1);
-    // float v = vectorDotProduct(r.dir,qvec);
-    //
-    // if (v < 0.0f || v+u > det) return false;
+    if (det < eps && det > -eps) return false; // det can not be < 0
 
-// ELSE
-    if (det < eps && det > -eps) return false;
+    float invDet = 1.0f /det; // D^-1
 
-    float invDet = 1.0f /det;
-    // Vector tvec = vectorSubstract(r.orig, pos);
-    float ui = invDet * vectorDotProduct(tvec,pvec);
+    float beta = invDet * vectorDotProduct(tvec,pvec); // D^-1 .(o-a) . (d x (c-a))
+    if (beta < 0.0f || beta > 1.0f) return false; // beta has to be between 0 and 1
 
-    if (ui < 0.0f || ui > 1.0f) return false;
-
-    // CROSS(qvec,tvec,e1);
-    // NORMALIZE(qvec);
-    float vi = invDet* vectorDotProduct(qvec,r.dir);
-
-    if (vi < 0.0f || ui+vi > 1.0f) return false;
+    float gamma = invDet* vectorDotProduct(qvec,r.dir); // D^-1 . d ((o-a) x (b-a))
+    if (gamma < 0.0f || beta+gamma > 1.0f) return false;
 
 
     normal = vectorNormalize(vectorCrossProduct(e1,e2));
     r.t = - vectorDotProduct(normal,tvec) / vectorDotProduct(r.dir,normal);
+
     return true;
 
-
-      // float denom = vectorDotProduct(normal, r.dir);
-      //
-      // if (fabs(denom) > 0.0001f) {
-      //     float t = vectorDotProduct(vectorSubstract(pos, r.ori), normal) / denom;
-      //
-      //     if (t >= 0) {
-      //       r.t = t;
-      //       return true;
-      //     }
-      // }
-      // return false;
 }
 
 Vector Triangle::getNormalInPoint(Vector point) {

@@ -9,7 +9,7 @@ using namespace std;
 /**
  * @class Object
  * defines required fields and functions for all scene objects.
- * Super class, will only be used abstactly.
+ * Super class, will only be used abstractly.
  * Virtual function are overwritten in sub-classes.
  *
  */

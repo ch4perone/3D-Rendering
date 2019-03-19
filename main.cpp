@@ -35,8 +35,9 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 #define MAX_DEPTH 6
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_low.nff";
+string scene_path = "./scenes/balls_low.nff";
 int RES_X, RES_Y;
+
 
 //Reshape function (given)
 void reshape(int w, int h)
@@ -168,7 +169,7 @@ void drawSceneParallelized()
      */
 
     cout << "-------- Rendering ---------" << endl;
-    vector<vector<Color>> renderedColors(RES_Y, vector<Color>(RES_X, Color(1,1,1)));
+    vector<vector<Color> > renderedColors(RES_Y, vector<Color>(RES_X, Color(1,1,1)));
     auto start = std::chrono::high_resolution_clock::now();
 
     //Select number of threads (otherwise all cores will be used)
@@ -210,12 +211,12 @@ void drawSceneParallelized()
      */
 
     if(MojaveWorkAround){
-        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
+        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);
+        //Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
         // However, will result in re-rendering.
         MojaveWorkAround = false;
     }
 }
-
 
 
 int main(int argc, char**argv)
