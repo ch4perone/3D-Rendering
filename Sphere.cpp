@@ -3,33 +3,10 @@
 #include <iostream>
 #include <cmath>
 
-// Ray Camera::getPrimaryRay(int x, int y) {
-//     return Ray(Vector(1,1,1), Vector(0,0,0));
-// }
-
-// Material Object::getMaterial() {
-//       return material;
-// }
-//
-// bool Object::intersect(Ray &r) {
-//       std::cout << "Warning: intersect of super object called!" << '\n';
-//       return false;
-// }
-//
-// Object::Object(){
-//
-// }
-
 Sphere::Sphere(Vector pos, float radius, Material material) : radius(radius), Object(pos, material) {
-    std::cout << "Sphere constructor successful!" << '\n';
 };
 
 bool Sphere::intersect(Ray &r) {
-
-// root = t
-// maxR not needed? its the threshold for the root.
-
-// bool getLowestRoot(float a, float b, float c, float maxR, float* root) {
 
     // Vector doc = vectorSubstract(pos, r.ori);
     // float doc_sq = vectorDotProduct(doc,doc);
@@ -77,8 +54,6 @@ bool Sphere::intersect(Ray &r) {
     float b = vectorDotProduct(r.dir, vectorScale((vectorSubstract(r.ori, pos)), 2.f));
     float c = vectorDotProduct(vectorSubstract(r.ori, pos), vectorSubstract(r.ori, pos)) - radius*radius;
 
-    // float *root;
-
     // Check if a solution exists
     float discriminant = b*b - 4.0f*a*c;
     // If discriminant is negative it means no solutions = no intersections.
@@ -96,48 +71,19 @@ bool Sphere::intersect(Ray &r) {
       r2 = r1;
       r1 = temp;
     }
-    // Get lowest root: && r1 < maxR
+    // Get lowest root:
     if (r1 > 0) {
       r.t = r1;
       return true;
     }
     // It is possible that we want x2 - this can happen
     // if x1 < 0 , ray origin inside sphere
-    // && r2 < maxR
     if (r2 > 0) {
       r.t = r2;
       return true;
     }
 
-
-
-
-
-
-    // float distance = sqrtf(a)*r.t;
-    // Vector hitpoint = vectorAdd(r.ori, r.t*r.dir);
-    // Vector normal = vectorScale(vectorSubstract(hitpoint, pos), 1.f / radius);
-
-    // No (valid) solutions
-  //   return false;
-  // }
-
-    // double intersectRaySphere(D3DVECTOR rO, D3DVECTOR rV, D3DVECTOR sO, double sR) {
-    //    D3DVECTOR Q = sO-rO;
-    //    double c = lengthOfVector(Q);
-    //    double v = dot(Q,rV);
-    //    double d = sR*sR - (c*c - v*v);
-    //
-    //    // If there was no intersection, return -1
-    //    if (d < 0.0) return (-1.0f);
-    //
-    //    // Return the distance to the [first] intersecting point
-    //    return (v - sqrt(d));
-    // }
-
-
-
-      return false;
+    return false;
 }
 
 Vector Sphere::getNormalInPoint(Vector point) {

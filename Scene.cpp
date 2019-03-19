@@ -86,6 +86,18 @@ bool Scene::load_nff(string path) {
             Sphere *sphere = new Sphere(pos, radius, currentMaterial);
             objects.push_back(sphere);
         }
+
+        if (label == "c") {
+            cout << "load cylinder/cone" << endl;
+            Vector pos(values[0], values[1], values[2]);
+            float radius = values[3];
+            Vector pos2(values[4], values[5], values[6]);
+            float radius2 = values[7];
+
+            Cylinder *cylinder = new Cylinder(pos, radius, pos2, radius2, currentMaterial);
+            objects.push_back(cylinder);
+        }
+
         if (label == "pl") {
             cout << "load plane" << endl;
             Vector pos(values[0], values[1], values[2]);

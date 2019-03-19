@@ -9,6 +9,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include "Triangle.h"
+#include "Cylinder.h"
 
 using namespace std;
 
