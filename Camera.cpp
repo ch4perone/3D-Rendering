@@ -7,10 +7,9 @@ Camera::Camera() {
 
 }
 
-Ray Camera::getPrimaryRay(int x, int y) {
+Ray Camera::getPrimaryRay(float x, float y) {
     Vector ori = eye;
-    Vector d = vectorAdd(vectorAdd(vectorScale(ze, -df), vectorScale(ye, h*(float(y + 0.5f)/ResY - 0.5f))), vectorScale(xe, w*(float(x + 0.5f)/ResX - 0.5f)));
-    //ori = vectorAdd(eye, d);
+    Vector d = vectorAdd(vectorAdd(vectorScale(ze, -df), vectorScale(ye, h*(y/ResY - 0.5f))),vectorScale(xe, w*(x/ResX - 0.5f)));
 
     Ray primaryRay(ori, vectorNormalize(d));
     return primaryRay;

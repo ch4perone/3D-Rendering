@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/project.dir/VectorMath.cpp.o"
   "CMakeFiles/project.dir/Triangle.cpp.o"
   "CMakeFiles/project.dir/RayCast.cpp.o"
+  "CMakeFiles/project.dir/RandomSampler.cpp.o"
   "project.pdb"
   "project"
 )

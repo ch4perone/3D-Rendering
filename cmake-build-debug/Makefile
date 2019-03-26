@@ -204,6 +204,33 @@ Plane.cpp.s:
 	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Plane.cpp.s
 .PHONY : Plane.cpp.s
 
+RandomSampler.o: RandomSampler.cpp.o
+
+.PHONY : RandomSampler.o
+
+# target to build an object file
+RandomSampler.cpp.o:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RandomSampler.cpp.o
+.PHONY : RandomSampler.cpp.o
+
+RandomSampler.i: RandomSampler.cpp.i
+
+.PHONY : RandomSampler.i
+
+# target to preprocess a source file
+RandomSampler.cpp.i:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RandomSampler.cpp.i
+.PHONY : RandomSampler.cpp.i
+
+RandomSampler.s: RandomSampler.cpp.s
+
+.PHONY : RandomSampler.s
+
+# target to generate assembly for a file
+RandomSampler.cpp.s:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/RandomSampler.cpp.s
+.PHONY : RandomSampler.cpp.s
+
 RayCast.o: RayCast.cpp.o
 
 .PHONY : RayCast.o
@@ -384,6 +411,9 @@ help:
 	@echo "... Plane.o"
 	@echo "... Plane.i"
 	@echo "... Plane.s"
+	@echo "... RandomSampler.o"
+	@echo "... RandomSampler.i"
+	@echo "... RandomSampler.s"
 	@echo "... RayCast.o"
 	@echo "... RayCast.i"
 	@echo "... RayCast.s"

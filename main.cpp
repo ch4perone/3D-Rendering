@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "RayCast.h"
 #include "VectorMath.cpp"
+#include "RandomSampler.h"
 
 
 /*
@@ -32,11 +33,13 @@
 
 bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
-#define MAX_DEPTH 6
+#define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_low.nff";
+string scene_path = "./scenes/balls_low.nff";
 int RES_X, RES_Y;
+bool antialiasing = true;
+bool softshadows = true;
 
 
 //Reshape function (given)
@@ -180,10 +183,34 @@ void drawSceneParallelized()
     {
         for (int x = 0; x < RES_X; x++)
         {
-            Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-            Color pixelColor = rayTracing(ray, 1, 1.0f);
-            renderedColors[y][x] = pixelColor;
+            if (antialiasing) {
+                int n = 2;
+                //Jitter ray (r), and source lights (s)
+                vector<Vector2D> r = RandomSampler::jitter2D(n);
+                vector<Vector2D> s = RandomSampler::jitter2D(n);
+
+                Color pixelColor = Color(0,0,0); //init black
+                for(Vector2D offset : r) {
+                    cout << offset.x << " " << offset.y << endl;
+                    //Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y);
+                    //pixelColor.addColor(rayTracing(ray, 1, 1.0f));
+                    glBegin(GL_POINTS);
+                    glColor3f(1, 1, 1);
+                    glVertex2f( int(offset.x * RES_X), int(offset.y * RES_Y) );
+
+                }
+                break;
+                pixelColor.scale(1.f / float(n*n));
+                renderedColors[y][x] = pixelColor;
+
+
+            } else {
+                Ray ray = scene->getCamera()->getPrimaryRay(x, y);
+                Color pixelColor = rayTracing(ray, 1, 1.0f);
+                renderedColors[y][x] = pixelColor;
+            }
         }
+        break;
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
@@ -193,14 +220,14 @@ void drawSceneParallelized()
      * Draw pixel colors
      */
 
-    for (int y = 0; y < RES_Y; ++y) {
+    /*for (int y = 0; y < RES_Y; ++y) {
         for (int x = 0; x < RES_X; ++x) {
             Color pixelColor = renderedColors[y][x];
             glBegin(GL_POINTS);
             glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
             glVertex2f(x, y);
         }
-    }
+    }*/
 
     glEnd();
     glFlush();
@@ -227,6 +254,15 @@ int main(int argc, char**argv)
         return 0;
     }
 
+    RandomSampler::initSeed();
+    float sum = 0;
+
+
+    for (int i = 0; i < 100; ++i) {
+        sum+=RandomSampler::getFloatInRange(0, 1.f);
+    }
+
+    cout << sum / 100.f << endl;
     RES_X = scene->getCamera()->ResX;
     RES_Y = scene->getCamera()->ResY;
     scene->getCamera()->printCameraSetup();

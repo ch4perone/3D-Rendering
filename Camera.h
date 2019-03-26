@@ -28,7 +28,9 @@ public:
     Camera();
     bool completeSetup();
     void printCameraSetup();
-    Ray getPrimaryRay(int x, int y);
+    Ray getPrimaryRay(float x, float y);
+
+
 };
 
 

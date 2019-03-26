@@ -15,6 +15,14 @@ struct Vector {
     Vector(float x, float y, float z) : x(x), y(y), z(z), initialized(true) {}
 };
 
+struct Vector2D {
+    float x, y;
+    bool initialized;
+
+    Vector2D() : initialized(false) {}
+    Vector2D(float x, float y) : x(x), y(y), initialized(true) {}
+};
+
 struct Color {
     float r,g,b;
 
