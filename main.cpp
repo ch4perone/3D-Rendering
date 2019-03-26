@@ -18,6 +18,7 @@
 
 //Includes
 #include <GL/glut.h>
+#include <algorithm>
 
 /*
  * For macOS
@@ -56,7 +57,7 @@ void reshape(int w, int h)
 }
 
 //Turner W. Ray Tracing algorithm
-Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
+Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitterOffset) {
 
     /*
      * Cast Ray
@@ -70,8 +71,12 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
         //Compute Shading
         vector<Light> activeLights; //container for not occluded lights
         for (Light &light : scene->getLightSources()) {
-            Vector dir = vectorDirection(intersectionPoint, light.pos);
-            float lightDistance = vectorDistance(intersectionPoint, light.pos);
+            Vector lightPosition = light.pos;
+            if (softshadows) {
+                lightPosition = light.getJitteredPosition(lightJitterOffset);
+            }
+            Vector dir = vectorNormalize(vectorDirection(intersectionPoint, lightPosition));
+            float lightDistance = vectorDistance(intersectionPoint, lightPosition);
 
             Ray shadowRay = Ray(intersectionPoint, dir);
             shadowRay.glitchForward();
@@ -100,7 +105,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             Ray reflectedRay(intersectionPoint, direction);
             reflectedRay.glitchForward();
 
-            Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction);
+            Color reflectedColor = rayTracing(reflectedRay, depth + 1, indexOfRefraction, lightJitterOffset);
             reflectedColor.scale(frontObject->getMaterial().specularComponent);
             color.addColor(reflectedColor);
         }
@@ -116,7 +121,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction) {
             refractedRay.glitchForward();
             refractedRay.interiorMedium = !ray.interiorMedium;
 
-            Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction);
+            Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction, lightJitterOffset);
             refractionColor.scale(frontObject->getMaterial().transmittance);
             color.addColor(refractionColor);
         }
@@ -141,7 +146,7 @@ void drawScene() //not parallelized
         for (int x = 0; x < RES_X; x++)
         {
             Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-            Color color = rayTracing(ray, 1, 1.0f); //depth=1, ior=1.0
+            Color color = rayTracing(ray, 1, 1.0f, Vector2D()); //depth=1, ior=1.0
             glBegin(GL_POINTS);
             glColor3f(color.r, color.g, color.b);
             glVertex2f(x, y);
@@ -184,33 +189,33 @@ void drawSceneParallelized()
         for (int x = 0; x < RES_X; x++)
         {
             if (antialiasing) {
-                int n = 2;
+                int n = 8;
                 //Jitter ray (r), and source lights (s)
                 vector<Vector2D> r = RandomSampler::jitter2D(n);
                 vector<Vector2D> s = RandomSampler::jitter2D(n);
+                random_shuffle(s.begin(), s.end());
 
                 Color pixelColor = Color(0,0,0); //init black
-                for(Vector2D offset : r) {
-                    cout << offset.x << " " << offset.y << endl;
-                    //Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y);
-                    //pixelColor.addColor(rayTracing(ray, 1, 1.0f));
-                    glBegin(GL_POINTS);
-                    glColor3f(1, 1, 1);
-                    glVertex2f( int(offset.x * RES_X), int(offset.y * RES_Y) );
+                for(int i = 0; i < r.size(); ++i) {
+                    //cout << offset.x << " " << offset.y << endl;
+                    Vector2D offset = r[i];
+                    Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y);
+                    pixelColor.addColor(rayTracing(ray, 1, 1.0f, s[i]));
+                    //glBegin(GL_POINTS);
+                    //glColor3f(1, 1, 1);
+                    //glVertex2f( int(offset.x * RES_X), int(offset.y * RES_Y) );
 
                 }
-                break;
                 pixelColor.scale(1.f / float(n*n));
                 renderedColors[y][x] = pixelColor;
 
 
             } else {
                 Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-                Color pixelColor = rayTracing(ray, 1, 1.0f);
+                Color pixelColor = rayTracing(ray, 1, 1.0f, Vector2D());
                 renderedColors[y][x] = pixelColor;
             }
         }
-        break;
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
@@ -220,14 +225,14 @@ void drawSceneParallelized()
      * Draw pixel colors
      */
 
-    /*for (int y = 0; y < RES_Y; ++y) {
+    for (int y = 0; y < RES_Y; ++y) {
         for (int x = 0; x < RES_X; ++x) {
             Color pixelColor = renderedColors[y][x];
             glBegin(GL_POINTS);
             glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
             glVertex2f(x, y);
         }
-    }*/
+    }
 
     glEnd();
     glFlush();

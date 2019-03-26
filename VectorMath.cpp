@@ -3,6 +3,8 @@
 #include <cmath>
 #include "defaultStructs.h"
 
+struct Vector;
+
 /**
  * @file vectorMath
  * contains math operation for Vector class

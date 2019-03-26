@@ -62,9 +62,21 @@ struct Ray {
 struct Light {
     Vector pos;
     Color color;
-    float intensity = 1.f;// 0.25f;
+    float intensity = 1.f;
 
     Light(Vector pos, Color color) : pos(pos), color(color) {}
+
+    Vector a = Vector(1,0,0);
+    Vector b = Vector(0,1,0); //Alternatively make orthogonal to ray dir
+    Vector getJitteredPosition(Vector2D offset) {
+        Vector c = pos;
+        c.x += a.x * offset.x + b.x * offset.y;
+        c.y += a.y * offset.x + b.y * offset.y;
+        c.z += a.z * offset.x + b.z + offset.y;
+
+        return c;
+    }
+
 };
 
 struct Material {
