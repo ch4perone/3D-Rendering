@@ -14,7 +14,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
 #include <GL/glut.h>
@@ -37,10 +37,12 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low.nff";
+string scene_path = "./scenes/balls_low_row.nff";
 int RES_X, RES_Y;
 bool antialiasing = true;
 bool softshadows = true;
+bool depthOfField = true;
+int n = 24;
 
 
 //Reshape function (given)
@@ -100,7 +102,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
          */
 
         //Reflection
-        if (frontObject->isReflective()) {
+        /*if (frontObject->isReflective()) {
             Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
             Ray reflectedRay(intersectionPoint, direction);
             reflectedRay.glitchForward();
@@ -124,50 +126,12 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
             Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction, lightJitterOffset);
             refractionColor.scale(frontObject->getMaterial().transmittance);
             color.addColor(refractionColor);
-        }
+        }*/
 
         return color;
     }
 
     return scene->getBackgroundColor();
-}
-
-void drawScene() //not parallelized
-{
-    cout << "-------- Rendering ---------" << endl;
-    auto start = std::chrono::high_resolution_clock::now();
-
-    /*
-     * Render pixel color
-     */
-
-    for (int y = 0; y < RES_Y; y++)
-    {
-        for (int x = 0; x < RES_X; x++)
-        {
-            Ray ray = scene->getCamera()->getPrimaryRay(x, y);
-            Color color = rayTracing(ray, 1, 1.0f, Vector2D()); //depth=1, ior=1.0
-            glBegin(GL_POINTS);
-            glColor3f(color.r, color.g, color.b);
-            glVertex2f(x, y);
-        }
-    }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end-start;
-    cout << "Rendering computation time: " << diff.count() << " s\n";
-
-    glEnd();
-    glFlush();
-    printf("Terminated!\n");
-
-    /*
-     * Fix Display Error for macOS Mojave
-     */
-
-    if(MojaveWorkAround){
-        glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);//Necessary for macOS Mojave. Has to be different dimensions than in glutInitWindowSize();
-        // However, will result in re-rendering.
-    }
 }
 
 void drawSceneParallelized()
@@ -189,22 +153,24 @@ void drawSceneParallelized()
         for (int x = 0; x < RES_X; x++)
         {
             if (antialiasing) {
-                int n = 8;
-                //Jitter ray (r), and source lights (s)
-                vector<Vector2D> r = RandomSampler::jitter2D(n);
-                vector<Vector2D> s = RandomSampler::jitter2D(n);
-                random_shuffle(s.begin(), s.end());
+
+                //Jitter ray (pixelJitter), and source lights (lightJitter)
+                vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
+                vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
+                vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n);
+                random_shuffle(lightJitter.begin(), lightJitter.end());
+                random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
 
                 Color pixelColor = Color(0,0,0); //init black
-                for(int i = 0; i < r.size(); ++i) {
-                    //cout << offset.x << " " << offset.y << endl;
-                    Vector2D offset = r[i];
-                    Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y);
-                    pixelColor.addColor(rayTracing(ray, 1, 1.0f, s[i]));
-                    //glBegin(GL_POINTS);
-                    //glColor3f(1, 1, 1);
-                    //glVertex2f( int(offset.x * RES_X), int(offset.y * RES_Y) );
-
+                for(int i = 0; i < pixelJitter.size(); ++i) {
+                    Vector2D offset = pixelJitter[i];
+                    if (depthOfField) {
+                        Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y, eyeDiskOffsets[i]);
+                        pixelColor.addColor(rayTracing(ray, 1, 1.0f, lightJitter[i]));
+                    } else {
+                        Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y);
+                        pixelColor.addColor(rayTracing(ray, 1, 1.0f, lightJitter[i]));
+                    }
                 }
                 pixelColor.scale(1.f / float(n*n));
                 renderedColors[y][x] = pixelColor;

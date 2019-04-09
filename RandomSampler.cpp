@@ -27,3 +27,20 @@ vector<Vector2D> RandomSampler::jitter2D(int n) {
     }
     return jitterVectors;
 }
+
+vector<Vector2D> RandomSampler::getPointsInUnitDisk(int n) {
+    vector<Vector2D> points;
+    for (int i = 0; i < n; ++i) {
+        points.push_back(RandomSampler::getRandomPointInUnitDisk());
+    }
+    return points;
+}
+
+Vector2D RandomSampler::getRandomPointInUnitDisk() {
+    float x = RandomSampler::getFloatInRange(-1.f,1.f);
+    float y = RandomSampler::getFloatInRange(-1.f,1.f);
+
+    if (x*x + y*y < 1)
+        return Vector2D(x,y);
+    return RandomSampler::getRandomPointInUnitDisk();
+}

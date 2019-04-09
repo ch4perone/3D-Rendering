@@ -19,7 +19,8 @@ public:
     static float getProbability();
     static float getFloatInRange(float min, float max);
     static vector<Vector2D> jitter2D(int n);
-
+    static vector<Vector2D> getPointsInUnitDisk(int n);
+    static Vector2D getRandomPointInUnitDisk();
 
 };
 

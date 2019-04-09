@@ -24,11 +24,15 @@ public:
     float w,h;
     Vector xe, ye,ze; //uvn
 
+    //Depth of field effects (manually set)
+    float aperture = 0.1f;
+    float distanceFocalPlane = 4.f;
 
     Camera();
     bool completeSetup();
     void printCameraSetup();
     Ray getPrimaryRay(float x, float y);
+    Ray getPrimaryRay(float x, float y, Vector2D eyeDiskOffset);
 
 
 };
