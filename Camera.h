@@ -25,8 +25,8 @@ public:
     Vector xe, ye,ze; //uvn
 
     //Depth of field effects (manually set)
-    float aperture = 0.1f;
-    float distanceFocalPlane = 4.f;
+    float aperture = 0.5f;
+    float distanceFocalPlane = 2.88f;
 
     Camera();
     bool completeSetup();

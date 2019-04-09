@@ -17,8 +17,8 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
-#include <GL/glut.h>
-#include <algorithm>
+// #include <GL/glut.h>
+// #include <algorithm>
 
 /*
  * For macOS
@@ -28,11 +28,11 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
 
 //Includes
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
-bool MojaveWorkAround = false; //Set to true for macOS Mojave.
+bool MojaveWorkAround = true; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
@@ -42,7 +42,7 @@ int RES_X, RES_Y;
 bool antialiasing = true;
 bool softshadows = true;
 bool depthOfField = true;
-int n = 4;
+int n = 8;
 
 
 //Reshape function (given)
@@ -102,7 +102,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
          */
 
         //Reflection
-        /*if (frontObject->isReflective()) {
+        if (frontObject->isReflective()) {
             Vector direction = frontObject->getReflectionInPoint(intersectionPoint, ray.ori, ray.interiorMedium);
             Ray reflectedRay(intersectionPoint, direction);
             reflectedRay.glitchForward();
@@ -126,7 +126,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
             Color refractionColor = rayTracing(refractedRay, depth + 1, frontObject->getMaterial().indexOfRefraction, lightJitterOffset);
             refractionColor.scale(frontObject->getMaterial().transmittance);
             color.addColor(refractionColor);
-        }*/
+        }
 
         return color;
     }
@@ -157,7 +157,7 @@ void drawSceneParallelized()
                 //Jitter ray (pixelJitter), and source lights (lightJitter)
                 vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
-                vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n);
+                vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n*n);
                 random_shuffle(lightJitter.begin(), lightJitter.end());
                 random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
 
