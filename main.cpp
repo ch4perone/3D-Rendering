@@ -1,5 +1,5 @@
 #include <random>
-
+#include <algorithm>
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
@@ -19,8 +19,7 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
-// #include <GL/glut.h>
-// #include <algorithm>
+#include <GL/glut.h>
 
 /*
  * For macOS
@@ -30,11 +29,11 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
 
 //Includes
-#include <OpenGL/gl.h>
-#include <OpenGl/glu.h>
-#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#include <OpenGl/glu.h>
+//#include <GLUT/glut.h>
 
-bool MojaveWorkAround = true; //Set to true for macOS Mojave.
+bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
@@ -43,7 +42,8 @@ string scene_path = "./scenes/balls_low_row.nff";
 int RES_X, RES_Y;
 bool ANTIALIASING = true;
 bool SOFTSHADOWS = true;
-bool DEPTHOFFIELD = true;
+bool DEPTH_OF_FIELD = true;
+bool GRID_ACCELERATION = false;
 int n = 4;
 
 
@@ -159,7 +159,6 @@ void drawSceneParallelized()
                 //Jitter ray (pixelJitter), and source lights (lightJitter)
                 vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
-                //vector<Vector2D> eyeDiskOffsets = RandomSampler::jitter2D(n);
                 vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n*n);
                 shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
                 shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
@@ -167,7 +166,7 @@ void drawSceneParallelized()
                 Color pixelColor = Color(0,0,0); //init black
                 for(int i = 0; i < pixelJitter.size(); ++i) {
                     Vector2D offset = pixelJitter[i];
-                    if (DEPTHOFFIELD) {
+                    if (DEPTH_OF_FIELD) {
                         Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y, eyeDiskOffsets[i]);
                         pixelColor.addColor(rayTracing(ray, 1, 1.0f, lightJitter[i]));
                     } else {
@@ -223,7 +222,7 @@ void drawSceneParallelized()
 int main(int argc, char**argv)
 {
 
-    scene = new Scene();
+    scene = new Scene(GRID_ACCELERATION);
     if(!(scene->load_nff(scene_path))) {
         return 0;
     }

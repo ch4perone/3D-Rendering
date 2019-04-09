@@ -9,6 +9,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/project.dir/Triangle.cpp.o"
   "CMakeFiles/project.dir/RayCast.cpp.o"
   "CMakeFiles/project.dir/RandomSampler.cpp.o"
+  "CMakeFiles/project.dir/Grid.cpp.o"
+  "CMakeFiles/project.dir/Cell.cpp.o"
+  "CMakeFiles/project.dir/AABB.cpp.o"
   "project.pdb"
   "project"
 )

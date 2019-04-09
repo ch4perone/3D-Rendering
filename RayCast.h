@@ -20,6 +20,7 @@ public:
 
     RayCast(Ray ray, Scene *scene);
     bool castNewRay(Ray ray, Scene *scene);
+    bool intersectObjects(Ray ray, vector<Object*> &objects);
 };
 
 

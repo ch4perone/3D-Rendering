@@ -10,6 +10,7 @@
 #include "Plane.h"
 #include "Triangle.h"
 #include "Cylinder.h"
+#include "Grid.h"
 
 
 using namespace std;
@@ -27,15 +28,21 @@ class Scene {
 
     Color backgroundColor = Color(0, 0, 0);
 
+    //Grid Acceleration Structure
+    bool useGridAcceleration;
+    Grid *grid;
+
 public:
-    Scene();
+    Scene(bool useGridAcceleration);
     bool load_nff(string path);
 
     //Getters
     Camera *getCamera();
-    vector<Object*> getObjects();
+    vector<Object*> getObjects(); //TODO make it reference vector<> &
     vector<Light> getLightSources();
     Color getBackgroundColor();
+    Grid *getGrid();
+    bool usesGridAcceleration();
 };
 
 

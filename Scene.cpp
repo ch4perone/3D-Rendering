@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 
-Scene::Scene() {
+Scene::Scene(bool useGridAcceleration) : useGridAcceleration(useGridAcceleration) {
 
 }
 
@@ -142,6 +142,10 @@ bool Scene::load_nff(string path) {
 
     if(camera->completeSetup()) {
         cout << "camera setup complete" << endl;
+        if(useGridAcceleration) {
+            cout << "build Grid Acceleration Structure" << endl;
+            grid = new Grid(objects);
+        }
         return true;
     }
     return false;
@@ -157,4 +161,12 @@ Color Scene::getBackgroundColor() {
 
 vector<Light> Scene::getLightSources() {
     return lightSources;
+}
+
+bool Scene::usesGridAcceleration() {
+    return useGridAcceleration;
+}
+
+Grid *Scene::getGrid() {
+    return grid;
 }

@@ -187,6 +187,45 @@ CMakeFiles/project.dir/RandomSampler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/RandomSampler.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/RandomSampler.cpp -o CMakeFiles/project.dir/RandomSampler.cpp.s
 
+CMakeFiles/project.dir/Grid.cpp.o: CMakeFiles/project.dir/flags.make
+CMakeFiles/project.dir/Grid.cpp.o: ../Grid.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/project.dir/Grid.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/Grid.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Grid.cpp
+
+CMakeFiles/project.dir/Grid.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/Grid.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Grid.cpp > CMakeFiles/project.dir/Grid.cpp.i
+
+CMakeFiles/project.dir/Grid.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/Grid.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Grid.cpp -o CMakeFiles/project.dir/Grid.cpp.s
+
+CMakeFiles/project.dir/Cell.cpp.o: CMakeFiles/project.dir/flags.make
+CMakeFiles/project.dir/Cell.cpp.o: ../Cell.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/project.dir/Cell.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/Cell.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cell.cpp
+
+CMakeFiles/project.dir/Cell.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/Cell.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cell.cpp > CMakeFiles/project.dir/Cell.cpp.i
+
+CMakeFiles/project.dir/Cell.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/Cell.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cell.cpp -o CMakeFiles/project.dir/Cell.cpp.s
+
+CMakeFiles/project.dir/AABB.cpp.o: CMakeFiles/project.dir/flags.make
+CMakeFiles/project.dir/AABB.cpp.o: ../AABB.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/project.dir/AABB.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/project.dir/AABB.cpp.o -c /home/chaperone/data/ist/3Dprogramming/3D-Rendering/AABB.cpp
+
+CMakeFiles/project.dir/AABB.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/project.dir/AABB.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chaperone/data/ist/3Dprogramming/3D-Rendering/AABB.cpp > CMakeFiles/project.dir/AABB.cpp.i
+
+CMakeFiles/project.dir/AABB.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/project.dir/AABB.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chaperone/data/ist/3Dprogramming/3D-Rendering/AABB.cpp -o CMakeFiles/project.dir/AABB.cpp.s
+
 # Object files for target project
 project_OBJECTS = \
 "CMakeFiles/project.dir/main.cpp.o" \
@@ -198,7 +237,10 @@ project_OBJECTS = \
 "CMakeFiles/project.dir/VectorMath.cpp.o" \
 "CMakeFiles/project.dir/Triangle.cpp.o" \
 "CMakeFiles/project.dir/RayCast.cpp.o" \
-"CMakeFiles/project.dir/RandomSampler.cpp.o"
+"CMakeFiles/project.dir/RandomSampler.cpp.o" \
+"CMakeFiles/project.dir/Grid.cpp.o" \
+"CMakeFiles/project.dir/Cell.cpp.o" \
+"CMakeFiles/project.dir/AABB.cpp.o"
 
 # External object files for target project
 project_EXTERNAL_OBJECTS =
@@ -213,9 +255,12 @@ project: CMakeFiles/project.dir/VectorMath.cpp.o
 project: CMakeFiles/project.dir/Triangle.cpp.o
 project: CMakeFiles/project.dir/RayCast.cpp.o
 project: CMakeFiles/project.dir/RandomSampler.cpp.o
+project: CMakeFiles/project.dir/Grid.cpp.o
+project: CMakeFiles/project.dir/Cell.cpp.o
+project: CMakeFiles/project.dir/AABB.cpp.o
 project: CMakeFiles/project.dir/build.make
 project: CMakeFiles/project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

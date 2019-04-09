@@ -84,13 +84,31 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/AABB.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/AABB.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Camera.cpp">
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Camera.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cell.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cell.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Cylinder.h">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Grid.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Grid.h">
 			<Option target="project"/>
 		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Object.cpp">
