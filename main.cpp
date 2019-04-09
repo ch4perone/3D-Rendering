@@ -1,3 +1,5 @@
+#include <random>
+
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
@@ -39,10 +41,10 @@ bool MojaveWorkAround = true; //Set to true for macOS Mojave.
 Scene* scene = NULL;
 string scene_path = "./scenes/balls_low_row.nff";
 int RES_X, RES_Y;
-bool antialiasing = true;
-bool softshadows = true;
-bool depthOfField = true;
-int n = 8;
+bool ANTIALIASING = true;
+bool SOFTSHADOWS = true;
+bool DEPTHOFFIELD = true;
+int n = 4;
 
 
 //Reshape function (given)
@@ -74,7 +76,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
         vector<Light> activeLights; //container for not occluded lights
         for (Light &light : scene->getLightSources()) {
             Vector lightPosition = light.pos;
-            if (softshadows) {
+            if (SOFTSHADOWS) {
                 lightPosition = light.getJitteredPosition(lightJitterOffset);
             }
             Vector dir = vectorNormalize(vectorDirection(intersectionPoint, lightPosition));
@@ -152,19 +154,20 @@ void drawSceneParallelized()
     {
         for (int x = 0; x < RES_X; x++)
         {
-            if (antialiasing) {
+            if (ANTIALIASING) {
 
                 //Jitter ray (pixelJitter), and source lights (lightJitter)
                 vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
+                //vector<Vector2D> eyeDiskOffsets = RandomSampler::jitter2D(n);
                 vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n*n);
-                random_shuffle(lightJitter.begin(), lightJitter.end());
-                random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
+                shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
+                shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
 
                 Color pixelColor = Color(0,0,0); //init black
                 for(int i = 0; i < pixelJitter.size(); ++i) {
                     Vector2D offset = pixelJitter[i];
-                    if (depthOfField) {
+                    if (DEPTHOFFIELD) {
                         Ray ray = scene->getCamera()->getPrimaryRay(x + offset.x, y + offset.y, eyeDiskOffsets[i]);
                         pixelColor.addColor(rayTracing(ray, 1, 1.0f, lightJitter[i]));
                     } else {

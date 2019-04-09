@@ -22,7 +22,7 @@ public:
     int ResX, ResY;
 
     float w,h;
-    Vector xe, ye,ze; //uvn
+    Vector xe, ye, ze; //uvn
 
     //Depth of field effects (manually set)
     float aperture = 0.5f;
