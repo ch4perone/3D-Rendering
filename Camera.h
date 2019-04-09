@@ -22,11 +22,11 @@ public:
     int ResX, ResY;
 
     float w,h;
-    Vector xe, ye,ze; //uvn
+    Vector xe, ye, ze; //uvn
 
     //Depth of field effects (manually set)
-    float aperture = 0.1f;
-    float distanceFocalPlane = 4.f;
+    float aperture = 0.5f;
+    float distanceFocalPlane = 3.f;
 
     Camera();
     bool completeSetup();
