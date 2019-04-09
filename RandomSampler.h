@@ -2,6 +2,7 @@
 #define PROJECT_RANDOMSAMPLER_H
 
 #include <vector>
+#include <random>
 #include "defaultStructs.h"
 
 
@@ -13,8 +14,15 @@
 using namespace std;
 
 class RandomSampler {
+private:
+    RandomSampler() {}
+
+    static mt19937 rng;
+    static uniform_real_distribution<float> distFloat;
+    static uniform_int_distribution<int> distInt;
 
 public:
+
     static void initSeed();
     static float getProbability();
     static float getFloatInRange(float min, float max);

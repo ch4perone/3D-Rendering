@@ -42,7 +42,7 @@ int RES_X, RES_Y;
 bool antialiasing = true;
 bool softshadows = true;
 bool depthOfField = true;
-int n = 24;
+int n = 4;
 
 
 //Reshape function (given)
@@ -84,7 +84,7 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
             shadowRay.glitchForward();
 
             if(rayCast.castNewRay(shadowRay, scene)) {
-                if (rayCast.distanceToIntersection < lightDistance ) {
+                if (rayCast.distanceToIntersection < lightDistance) {
                     continue;
                 }
             }

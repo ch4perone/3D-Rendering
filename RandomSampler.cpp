@@ -2,17 +2,25 @@
 #include <ctime>
 #include "RandomSampler.h"
 
+mt19937 RandomSampler::rng;
+uniform_real_distribution<float> RandomSampler::distFloat;
+uniform_int_distribution<int> RandomSampler::distInt;
+
+
 void RandomSampler::initSeed() {
-    srand(time(0));
+    rng.seed(time(nullptr));
+    distFloat = uniform_real_distribution<float>(0, 1);
+    distInt = uniform_int_distribution<int>(0, 1);
+    //srand(time(NULL));
 }
 
 float RandomSampler::getProbability() {
-    return 0;
+    return getFloatInRange(0,1.f);
 }
 
 float RandomSampler::getFloatInRange(float min, float max) {
-    float random = (float) rand() / (float) RAND_MAX;
-    return min + (max - min) * random;
+
+    return distFloat(rng) * (max - min) + min;
     //return min + (rand() % static_cast<int>(max - min + 1));
 }
 
