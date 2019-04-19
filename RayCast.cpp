@@ -29,16 +29,16 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
             vector<Object*> cellObjects;
             intersectObjects(ray, cellObjects);
             if (doesIntersect) {
-
-                //TODO check that intersection is inside cell
-                return true;
+                if (grid->isPointInCurrentCell(intersectionPoint)) {
+                    return true;
+                }
             }
 
             cell = grid->getNextCell();
         }
 
-
-        //TODO make sure always to return
+        doesIntersect = false;
+        return false;
     }
 
     /*

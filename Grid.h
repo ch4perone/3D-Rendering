@@ -30,7 +30,7 @@ public:
     Cell getInitialCell(Ray &ray);
     Cell getNextCell();
 
-    bool isPointInCurrentCell();
+    bool isPointInCurrentCell(Vector point);
 
 private:
     bool buildGrid(vector<Object*> &sceneObjects); //TODO implement

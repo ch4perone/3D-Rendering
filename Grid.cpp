@@ -193,7 +193,10 @@ Cell Grid::getNextCell() {
 
 }
 
-bool Grid::isPointInCurrentCell() {
-    //TODO
-    return false;
+bool Grid::isPointInCurrentCell(Vector point) {
+    int x = std::clamp((point.x - boundingBox.getLower().x) * Nx / boundingBox.size().x, 0, Nx - 1);
+    int y = std::clamp((point.y - boundingBox.getLower().y) * Ny / boundingBox.size().y, 0, Ny - 1);
+    int z = std::clamp((point.z - boundingBox.getLower().z) * Nz / boundingBox.size().z, 0, Nz - 1);
+
+    return ix == x && iy == y && iz == z;
 }
