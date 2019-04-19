@@ -159,6 +159,9 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/main.cpp">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/testVector.cpp">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

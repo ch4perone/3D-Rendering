@@ -12,6 +12,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/project.dir/Grid.cpp.o"
   "CMakeFiles/project.dir/Cell.cpp.o"
   "CMakeFiles/project.dir/AABB.cpp.o"
+  "CMakeFiles/project.dir/testVector.cpp.o"
   "project.pdb"
   "project"
 )
