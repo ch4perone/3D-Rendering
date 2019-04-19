@@ -1,5 +1,5 @@
 #include "Cell.h"
 
-Cell::Cell() {
-
+Cell::Cell(bool good) {
+    this->good = good;
 }

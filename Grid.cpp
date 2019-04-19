@@ -157,3 +157,43 @@ Cell Grid::getInitialCell(Ray &ray) {
 
     return init;
 }
+
+Cell Grid::getNextCell() {
+
+    /*
+     * Traverse in x-direction
+     */
+
+    if (tx_next < ty_next && tx_next < tz_next) {
+        tx_next += dtx;
+        ix += ix_step;
+        if(ix == ix_stop) {
+            return Cell(false);
+        }
+    }
+    else if(ty_next < tz_next) { // y-direction
+        ty_next += dty;
+        iy += iy_step;
+        if(iy == iy_stop) {
+            return Cell(false);
+        }
+
+    } else { // z-direction
+        tz_next += dtz;
+        iz += iz_step;
+        if(iz == iz_stop) {
+            return Cell(false);
+        }
+    }
+
+    return cellMatrix[ix][iy][iz];
+
+
+
+
+}
+
+bool Grid::isPointInCurrentCell() {
+    //TODO
+    return false;
+}

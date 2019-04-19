@@ -29,6 +29,9 @@ public:
     AABB* getBoundingBox();
     Cell getInitialCell(Ray &ray);
     Cell getNextCell();
+
+    bool isPointInCurrentCell();
+
 private:
     bool buildGrid(vector<Object*> &sceneObjects); //TODO implement
 };

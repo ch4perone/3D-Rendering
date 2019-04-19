@@ -153,6 +153,12 @@
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Triangle.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Vector.cpp">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/Vector.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/home/chaperone/data/ist/3Dprogramming/3D-Rendering/VectorMath.cpp">
 			<Option target="project"/>
 		</Unit>
