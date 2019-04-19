@@ -16,7 +16,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
 #include <GL/glut.h>
@@ -26,7 +26,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
 
 //Includes
 //#include <OpenGL/gl.h>
@@ -160,8 +160,10 @@ void drawSceneParallelized()
                 vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n*n);
-                shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
-                shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
+                // shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
+                // shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
+                random_shuffle(lightJitter.begin(), lightJitter.end());
+	              random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
 
                 Color pixelColor = Color(0,0,0); //init black
                 for(int i = 0; i < pixelJitter.size(); ++i) {

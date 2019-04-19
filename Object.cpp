@@ -108,3 +108,7 @@ Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, f
     return R;
 
 }
+
+AABB* Object::getBoundingBox(){
+  return boundingBox;
+}

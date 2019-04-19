@@ -9,6 +9,10 @@ class AABB : public Object {
     // pos, pos2, pos3 define the three positions that define the AABB
     Vector pos2;
     Vector normal;
+    Vector upper;
+    Vector lower;
+    Vector enteringPoint;
+    Vector exitingPoint;
 
     // float size;
     // Vector pos;
@@ -30,11 +34,15 @@ public:
     //
     // Material getMaterial();
 
-    AABB(Vector pos, Vector pos2, Material material);
+    AABB(Vector pos, Vector pos2);
 
     Vector getNormalInPoint(Vector point) override;
 
+    Vector getUpper();
+    Vector getLower();
 
+    Vector getRecentEnteringPoint();
+    Vector getRecentExitingPoint();
 
 };
 

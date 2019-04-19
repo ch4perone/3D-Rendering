@@ -11,6 +11,7 @@
 #include "Triangle.h"
 #include "Cylinder.h"
 #include "Grid.h"
+#include "AABB.h"
 
 
 using namespace std;

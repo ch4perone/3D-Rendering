@@ -3,6 +3,8 @@
 
 #include "defaultStructs.h"
 #include "Object.h"
+#include "AABB.h"
+
 
 /**
  * @headerfile Cylinder
@@ -33,7 +35,7 @@ class Cylinder : public Object {
 
 
 public:
-    Cylinder(Vector pos, float radius, Vector pos2, float radius2, Material material);
+    Cylinder(Vector pos, float radius, Vector pos2, float radius2, Material material, bool makeBoundingBox = false);
 
     bool intersect(Ray &r);
 
