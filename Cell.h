@@ -6,8 +6,9 @@
 
 class Cell {
 public:
+    bool good;
     vector<Object*> objects;
-    Cell();
+    Cell(bool good = true);
 };
 
 

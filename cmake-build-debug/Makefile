@@ -420,6 +420,33 @@ Triangle.cpp.s:
 	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Triangle.cpp.s
 .PHONY : Triangle.cpp.s
 
+Vector.o: Vector.cpp.o
+
+.PHONY : Vector.o
+
+# target to build an object file
+Vector.cpp.o:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Vector.cpp.o
+.PHONY : Vector.cpp.o
+
+Vector.i: Vector.cpp.i
+
+.PHONY : Vector.i
+
+# target to preprocess a source file
+Vector.cpp.i:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Vector.cpp.i
+.PHONY : Vector.cpp.i
+
+Vector.s: Vector.cpp.s
+
+.PHONY : Vector.s
+
+# target to generate assembly for a file
+Vector.cpp.s:
+	$(MAKE) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/Vector.cpp.s
+.PHONY : Vector.cpp.s
+
 VectorMath.o: VectorMath.cpp.o
 
 .PHONY : VectorMath.o
@@ -543,6 +570,9 @@ help:
 	@echo "... Triangle.o"
 	@echo "... Triangle.i"
 	@echo "... Triangle.s"
+	@echo "... Vector.o"
+	@echo "... Vector.i"
+	@echo "... Vector.s"
 	@echo "... VectorMath.o"
 	@echo "... VectorMath.i"
 	@echo "... VectorMath.s"
