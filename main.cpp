@@ -26,7 +26,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++17
 
 //Includes
 //#include <OpenGL/gl.h>
