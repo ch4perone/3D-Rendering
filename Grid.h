@@ -11,7 +11,15 @@ typedef vector<vector<vector<Cell>>> Matrix3D;
 
 class Grid {
 
-    AABB* boundingBox;
+    AABB* boundingBox = nullptr;
+
+    int Nx, Ny, Nz;
+    float dtx, dty, dtz;
+    float tx_next, ty_next, tz_next;
+    int ix, iy, iz;
+    int ix_step, iy_step, iz_step;
+    int ix_stop, iy_stop, iz_stop;
+
 public:
 
     Grid(vector<Object*> &sceneObjects);
@@ -19,6 +27,8 @@ public:
 
     //Getter
     AABB* getBoundingBox();
+    Cell getInitialCell(Ray &ray);
+    Cell getNextCell();
 private:
     bool buildGrid(vector<Object*> &sceneObjects); //TODO implement
 };

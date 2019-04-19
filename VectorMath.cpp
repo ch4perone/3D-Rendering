@@ -10,12 +10,19 @@ struct Vector;
  * contains math operation for Vector class
  */
 
+//TODO this whole thing might be slow af
+
+
 static float vectorLength(Vector v) {
     return static_cast<float>(sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
 static Vector vectorAdd(Vector v1, Vector v2) {
     return Vector(v1.x + v2.x, v1.y + v2.y,  v1.z + v2.z);
+}
+
+static Vector vectorAddToAllAxis(Vector v, float value) {
+    return Vector(v.x + value, v.y + value,  v.z + value);
 }
 
 static Vector vectorSubstract(Vector v1, Vector v2) {

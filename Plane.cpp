@@ -5,7 +5,7 @@
 
 Plane::Plane(Vector pos, Vector pos2, Vector pos3, Material material) : pos2(pos2), pos3(pos3), Object(pos, material) {
   normal = vectorNormalize( vectorCrossProduct ( vectorSubstract(pos2, pos), vectorSubstract(pos3, pos)));
-};
+}
 
 bool Plane::intersectPlane(Ray &r, Vector normal, Vector position){
     float denom = vectorDotProduct(normal, r.dir);

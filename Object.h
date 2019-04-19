@@ -32,6 +32,7 @@ public:
     Vector getReflectionInPoint(Vector point, Vector eyePosition, bool interior);
     Vector getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior);
 
+
     bool isReflective();
     bool isTranslucid();
 };

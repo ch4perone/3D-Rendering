@@ -5,7 +5,9 @@
 #include "Object.h"
 
 class Cell {
+public:
     vector<Object*> objects;
+    Cell();
 };
 
 

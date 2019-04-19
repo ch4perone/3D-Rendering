@@ -15,16 +15,26 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
     if (scene->usesGridAcceleration()) {
         Grid *grid = scene->getGrid();
 
+        if(true) { //
+            //TODO starts inside grid
+        }
+
         if(!grid->getBoundingBox()->intersect(ray)) {
             return false;
         }
+        grid->getInitialCell(ray);
 
-        while (true) {
-            //TODO traverse Grid
+        /*
+         * Traverse Grid
+         */
+        //TODO get first cell
+        while (true) { //TODO while inside grid (getNextCell)
+
             vector<Object*> cellObjects;
-            intersectObjects(cellObjects);
+            intersectObjects(ray, cellObjects);
             if (doesIntersect) {
-
+                //TODO check that intersection is inside cell
+                return true;
             }
         }
 

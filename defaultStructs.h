@@ -7,6 +7,8 @@
  * Structures are mainly used to store properties and feature no to only a few methods.
  */
 
+static float epsilon = 0.0001f;
+
 struct Vector {
     float x, y, z;
     bool initialized;
@@ -53,9 +55,9 @@ struct Ray {
 
     //Move ray a tiny instance along its direction
     void glitchForward() {
-        ori.x = ori.x + dir.x*0.0001f;
-        ori.y = ori.y + dir.y*0.0001f;
-        ori.z = ori.z + dir.z*0.0001f;
+        ori.x = ori.x + dir.x*epsilon;
+        ori.y = ori.y + dir.y*epsilon;
+        ori.z = ori.z + dir.z*epsilon;
     }
 };
 
