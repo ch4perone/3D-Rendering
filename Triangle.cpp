@@ -3,7 +3,22 @@
 #include <cmath>
 
 
-Triangle::Triangle(Vector pos, Vector pos2, Vector pos3, Material material) : pos2(pos2), pos3(pos3), Object(pos, material) {
+Triangle::Triangle(Vector pos, Vector pos2, Vector pos3, Material material, bool makeBoundingBox) : pos2(pos2), pos3(pos3), Object(pos, material) {
+    if (makeBoundingBox) {
+      float eps = 0.00001f;
+
+      float upperX = std::max(pos.x, std::max(pos2.x, pos3.x)) + eps;
+      float upperY = std::max(pos.y, std::max(pos2.y, pos3.y)) + eps;
+      float upperZ = std::max(pos.z, std::max(pos2.z, pos3.z)) + eps;
+      Vector upper = Vector(upperX,upperY,upperZ);
+
+      float lowerX = std::min(pos.x, std::min(pos2.x, pos3.x)) - eps;
+      float lowerY = std::min(pos.y, std::min(pos2.y, pos3.y)) - eps;
+      float lowerZ = std::min(pos.z, std::min(pos2.z, pos3.z)) - eps;
+      Vector lower = Vector(lowerX,lowerY,lowerZ);
+
+      boundingBox = new AABB(upper,lower);
+    }
 };
 
 bool Triangle::intersect(Ray &r) {

@@ -17,10 +17,10 @@ class Plane : public Object {
 
 
 public:
+    Plane(Vector pos, Vector pos2, Vector pos3, Material material);
+    
     bool intersect(Ray &r);
     static bool intersectPlane(Ray &r, Vector normal, Vector position);
-
-    Plane(Vector pos, Vector pos2, Vector pos3, Material material);
 
     Vector getNormalInPoint(Vector point) override;
 

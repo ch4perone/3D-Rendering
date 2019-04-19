@@ -3,7 +3,22 @@
 #include <iostream>
 #include <cmath>
 
-Sphere::Sphere(Vector pos, float radius, Material material) : radius(radius), Object(pos, material) {
+Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox) : radius(radius), Object(pos, material) {
+    if (makeBoundingBox) {
+      float eps = 0.00001f;
+
+      float upperX = pos.x + radius + eps;
+      float upperY = pos.y + radius + eps;
+      float upperZ = pos.z + radius + eps;
+      Vector upper = Vector(upperX,upperY,upperZ);
+
+      float lowerX = pos.x - radius - eps;
+      float lowerY = pos.y - radius - eps;
+      float lowerZ = pos.z - radius - eps;
+      Vector lower = Vector(lowerX,lowerY,lowerZ);
+
+      boundingBox = new AABB(upper,lower);
+    }
 };
 
 bool Sphere::intersect(Ray &r) {

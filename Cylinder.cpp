@@ -5,8 +5,25 @@
 #include <cmath>
 
 
-Cylinder::Cylinder(Vector pos, float radius, Vector pos2, float radius2, Material material) : radius(radius), pos2(pos2), radius2(radius2), Object(pos, material) {
+Cylinder::Cylinder(Vector pos, float radius, Vector pos2, float radius2, Material material, bool makeBoundingBox) : radius(radius), pos2(pos2), radius2(radius2), Object(pos, material) {
     height = vectorDistance(pos, pos2);
+    if (makeBoundingBox) {
+      float eps = 0.00001f;
+
+      //TODO: make this happen
+
+      // float upperX = pos.x + radius + eps;
+      // float upperY = pos.y + radius + eps;
+      // float upperZ = pos.z + radius + eps;
+      // Vector upper = Vector(upperX,upperY,upperZ);
+      //
+      // float lowerX = pos.x - radius - eps;
+      // float lowerY = pos.y - radius - eps;
+      // float lowerZ = pos.z - radius - eps;
+      // Vector lower = Vector(lowerX,lowerY,lowerZ);
+      //
+      // boundingBox = new AABB(upper,lower);
+    }
 };
 
 bool Cylinder::intersect(Ray &r) {

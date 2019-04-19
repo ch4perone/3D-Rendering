@@ -89,7 +89,7 @@ bool Scene::load_nff(string path) {
             Vector pos(values[0], values[1], values[2]);
             float radius = values[3];
 
-            Sphere *sphere = new Sphere(pos, radius, currentMaterial);
+            Sphere *sphere = new Sphere(pos, radius, currentMaterial, useGridAcceleration);
             objects.push_back(sphere);
         }
 
@@ -100,7 +100,7 @@ bool Scene::load_nff(string path) {
             Vector pos2(values[4], values[5], values[6]);
             float radius2 = values[7];
 
-            Cylinder *cylinder = new Cylinder(pos, radius, pos2, radius2, currentMaterial);
+            Cylinder *cylinder = new Cylinder(pos, radius, pos2, radius2, currentMaterial, useGridAcceleration);
             objects.push_back(cylinder);
         }
 
@@ -132,13 +132,16 @@ bool Scene::load_nff(string path) {
             }
 
             if (numVertices == 3) {
-                Triangle *triangle = new Triangle(points[0], points[1], points[2], currentMaterial);
+                Triangle *triangle = new Triangle(points[0], points[1], points[2], currentMaterial, useGridAcceleration);
                 objects.push_back(triangle);
             } else {
                 cout << "Warning: complex polygon object. No matching object class." << endl;
             }
         }
     }
+
+    AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
+    objects.push_back(box);
 
     if(camera->completeSetup()) {
         cout << "camera setup complete" << endl;

@@ -16,7 +16,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
 // #include <GL/glut.h>
@@ -27,7 +27,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated
 
 //Includes
 #include <OpenGL/gl.h>
@@ -41,9 +41,9 @@ bool MojaveWorkAround = true; //Set to true for macOS Mojave.
 Scene* scene = NULL;
 string scene_path = "./scenes/balls_low_row.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = true;
-bool SOFTSHADOWS = true;
-bool DEPTHOFFIELD = true;
+bool ANTIALIASING = 0;
+bool SOFTSHADOWS = 0;
+bool DEPTHOFFIELD = 0;
 int n = 4;
 
 

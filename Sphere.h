@@ -3,6 +3,8 @@
 
 #include "defaultStructs.h"
 #include "Object.h"
+#include "AABB.h"
+
 
 /**
  * @headerfile Sphere
@@ -15,7 +17,7 @@ class Sphere : public Object {
     float radius;
 
 public:
-    Sphere(Vector pos, float radius, Material material);
+    Sphere(Vector pos, float radius, Material material, bool makeBoundingBox = false);
 
     bool intersect(Ray &r);
 

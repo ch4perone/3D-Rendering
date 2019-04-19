@@ -13,11 +13,13 @@ using namespace std;
  * Virtual function are overwritten in sub-classes.
  *
  */
+class AABB;
 
 class Object {
 protected:
     Vector pos;
     Material material;
+    AABB* boundingBox = nullptr;
 
 public:
 
@@ -31,6 +33,7 @@ public:
     virtual Vector getNormalInPoint(Vector point);
     Vector getReflectionInPoint(Vector point, Vector eyePosition, bool interior);
     Vector getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior);
+    AABB* getBoundingBox();
 
     bool isReflective();
     bool isTranslucid();

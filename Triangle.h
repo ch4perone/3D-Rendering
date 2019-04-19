@@ -3,6 +3,7 @@
 
 #include "defaultStructs.h"
 #include "Object.h"
+#include "AABB.h"
 
 /**
  * @headerfile Triangle
@@ -18,9 +19,10 @@ class Triangle : public Object {
 
 
 public:
-    bool intersect(Ray &r);
 
-    Triangle(Vector pos, Vector pos2, Vector pos3, Material material);
+    Triangle(Vector pos, Vector pos2, Vector pos3, Material material, bool makeBoundingBox = false);
+
+    bool intersect(Ray &r);
 
     Vector getNormalInPoint(Vector point) override;
 
