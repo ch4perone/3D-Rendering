@@ -1,10 +1,13 @@
 #include "Plane.h"
 #include "VectorMath.cpp"
 #include <cmath>
+#include "AABB.h"
+
 
 
 Plane::Plane(Vector pos, Vector pos2, Vector pos3, Material material) : pos2(pos2), pos3(pos3), Object(pos, material) {
   normal = vectorNormalize( vectorCrossProduct ( vectorSubstract(pos2, pos), vectorSubstract(pos3, pos)));
+  boundingBox = new AABB(Vector(2, 2, 2),Vector(-2.f, -2.f, -2.f));
 }
 
 bool Plane::intersectPlane(Ray &r, Vector normal, Vector position){

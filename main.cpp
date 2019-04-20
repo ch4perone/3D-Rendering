@@ -16,7 +16,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp  -o app -lglut -lGLU -lGL
 
 //Includes
 #include <GL/glut.h>
@@ -38,12 +38,12 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low_row.nff";
+string scene_path = "./scenes/mount_very_high.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = true;
-bool SOFTSHADOWS = true;
-bool DEPTH_OF_FIELD = true;
-bool GRID_ACCELERATION = false;
+bool ANTIALIASING = false;
+bool SOFTSHADOWS = false;
+bool DEPTH_OF_FIELD = false;
+bool GRID_ACCELERATION = true;
 int n = 4;
 
 
@@ -163,7 +163,7 @@ void drawSceneParallelized()
                 // shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
                 // shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
                 random_shuffle(lightJitter.begin(), lightJitter.end());
-	              random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
+                random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
 
                 Color pixelColor = Color(0,0,0); //init black
                 for(int i = 0; i < pixelJitter.size(); ++i) {
@@ -230,14 +230,7 @@ int main(int argc, char**argv)
     }
 
     RandomSampler::initSeed();
-    float sum = 0;
 
-
-    for (int i = 0; i < 100; ++i) {
-        sum+=RandomSampler::getFloatInRange(0, 1.f);
-    }
-
-    cout << sum / 100.f << endl;
     RES_X = scene->getCamera()->ResX;
     RES_Y = scene->getCamera()->ResY;
     scene->getCamera()->printCameraSetup();

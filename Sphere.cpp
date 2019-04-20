@@ -10,14 +10,14 @@ Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox
       float upperX = pos.x + radius + eps;
       float upperY = pos.y + radius + eps;
       float upperZ = pos.z + radius + eps;
-      Vector upper = Vector(upperX,upperY,upperZ);
+      Vector upper(upperX, upperY, upperZ);
 
       float lowerX = pos.x - radius - eps;
       float lowerY = pos.y - radius - eps;
       float lowerZ = pos.z - radius - eps;
-      Vector lower = Vector(lowerX,lowerY,lowerZ);
+      Vector lower(lowerX,lowerY,lowerZ);
 
-      boundingBox = new AABB(upper,lower);
+      boundingBox = new AABB(upper, lower);
     }
 };
 

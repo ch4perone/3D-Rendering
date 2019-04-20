@@ -1,4 +1,4 @@
-/snap/clion/68/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/chaperone/data/ist/3Dprogramming/3D-Rendering
+/snap/clion/69/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/chaperone/data/ist/3Dprogramming/3D-Rendering
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/chaperone/data/ist/3Dprogramming/3D-Rendering/cmake-build-debug

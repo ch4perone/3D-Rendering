@@ -43,6 +43,12 @@ public:
 
     Vector getRecentEnteringPoint();
     Vector getRecentExitingPoint();
+    Vector getDimension();
+    float getVolume();
+
+    //Accessible Variables
+    float tx_min, ty_min, tz_min;
+    float tx_max, ty_max, tz_max;
 
 };
 

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-typedef vector<vector<vector<Cell>>> Matrix3D;
+typedef vector<vector<vector<Cell>>> Matrix3D; //TODO maybe init with empty cells
 
 class Grid {
 
@@ -23,17 +23,18 @@ class Grid {
 public:
 
     Grid(vector<Object*> &sceneObjects);
-    Matrix3D cellMatrix;
+    vector<Cell*> cellMatrix;
 
     //Getter
     AABB* getBoundingBox();
-    Cell getInitialCell(Ray &ray);
-    Cell getNextCell();
+    Cell* getInitialCell(Ray &ray);
+    Cell* getNextCell();
 
     bool isPointInCurrentCell(Vector point);
 
 private:
     bool buildGrid(vector<Object*> &sceneObjects); //TODO implement
+    int getIndex(int x, int y, int z);
 };
 
 

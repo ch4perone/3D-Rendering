@@ -4,21 +4,17 @@
 
 
 AABB::AABB(Vector pos, Vector pos2) : pos2(pos2), Object(pos, Material()) {
-  
-};
-
-bool AABB::intersect(Ray &r) {
-      if (pos.x > pos2.x && pos.y > pos2.y && pos.z > pos2.z) {
+    if (pos.x > pos2.x && pos.y > pos2.y && pos.z > pos2.z) {
         upper = pos;
         lower = pos2;
-      }
-      else {
+    }
+    else {
         upper = pos2;
         lower = pos;
-      }
+    }
+}
 
-      float tx_min, ty_min, tz_min;
-      float tx_max, ty_max, tz_max;
+bool AABB::intersect(Ray &r) {
       Vector normalX, normalY, normalZ;
 
       float a = 1.f / r.dir.x;
@@ -110,4 +106,13 @@ Vector AABB::getNormalInPoint(Vector point) {
     // std::cout << "normal be like: " << endl;
     // vectorPrint(normal);
     return normal;
+}
+
+Vector AABB::getDimension() {
+    return vectorSubstract(upper, lower);
+}
+
+float AABB::getVolume() {
+    Vector dim = getDimension();
+    return dim.x * dim.y * dim.z;
 }

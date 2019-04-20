@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 Scene::Scene(bool useGridAcceleration) : useGridAcceleration(useGridAcceleration) {
 
@@ -13,6 +14,8 @@ Camera *Scene::getCamera() {
 }
 
 bool Scene::load_nff(string path) {
+
+    auto start = std::chrono::high_resolution_clock::now();
 
     //initialize fields
     Material currentMaterial;
@@ -140,8 +143,8 @@ bool Scene::load_nff(string path) {
         }
     }
 
-    AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
-    objects.push_back(box);
+    //AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
+    //objects.push_back(box);
 
     if(camera->completeSetup()) {
         cout << "camera setup complete" << endl;
@@ -149,6 +152,9 @@ bool Scene::load_nff(string path) {
             cout << "build Grid Acceleration Structure" << endl;
             grid = new Grid(objects);
         }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end-start;
+        cout << "Scene prepping overhead: " << diff.count() << " s" << endl;
         return true;
     }
     return false;

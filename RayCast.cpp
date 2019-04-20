@@ -23,13 +23,11 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
         /*
          * Traverse Grid
          */
-        Cell cell = grid->getInitialCell(ray);
-        while (cell.good) {
-
-            vector<Object*> cellObjects;
-            intersectObjects(ray, cellObjects);
+        Cell *cell = grid->getInitialCell(ray);
+        while (cell->good) {
+            intersectObjects(ray, cell->objects);
             if (doesIntersect) {
-                if (grid->isPointInCurrentCell(intersectionPoint)) {
+                if (grid->isPointInCurrentCell(intersectionPoint)) { //TODO
                     return true;
                 }
             }
