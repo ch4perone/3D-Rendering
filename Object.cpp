@@ -83,7 +83,7 @@ Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool inter
 }
 
 Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior) {
-    Vector v = point.directionTo(eyePosition)normalize();
+    Vector v = point.directionTo(eyePosition).normalize();
     Vector normal = getNormalInPoint(point);
     float iorMedium = getMaterial().indexOfRefraction;
     if (interior) {
