@@ -143,7 +143,7 @@ Vector Cylinder::getNormalInPoint(Vector point) {
       normal = (point - pos).normalize();
     }
     if(latestValidIntersection == DISK2) {
-      normal = (point,pos2).normalize();
+      normal = (point - pos2).normalize();
     }
     return normal;
 }

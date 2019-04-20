@@ -36,8 +36,7 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
     for (Light &light : activeLightSources) {
 
         //Diffuse Color
-        Vector L = intersectionPoint.directionTo(light.pos);
-        L.normalize();
+        Vector L = intersectionPoint.directionTo(light.pos).normalize();
         float nL = normalVector.dot_product(L);
         Vector lightVector = light.color.toVector() * light.intensity; //light intensity optional, currently set to 1.f
         lightVector.x *= material.color.r;
@@ -47,10 +46,8 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
         sumOfReflectionColors += diffuseColor;
 
         //Specular Color
-        Vector r = (normalVector * (2.f*(L.dot_product(normalVector)))) - L;
-        r.normalize();
-        Vector v = intersectionPoint.directionTo(eyePosition);
-        v.normalize();
+        Vector r = ((normalVector * (2.f*(L.dot_product(normalVector)))) - L).normalize();
+        Vector v = intersectionPoint.directionTo(eyePosition).normalize();
         float rv = pow(fmaxf(0.f, (r.dot_product(v))), material.shininess);
         lightVector = light.color.toVector() * light.intensity;
         Vector specularColor = lightVector * (material.specularComponent * rv);
@@ -86,8 +83,7 @@ Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool inter
 }
 
 Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior) {
-    Vector v = point.directionTo(eyePosition);
-    v.normalize();
+    Vector v = point.directionTo(eyePosition)normalize();
     Vector normal = getNormalInPoint(point);
     float iorMedium = getMaterial().indexOfRefraction;
     if (interior) {
