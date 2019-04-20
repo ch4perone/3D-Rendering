@@ -12,34 +12,34 @@ bool RayCast::castNewRay(Ray ray, Scene *scene) {
      * Grid Intersection
      */
 
-    if (scene->usesGridAcceleration()) {
-        Grid *grid = scene->getGrid();
-
-
-        if(!grid->getBoundingBox()->intersect(ray)) {
-            return false;
-        }
-
-        /*
-         * Traverse Grid
-         */
-        Cell cell = grid->getInitialCell(ray);
-        while (cell.good) {
-
-            vector<Object*> cellObjects;
-            intersectObjects(ray, cellObjects);
-            if (doesIntersect) {
-                if (grid->isPointInCurrentCell(intersectionPoint)) {
-                    return true;
-                }
-            }
-
-            cell = grid->getNextCell();
-        }
-
-        doesIntersect = false;
-        return false;
-    }
+    // if (scene->usesGridAcceleration()) {
+    //     Grid *grid = scene->getGrid();
+    //
+    //
+    //     if(!grid->getBoundingBox()->intersect(ray)) {
+    //         return false;
+    //     }
+    //
+    //     /*
+    //      * Traverse Grid
+    //      */
+    //     Cell cell = grid->getInitialCell(ray);
+    //     while (cell.good) {
+    //
+    //         vector<Object*> cellObjects;
+    //         intersectObjects(ray, cellObjects);
+    //         if (doesIntersect) {
+    //             if (grid->isPointInCurrentCell(intersectionPoint)) {
+    //                 return true;
+    //             }
+    //         }
+    //
+    //         cell = grid->getNextCell();
+    //     }
+    //
+    //     doesIntersect = false;
+    //     return false;
+    // }
 
     /*
      * else: Naive Intersection

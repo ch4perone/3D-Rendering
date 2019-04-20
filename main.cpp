@@ -7,7 +7,7 @@
 #include <cassert>
 #include "Scene.h"
 #include "RayCast.h"
-#include "VectorMath.cpp"
+#include "Vector.h"
 #include "RandomSampler.h"
 
 
@@ -16,35 +16,35 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp RandomSampler.cpp -o app -lglut -lGLU -lGL
 
 //Includes
-#include <GL/glut.h>
+// #include <GL/glut.h>
 
 /*
  * For macOS
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++17
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
 
 //Includes
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
-bool MojaveWorkAround = false; //Set to true for macOS Mojave.
+bool MojaveWorkAround = 0; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low_row.nff";
+string scene_path = "./scenes/balls_cylinder_low.nff";
 int RES_X, RES_Y;
 bool ANTIALIASING = true;
 bool SOFTSHADOWS = true;
 bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = false;
-int n = 4;
+int n = 2;
 
 
 //Reshape function (given)
@@ -79,8 +79,8 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
             if (SOFTSHADOWS) {
                 lightPosition = light.getJitteredPosition(lightJitterOffset);
             }
-            Vector dir = vectorNormalize(vectorDirection(intersectionPoint, lightPosition));
-            float lightDistance = vectorDistance(intersectionPoint, lightPosition);
+            Vector dir = intersectionPoint.directionTo(lightPosition).normalize();
+            float lightDistance = intersectionPoint.distance(lightPosition);
 
             Ray shadowRay = Ray(intersectionPoint, dir);
             shadowRay.glitchForward();

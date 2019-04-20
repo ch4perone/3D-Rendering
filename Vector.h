@@ -45,6 +45,7 @@ public:
 
     //gives distance between two vectors
     float distance(const Vector &vec);
+    Vector directionTo(const Vector &vec);
     // f show_X(); //return x
     // f show_Y(); //return y
     // f show_Z(); //return z

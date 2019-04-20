@@ -1,7 +1,7 @@
 #ifndef PROJECT_SPHERE_H
 #define PROJECT_SPHERE_H
 
-#include "defaultStructs.h"
+#include "defaultStructs.h" //needed also for epsilon
 #include "Object.h"
 #include "AABB.h"
 

@@ -140,14 +140,14 @@ bool Scene::load_nff(string path) {
         }
     }
 
-    AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
-    objects.push_back(box);
+    // AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
+    // objects.push_back(box);
 
     if(camera->completeSetup()) {
         cout << "camera setup complete" << endl;
         if(useGridAcceleration) {
             cout << "build Grid Acceleration Structure" << endl;
-            grid = new Grid(objects);
+            // grid = new Grid(objects);
         }
         return true;
     }
@@ -170,6 +170,6 @@ bool Scene::usesGridAcceleration() {
     return useGridAcceleration;
 }
 
-Grid *Scene::getGrid() {
-    return grid;
-}
+// Grid *Scene::getGrid() {
+//     return grid;
+// }

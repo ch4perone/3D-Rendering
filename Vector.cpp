@@ -35,7 +35,7 @@ Vector& Vector::operator-=(const Vector &vec) {
 //scalar multiplication
 Vector Vector::operator*(float value) {
     return Vector(this->x * value, this->y * value, this->z * value);
-} //tested
+} //tested, vectorScale
 
 Vector& Vector::operator*=(float value) {
     this->x *= value;
@@ -88,14 +88,20 @@ float Vector::square() {
 }
 
 Vector Vector::normalize() {
-    assert(length()!=0);
-    *this /= length();
+    // assert(length()!=0);
+    if(length()!=0) {
+      *this /= length();
+    }
     return *this;
 }
 
 float Vector::distance(const Vector &vec) {
     Vector dist = *this - vec;
     return dist.length();
+}
+
+Vector Vector::directionTo(const Vector &vec) {
+    return Vector(vec.x - this->x, vec.y - this->y, vec.z - this->z);
 }
 
 // float Vector::show_X()

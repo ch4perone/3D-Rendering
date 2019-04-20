@@ -10,7 +10,7 @@
 #include "Plane.h"
 #include "Triangle.h"
 #include "Cylinder.h"
-#include "Grid.h"
+// #include "Grid.h"
 #include "AABB.h"
 
 
@@ -31,7 +31,7 @@ class Scene {
 
     //Grid Acceleration Structure
     bool useGridAcceleration;
-    Grid *grid;
+    // Grid *grid;
 
 public:
     Scene(bool useGridAcceleration);
@@ -42,7 +42,7 @@ public:
     vector<Object*> getObjects(); //TODO make it reference vector<> &
     vector<Light> getLightSources();
     Color getBackgroundColor();
-    Grid *getGrid();
+    // Grid *getGrid();
     bool usesGridAcceleration();
 };
 
