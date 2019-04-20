@@ -1,5 +1,5 @@
 #include "RayCast.h"
-#include "VectorMath.cpp"
+#include "Grid.h"
 
 RayCast::RayCast(Ray ray, Scene *scene) {
     castNewRay(ray, scene);
@@ -63,7 +63,7 @@ bool RayCast::intersectObjects(Ray ray, vector<Object*> &objects) {
 
     distanceToIntersection = distance;
     ray.t = distance;
-    intersectionPoint = vectorAdd(ray.ori, vectorScale(ray.dir, distance));
+    intersectionPoint = ray.ori + ray.dir * distance;
 
 
     return doesIntersect;

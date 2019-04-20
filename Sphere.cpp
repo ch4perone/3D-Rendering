@@ -1,21 +1,21 @@
 #include "Sphere.h"
-#include "VectorMath.cpp"
+#include "Vector.h"
 #include <iostream>
 #include <cmath>
 
 Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox) : radius(radius), Object(pos, material) {
     if (makeBoundingBox) {
-      float eps = 0.00001f;
 
-      float upperX = pos.x + radius + eps;
-      float upperY = pos.y + radius + eps;
-      float upperZ = pos.z + radius + eps;
-      Vector upper(upperX, upperY, upperZ);
+      float upperX = pos.x + radius + epsilon;
+      float upperY = pos.y + radius + epsilon;
+      float upperZ = pos.z + radius + epsilon;
+      Vector upper = Vector(upperX,upperY,upperZ);
 
-      float lowerX = pos.x - radius - eps;
-      float lowerY = pos.y - radius - eps;
-      float lowerZ = pos.z - radius - eps;
-      Vector lower(lowerX,lowerY,lowerZ);
+      float lowerX = pos.x - radius - epsilon;
+      float lowerY = pos.y - radius - epsilon;
+      float lowerZ = pos.z - radius - epsilon;
+      Vector lower = Vector(lowerX,lowerY,lowerZ);
+
 
       boundingBox = new AABB(upper, lower);
     }
@@ -23,9 +23,9 @@ Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox
 
 bool Sphere::intersect(Ray &r) {
 
-    float a = vectorDotProduct(r.dir, r.dir);
-    float b = vectorDotProduct(r.dir, vectorScale((vectorSubstract(r.ori, pos)), 2.f));
-    float c = vectorDotProduct(vectorSubstract(r.ori, pos), vectorSubstract(r.ori, pos)) - radius*radius;
+    float a = r.dir.dot_product(r.dir);
+    float b = r.dir.dot_product((r.ori - pos) * 2.f);
+    float c = ((r.ori - pos).dot_product(r.ori - pos)) - radius*radius;
 
     // Check if a solution exists
     float discriminant = b*b - 4.0f*a*c;

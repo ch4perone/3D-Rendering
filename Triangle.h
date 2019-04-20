@@ -1,7 +1,7 @@
 #ifndef PROJECT_TRIANGLE_H
 #define PROJECT_TRIANGLE_H
 
-#include "defaultStructs.h"
+#include "defaultStructs.h" //also needed for epsilom
 #include "Object.h"
 #include "AABB.h"
 

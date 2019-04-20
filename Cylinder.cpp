@@ -1,14 +1,14 @@
 #include "Cylinder.h"
-#include "VectorMath.cpp"
+#include "Vector.h"
 #include "Plane.h"
 #include <iostream>
 #include <cmath>
 
 
 Cylinder::Cylinder(Vector pos, float radius, Vector pos2, float radius2, Material material, bool makeBoundingBox) : radius(radius), pos2(pos2), radius2(radius2), Object(pos, material) {
-    height = vectorDistance(pos, pos2);
+    height = pos.distance(pos2);
     if (makeBoundingBox) {
-      float eps = 0.00001f;
+      // float eps = 0.00001f;
 
       //TODO: make this happen
 
@@ -44,22 +44,22 @@ bool Cylinder::intersect(Ray &r) {
     /* Check if the ray intersects with the first disk
     (using the plane intersection,
     followed by checking the distance form the center) */
-    Vector n = vectorNormalize(vectorDirection(pos, pos2));
+    Vector n = pos.directionTo(pos2).normalize();
     if (Plane::intersectPlane(r,n,pos2)){
-      Vector p = vectorAdd(r.ori,vectorScale(r.dir,r.t));
-      Vector v = vectorSubstract(p,pos2);
-      float d2 = vectorDotProduct(v,v);
+      Vector p = r.ori + (r.dir * r.t);
+      Vector v = p - pos2;
+      float d2 = v.dot_product(v);
       if (d2 <= rad_sq) {
         intersectionDistances[DISK1] = r.t;
       }
     }
 
     // Check if the ray intersects with the second disk
-    n = vectorNormalize(vectorDirection(pos2, pos));
+    n = pos2.directionTo(pos).normalize();
     if (Plane::intersectPlane(r,n,pos)){
-      Vector p = vectorAdd(r.ori,(vectorScale(r.dir,r.t)));
-      Vector v = vectorSubstract(p,pos);
-      float d2 = vectorDotProduct(v,v);
+      Vector p = r.ori + (r.dir * r.t);
+      Vector v = p - pos;
+      float d2 = v.dot_product(v);
       if (d2 <= rad_sq) {
         intersectionDistances[DISK2] = r.t;
       }
@@ -78,24 +78,24 @@ bool Cylinder::intersect(Ray &r) {
     // if (r.ori.x <= cxmin && (r.ori.x + r.dir.x) < cxmin) return false;
 
 
-    Vector AB = vectorSubstract(pos2,pos);
-    Vector AO = vectorSubstract(r.ori,pos);
-    Vector AOxAB = vectorCrossProduct(AO,AB);
-    Vector VxAB  = vectorCrossProduct(r.dir,AB);
-    float ab2 = vectorDotProduct(AB,AB);
+    Vector AB = pos2 - pos;
+    Vector AO = r.ori - pos;
+    Vector AOxAB = AO % AB;
+    Vector VxAB  = r.dir % AB;
+    float ab2 = AB.dot_product(AB);
 
-    float a = vectorDotProduct(VxAB,VxAB);
-    float b = 2 * vectorDotProduct(VxAB,AOxAB);
-    float c = vectorDotProduct(AOxAB,AOxAB) - (radius*radius * ab2);
+    float a = VxAB.dot_product(VxAB);
+    float b = 2 * (VxAB.dot_product(AOxAB));
+    float c = (AOxAB.dot_product(AOxAB)) - (radius*radius * ab2);
     float d = b * b - 4 * a * c;
 
     if (d > 0) {
       float t2 = (-b - sqrtf(d)) / (2 * a);
       if (t2 > 0) {
         // intersection point
-        intersection = vectorAdd(r.ori,vectorScale(r.dir,t2));
+        intersection = r.ori + (r.dir * t2);
         // intersection projected onto cylinder axis
-        projection = vectorAdd(pos,(vectorScale(AB,(vectorDotProduct(AB,(vectorSubstract(intersection,pos))) / ab2))));
+        projection = pos + ((AB * (AB.dot_product(intersection - pos))) / ab2);
         // if ((projection - pos).length() + (pos2 - projection).length() > AB.length()) return; /// THIS IS THE SLOW SAFE WAY
         if (!(projection.z > czmax - radius + eps || projection.z < czmin + radius - eps ||
         projection.y > cymax - radius + eps || projection.y < cymin + radius - eps ||
@@ -137,13 +137,13 @@ Vector Cylinder::getNormalInPoint(Vector point) {
 
     // Calculate the normal depending on which part of the cylinder the ray intersects with
     if(latestValidIntersection == CYLINDER) {
-      normal = vectorNormalize(vectorSubstract(point, projection));
+      normal = (point - projection).normalize();
     }
     if(latestValidIntersection == DISK1) {
-      normal = vectorNormalize(vectorSubstract(point,pos));
+      normal = (point - pos).normalize();
     }
     if(latestValidIntersection == DISK2) {
-      normal = vectorNormalize(vectorSubstract(point,pos2));
+      normal = (point - pos2).normalize();
     }
     return normal;
 }

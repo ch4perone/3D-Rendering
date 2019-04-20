@@ -1,5 +1,4 @@
 #include "AABB.h"
-#include "VectorMath.cpp"
 #include <cmath>
 
 
@@ -70,14 +69,14 @@ bool AABB::intersect(Ray &r) {
         normal = normalZ;
       }
       r.t = t0;
-      enteringPoint = vectorAdd(r.ori, vectorScale(r.dir, t0));
+      enteringPoint = r.ori + r.dir * t0;
 
       //find smallest exiting t value = t1
       if (tx_max < ty_max) t1 = tx_max;
       else t1 = ty_max;
 
       if (tz_max < t1) t1 = tz_max;
-      exitingPoint = vectorAdd(r.ori, vectorScale(r.dir, t1));
+      exitingPoint = r.ori + r.dir * t1;
 
 
       return (t0 < t1 && t1 > 0.0001f);
@@ -109,7 +108,7 @@ Vector AABB::getNormalInPoint(Vector point) {
 }
 
 Vector AABB::getDimension() {
-    return vectorSubstract(upper, lower);
+    return upper - lower;
 }
 
 float AABB::getVolume() {

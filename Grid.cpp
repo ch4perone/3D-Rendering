@@ -1,5 +1,4 @@
 #include "Grid.h"
-#include "VectorMath.cpp"
 #include <algorithm>
 
 Grid::Grid(vector<Object*> &sceneObjects) {
@@ -41,8 +40,8 @@ bool Grid::buildGrid(vector<Object *> &sceneObjects) {
 
     }
 
-    upper = vectorAddToAllAxis(upper, epsilon);
-    lower = vectorAddToAllAxis(lower, -epsilon);
+    upper.offsetAllAxis(epsilon);
+    lower.offsetAllAxis(-epsilon);
 
     boundingBox = new AABB(upper, lower);
 

@@ -1,4 +1,6 @@
 #include <random>
+
+#include <random>
 #include <algorithm>
 #include <stdlib.h>
 #include <iostream>
@@ -7,7 +9,7 @@
 #include <cassert>
 #include "Scene.h"
 #include "RayCast.h"
-#include "VectorMath.cpp"
+#include "Vector.h"
 #include "RandomSampler.h"
 
 
@@ -16,7 +18,7 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp  -o app -lglut -lGLU -lGL
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp Vector.cpp -o app -lglut -lGLU -lGL --std=c++17
 
 //Includes
 #include <GL/glut.h>
@@ -26,14 +28,14 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++17
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
 
 //Includes
 //#include <OpenGL/gl.h>
 //#include <OpenGl/glu.h>
 //#include <GLUT/glut.h>
 
-bool MojaveWorkAround = false; //Set to true for macOS Mojave.
+bool MojaveWorkAround = 0; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
@@ -45,7 +47,6 @@ bool SOFTSHADOWS = false;
 bool DEPTH_OF_FIELD = false;
 bool GRID_ACCELERATION = true;
 int n = 4;
-
 
 //Reshape function (given)
 void reshape(int w, int h)
@@ -79,8 +80,8 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
             if (SOFTSHADOWS) {
                 lightPosition = light.getJitteredPosition(lightJitterOffset);
             }
-            Vector dir = vectorNormalize(vectorDirection(intersectionPoint, lightPosition));
-            float lightDistance = vectorDistance(intersectionPoint, lightPosition);
+            Vector dir = intersectionPoint.directionTo(lightPosition).normalize();
+            float lightDistance = intersectionPoint.distance(lightPosition);
 
             Ray shadowRay = Ray(intersectionPoint, dir);
             shadowRay.glitchForward();
@@ -160,10 +161,8 @@ void drawSceneParallelized()
                 vector<Vector2D> pixelJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> lightJitter = RandomSampler::jitter2D(n);
                 vector<Vector2D> eyeDiskOffsets = RandomSampler::getPointsInUnitDisk(n*n);
-                // shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
-                // shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
-                random_shuffle(lightJitter.begin(), lightJitter.end());
-                random_shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end());
+                shuffle(lightJitter.begin(), lightJitter.end(), std::mt19937(std::random_device()()));
+                shuffle(eyeDiskOffsets.begin(), eyeDiskOffsets.end(), std::mt19937(std::random_device()()));
 
                 Color pixelColor = Color(0,0,0); //init black
                 for(int i = 0; i < pixelJitter.size(); ++i) {

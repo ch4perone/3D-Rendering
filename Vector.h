@@ -35,8 +35,9 @@ public:
     //equality
     Vector &operator=(const Vector &vec);
 
-    float dot_product(const Vector &vec);
-    Vector cross_product(const Vector &vec);
+    float dot_product(const Vector &vec); //dot-product
+    Vector operator%(const Vector &vec); //cross-product
+
     float length();
     Vector normalize();
 
@@ -45,6 +46,8 @@ public:
 
     //gives distance between two vectors
     float distance(const Vector &vec);
+    Vector directionTo(const Vector &vec);
+    Vector offsetAllAxis(float value);
     // f show_X(); //return x
     // f show_Y(); //return y
     // f show_Z(); //return z

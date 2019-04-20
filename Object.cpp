@@ -1,5 +1,5 @@
 #include "Object.h"
-#include "VectorMath.cpp"
+#include "Vector.h"
 #include <iostream>
 #include <cmath>
 
@@ -29,32 +29,32 @@ Color Object::computeShading(Vector intersectionPoint, Vector eyePosition, vecto
 
      // Ambient Color
      // > added ambientComponent to Material to get agency over ambient color (currently set to 0)
-    Vector ambientColor = vectorScale(vectorFromColor(material.color), material.ambientComponent);
+    Vector ambientColor = material.color.toVector() * material.ambientComponent;
     Vector normalVector = getNormalInPoint(intersectionPoint);
 
     Vector sumOfReflectionColors = Vector(0,0,0);
     for (Light &light : activeLightSources) {
 
         //Diffuse Color
-        Vector L = vectorNormalize(vectorDirection(intersectionPoint, light.pos));
-        float nL = vectorDotProduct(normalVector, L);
-        Vector lightVector = vectorScale(vectorFromColor(light.color), light.intensity); //light intensity optional, currently set to 1.f
+        Vector L = intersectionPoint.directionTo(light.pos).normalize();
+        float nL = normalVector.dot_product(L);
+        Vector lightVector = light.color.toVector() * light.intensity; //light intensity optional, currently set to 1.f
         lightVector.x *= material.color.r;
         lightVector.y *= material.color.g;
         lightVector.z *= material.color.b;
-        Vector diffuseColor = vectorScale(lightVector, material.diffuseComponent * nL);
-        sumOfReflectionColors = vectorAdd(sumOfReflectionColors, diffuseColor);
+        Vector diffuseColor = lightVector * (material.diffuseComponent * nL);
+        sumOfReflectionColors += diffuseColor;
 
         //Specular Color
-        Vector r = vectorNormalize(vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(L, normalVector)), L));
-        Vector v = vectorNormalize(vectorDirection(intersectionPoint, eyePosition));
-        float rv = pow(fmaxf(0.f, vectorDotProduct(r, v)), material.shininess);
-        lightVector = vectorScale(vectorFromColor(light.color), light.intensity);
-        Vector specularColor = vectorScale(lightVector, material.specularComponent * rv);
-        sumOfReflectionColors = vectorAdd(sumOfReflectionColors, specularColor);
+        Vector r = ((normalVector * (2.f*(L.dot_product(normalVector)))) - L).normalize();
+        Vector v = intersectionPoint.directionTo(eyePosition).normalize();
+        float rv = pow(fmaxf(0.f, (r.dot_product(v))), material.shininess);
+        lightVector = light.color.toVector() * light.intensity;
+        Vector specularColor = lightVector * (material.specularComponent * rv);
+        sumOfReflectionColors += specularColor;
     }
 
-    Color shading = vectorToColor(vectorAdd(ambientColor, sumOfReflectionColors));
+    Color shading = Color(ambientColor + sumOfReflectionColors);
     return shading;
 }
 
@@ -72,38 +72,38 @@ bool Object::isTranslucid() {
 }
 
 Vector Object::getReflectionInPoint(Vector point, Vector eyePosition, bool interior) {
-    Vector V = vectorNormalize(vectorDirection(point, eyePosition));
+    Vector V = point.directionTo(eyePosition);
+    V.normalize();
     Vector normalVector = getNormalInPoint(point);
     if (interior) {
-        normalVector = vectorScale(normalVector, -1.f);
+        normalVector *= -1.f;
     }
-    Vector r = vectorSubstract(vectorScale(normalVector, 2.f*vectorDotProduct(V, normalVector)), V);
+    Vector r = (normalVector * (2.f*(V.dot_product(normalVector))) - V);
     return r;
 }
 
 Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior) {
-    Vector v = vectorNormalize(vectorDirection(point, eyePosition));
+    Vector v = point.directionTo(eyePosition).normalize();
     Vector normal = getNormalInPoint(point);
     float iorMedium = getMaterial().indexOfRefraction;
     if (interior) {
-        normal = vectorScale(normal, -1.f);
+        normal *= -1.f;
         iorMedium = 1;
     }
 
-    if(vectorDotProduct(v, normal) < 0) {
+    if(v.dot_product(normal) < 0) {
         return Vector();
     }
 
-    Vector v_t = vectorSubstract(vectorScale(normal, vectorDotProduct(v, normal)), v);
-    float sinTeta_i = vectorLength(v_t);
+    Vector v_t = (normal * v.dot_product(normal)) - v;
+    float sinTeta_i = v_t.length();
     float sinTeta_t = (indexOfRefraction / iorMedium) * sinTeta_i;
     if(abs(sinTeta_t) > 1.f) { //total internal reflection
         return Vector();
     }
     float cosTeta_t = sqrtf(1.f - sinTeta_t * sinTeta_t);
 
-    Vector t = vectorNormalize(v_t);
-    Vector R = vectorAdd(vectorScale(t, sinTeta_t), vectorScale(normal, -1.f * cosTeta_t));
+    Vector R = (v_t.normalize() * sinTeta_t) + (normal * (-1.f * cosTeta_t));
 
     return R;
 

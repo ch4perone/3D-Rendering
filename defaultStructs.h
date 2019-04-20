@@ -1,21 +1,15 @@
 #ifndef EXERCISE1_DEFAULTSTRUCTS_H
 #define EXERCISE1_DEFAULTSTRUCTS_H
 
+#include "Vector.h"
+
 /**
  * @headerfile defaultStructs
  * defines numerous structures used for the ray tracer.
  * Structures are mainly used to store properties and feature no to only a few methods.
  */
 
-static float epsilon = 0.0001f;
-
-struct Vector {
-    float x, y, z;
-    bool initialized;
-
-    Vector() : initialized(false) {}
-    Vector(float x, float y, float z) : x(x), y(y), z(z), initialized(true) {}
-};
+static float epsilon = 0.00001f;
 
 struct Vector2D {
     float x, y;
@@ -29,6 +23,7 @@ struct Color {
     float r,g,b;
 
     Color(float r, float g, float b) : r(r), g(g), b(b) {}
+    Color(Vector v) : r(v.x), g(v.y), b(v.z) {}
 
     void scale(float factor) {
         r *= factor;
@@ -39,6 +34,10 @@ struct Color {
         r += color.r;
         g += color.g;
         b += color.b;
+    }
+
+    Vector toVector() {
+      return Vector(r,g,b);
     }
 };
 
@@ -55,9 +54,8 @@ struct Ray {
 
     //Move ray a tiny instance along its direction
     void glitchForward() {
-        ori.x = ori.x + dir.x*epsilon;
-        ori.y = ori.y + dir.y*epsilon;
-        ori.z = ori.z + dir.z*epsilon;
+        ori += dir * epsilon;
+
     }
 };
 

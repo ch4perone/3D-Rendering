@@ -15,10 +15,9 @@ class Plane : public Object {
     Vector pos2, pos3;
     Vector normal;
 
-
 public:
     Plane(Vector pos, Vector pos2, Vector pos3, Material material);
-    
+
     bool intersect(Ray &r);
     static bool intersectPlane(Ray &r, Vector normal, Vector position);
 

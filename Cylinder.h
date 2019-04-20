@@ -1,7 +1,7 @@
 #ifndef PROJECT_CYLINDER_H
 #define PROJECT_CYLINDER_H
 
-#include "defaultStructs.h"
+#include "defaultStructs.h" //also needed for epsilon
 #include "Object.h"
 #include "AABB.h"
 
