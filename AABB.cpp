@@ -3,8 +3,8 @@
 #include <cmath>
 
 
-AABB::AABB(Vector pos, Vector pos2) : pos2(pos2), Object(pos, Material()) {
-  
+AABB::AABB(Vector pos, Vector pos2, Material material) : pos2(pos2), Object(pos, Material()) {
+
 };
 
 bool AABB::intersect(Ray &r) {
@@ -105,7 +105,7 @@ Vector AABB::getRecentExitingPoint() {
 }
 
 Vector AABB::getNormalInPoint(Vector point) {
-    // normal = Vector(0,0,1);
+    // normal = Vector(-1,0,0);
     //TODO:  fix the bug with the shading of the box (calculating of the normal)
     // std::cout << "normal be like: " << endl;
     // vectorPrint(normal);

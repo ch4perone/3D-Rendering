@@ -17,7 +17,7 @@ Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox
       float lowerZ = pos.z - radius - epsilon;
       Vector lower = Vector(lowerX,lowerY,lowerZ);
 
-      boundingBox = new AABB(upper,lower);
+      // boundingBox = new AABB(upper,lower);
     }
 };
 

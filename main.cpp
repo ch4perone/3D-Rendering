@@ -38,9 +38,9 @@ bool MojaveWorkAround = 0; //Set to true for macOS Mojave.
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_cylinder_low.nff";
+string scene_path = "./scenes/balls_minicity.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = true;
+bool ANTIALIASING = 0;
 bool SOFTSHADOWS = true;
 bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = false;

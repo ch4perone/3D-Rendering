@@ -114,6 +114,17 @@ bool Scene::load_nff(string path) {
             Plane *plane = new Plane(pos, pos2, pos3, currentMaterial);
             objects.push_back(plane);
         }
+
+        if (label == "aabb") {
+          std::cout << "load aabb" << endl;
+          Vector pos(values[0], values[1], values[2]);
+          Vector pos2(values[3], values[4], values[5]);
+          // AABB* box = new AABB(Vector(0,0,0), Vector(0.5f,0.5f,0.5f));
+
+          AABB *box = new AABB(pos,pos2, currentMaterial);
+          objects.push_back(box);
+        }
+
         if (label == "p") {
             int numVertices = static_cast<int>(values[0]);
             cout << "load polygone primitiv of size " << numVertices << endl;

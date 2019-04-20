@@ -17,7 +17,7 @@ Triangle::Triangle(Vector pos, Vector pos2, Vector pos3, Material material, bool
       float lowerZ = std::min(pos.z, std::min(pos2.z, pos3.z)) - epsilon;
       Vector lower = Vector(lowerX,lowerY,lowerZ);
 
-      boundingBox = new AABB(upper,lower);
+      // boundingBox = new AABB(upper,lower);
     }
 };
 
