@@ -21,30 +21,30 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp Vector.cpp -o app -lglut -lGLU -lGL --std=c++17
 
 //Includes
-#include <GL/glut.h>
+// #include <GL/glut.h>
 
 /*
  * For macOS
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp Cell.cpp Grid.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
 
 //Includes
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
-bool MojaveWorkAround = 0; //Set to true for macOS Mojave.
+bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/mount_very_high.nff";
+string scene_path = "./scenes/balls_high.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = false;
-bool SOFTSHADOWS = false;
-bool DEPTH_OF_FIELD = false;
+bool ANTIALIASING = 0;
+bool SOFTSHADOWS = 0;
+bool DEPTH_OF_FIELD = 0;
 bool GRID_ACCELERATION = true;
 int n = 4;
 
