@@ -23,6 +23,9 @@ Triangle::Triangle(Vector pos, Vector pos2, Vector pos3, Material material, bool
 
 bool Triangle::intersect(Ray &r) {
 
+    if(rayInMailbox(r)) {
+        return true;
+    }
     // float eps = 0.00001f;
     Vector e1 = pos2 - pos; // = b - a
     Vector e2 = pos3 - pos; // = c - a
@@ -46,6 +49,9 @@ bool Triangle::intersect(Ray &r) {
 
     normal = (e1 % e2).normalize();
     r.t = - (normal.dot_product(tvec)) / (r.dir.dot_product(normal));
+
+    recentRayId = r.id;
+    recentRayDistance = r.t;
 
     return true;
 

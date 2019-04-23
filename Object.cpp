@@ -16,6 +16,9 @@ Material Object::getMaterial() {
 }
 
 bool Object::intersect(Ray &r) {
+    if(rayInMailbox(r)) {
+        return true;
+    }
     std::cout << "Warning: intersect() of super object called!" << '\n';
     return false;
 }
@@ -111,4 +114,12 @@ Vector Object::getRefractionDirectionInPoint(Vector point, Vector eyePosition, f
 
 AABB* Object::getBoundingBox(){
   return boundingBox;
+}
+
+bool Object::rayInMailbox(Ray &ray) {
+    if(ray.id == recentRayId) {
+        ray.t = recentRayDistance;
+        return true;
+    }
+    return false;
 }

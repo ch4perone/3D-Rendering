@@ -23,6 +23,10 @@ Sphere::Sphere(Vector pos, float radius, Material material, bool makeBoundingBox
 
 bool Sphere::intersect(Ray &r) {
 
+    if(rayInMailbox(r)) {
+        return true;
+    }
+
     float a = r.dir.dot_product(r.dir);
     float b = r.dir.dot_product((r.ori - pos) * 2.f);
     float c = ((r.ori - pos).dot_product(r.ori - pos)) - radius*radius;
@@ -53,6 +57,8 @@ bool Sphere::intersect(Ray &r) {
     // if x1 < 0 , ray origin inside sphere
     if (r2 > 0) {
       r.t = r2;
+      recentRayId = r.id;
+      recentRayDistance = r.t;
       return true;
     }
 

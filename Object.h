@@ -21,6 +21,10 @@ protected:
     Material material;
     AABB* boundingBox = nullptr;
 
+    int recentRayId = -1;
+    float recentRayDistance;
+
+
 public:
 
     Object();
@@ -35,7 +39,7 @@ public:
     Vector getRefractionDirectionInPoint(Vector point, Vector eyePosition, float indexOfRefraction, bool interior);
     AABB* getBoundingBox();
 
-
+    bool rayInMailbox(Ray &ray);
     bool isReflective();
     bool isTranslucid();
 };

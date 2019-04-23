@@ -41,15 +41,19 @@ struct Color {
     }
 };
 
+static int rayID = 0;
+
 struct Ray {
     Vector ori;
     Vector dir;
 
+    int id;
     float t;
     bool interiorMedium;
 
     Ray(Vector ori, Vector dir, bool interiorMedium = false) : ori(ori), dir(dir), interiorMedium(interiorMedium) {
-
+        id = rayID;
+        ++rayID;
     }
 
     //Move ray a tiny instance along its direction
