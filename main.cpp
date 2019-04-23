@@ -21,7 +21,7 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp Vector.cpp -o app -lglut -lGLU -lGL --std=c++17
 
 //Includes
-#include <GL/glut.h>
+// #include <GL/glut.h>
 
 /*
  * For macOS
@@ -31,21 +31,21 @@
 //g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp Cell.cpp Grid.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
 
 //Includes
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGl/glu.h>
+#include <GLUT/glut.h>
 
 bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_high.nff";
+string scene_path = "./scenes/balls_low_row.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = 0;
-bool SOFTSHADOWS = 0;
-bool DEPTH_OF_FIELD = 0;
-bool GRID_ACCELERATION = true;
+bool ANTIALIASING = 1;
+bool SOFTSHADOWS = 1;
+bool DEPTH_OF_FIELD = 1;
+bool GRID_ACCELERATION = 1;
 int n = 4;
 
 //Reshape function (given)

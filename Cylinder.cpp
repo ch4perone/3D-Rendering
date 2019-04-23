@@ -30,9 +30,48 @@ bool Cylinder::intersect(Ray &r) {
     float intersectionDistances[3] = {-1.f, -1.f, -1.f};
     // Check it is a cylinder and not a cone
     if (radius != radius2) {
-      std::cout << "Radii of cylinder bases are different, might be a cone." << endl;
-      std::cout << radius << endl;
-      std::cout << radius2 << endl;
+      // std::cout << "Radii of cylinder bases are different, might be a cone." << endl;
+      // std::cout << radius << endl;
+      // std::cout << radius2 << endl;
+
+    // float Cone::intersect(Vector pos, Vector dir) {
+      // std::cout << "kinda cone" << endl;
+      // radius = radius-radius2;
+      Vector vec = pos.directionTo(pos2);
+      float A = vec.x - pos.x;
+      float B = vec.z - pos.z;
+      float D = height - vec.y + pos.y;
+
+      float tan = (radius / height) * (radius / height);
+
+      float a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z) - (tan*(r.dir.y * r.dir.y));
+      float b = (2*A*r.dir.x) + (2*B*r.dir.z) + (2*tan*D*r.dir.y);
+      float c = (A*A) + (B*B) - (tan*(D*D));
+
+      float delta = b*b - 4*(a*c);
+  	  if(fabs(delta) < 0.001) return false;
+      // std::cout << "made it 1" << endl;
+      if(delta < 0.0) return false;
+      // std::cout << "made it 2" << endl;
+
+      float t1 = (-b - sqrt(delta))/(2*a);
+      float t2 = (-b + sqrt(delta))/(2*a);
+      float t;
+
+      if (t1>t2) t = t2;
+      else t = t1;
+
+      float re = pos2.y + t*r.dir.y;
+
+      if ((re > vec.y) and (re < vec.y + height)) {
+        std::cout << "made it Finally" << endl;
+        std::cout << t << endl;
+        r.t = abs(t);
+        return true;
+      }
+      // std::cout << "nope" << endl;
+      else return false;
+  // }
     }
 
     float cxmin, cymin, czmin, cxmax, cymax, czmax;
@@ -134,16 +173,28 @@ bool Cylinder::intersect(Ray &r) {
 // having the direction of the vector from the axis to the point
 Vector Cylinder::getNormalInPoint(Vector point) {
     Vector normal;
+    // if (radius == radius2) {
+    //   // Calculate the normal depending on which part of the cylinder the ray intersects with
+    //   if(latestValidIntersection == CYLINDER) {
+    //     normal = (point - projection).normalize();
+    //   }
+    //   if(latestValidIntersection == DISK1) {
+    //     normal = (point - pos).normalize();
+    //   }
+    //   if(latestValidIntersection == DISK2) {
+    //     normal = (point - pos2).normalize();
+    //   }
+    //   return normal;
+    // }
+    //
+    // else {
+    std::cout << "I MADE IT TO NORMAAAAALLLLLLLLLLLLL" << endl;
+      float ro = sqrt((point.x-pos.x)*(point.x-pos.x) + (point.z-pos.z)*(point.z-pos.z));
+      normal = Vector(point.x-pos.x, ro*(radius/height), point.z-pos.z);
+      normal.normalize();
+      // std::cout << normal << endl;
+      normal.display();
+    // }
 
-    // Calculate the normal depending on which part of the cylinder the ray intersects with
-    if(latestValidIntersection == CYLINDER) {
-      normal = (point - projection).normalize();
-    }
-    if(latestValidIntersection == DISK1) {
-      normal = (point - pos).normalize();
-    }
-    if(latestValidIntersection == DISK2) {
-      normal = (point - pos2).normalize();
-    }
     return normal;
 }
