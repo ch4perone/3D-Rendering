@@ -38,6 +38,7 @@ public:
     float dot_product(const Vector &vec); //dot-product
     Vector operator%(const Vector &vec); //cross-product
 
+
     float length();
     Vector normalize();
 
