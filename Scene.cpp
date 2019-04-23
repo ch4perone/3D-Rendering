@@ -96,6 +96,15 @@ bool Scene::load_nff(string path) {
             objects.push_back(sphere);
         }
 
+        if (label == "aabb") {
+            cout << "load axis aligned box" << endl;
+            Vector upper(values[0], values[1], values[2]);
+            Vector lower(values[3], values[4], values[5]);
+
+            AABB *aabb = new AABB(upper, lower, currentMaterial);
+            objects.push_back(aabb);
+        }
+
         if (label == "c") {
             cout << "load cylinder/cone" << endl;
             Vector pos(values[0], values[1], values[2]);

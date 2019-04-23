@@ -35,6 +35,8 @@ public:
     // Material getMaterial();
 
     AABB(Vector pos, Vector pos2);
+    AABB(Vector pos, Vector pos2, Material material);
+
 
     Vector getNormalInPoint(Vector point) override;
 
