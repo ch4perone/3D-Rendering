@@ -42,9 +42,9 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 Scene* scene = NULL;
 string scene_path = "./scenes/balls_high.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = 0;
-bool SOFTSHADOWS = 0;
-bool DEPTH_OF_FIELD = 0;
+bool ANTIALIASING = 1;
+bool SOFTSHADOWS = 1;
+bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = true;
 int n = 4;
 
@@ -176,15 +176,24 @@ void drawSceneParallelized()
                     }
                 }
                 pixelColor.scale(1.f / float(n*n));
-                renderedColors[y][x] = pixelColor;
+
+                glBegin(GL_POINTS);
+                glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
+                glVertex2f(x, y);
 
 
             } else {
                 Ray ray = scene->getCamera()->getPrimaryRay(x, y);
                 Color pixelColor = rayTracing(ray, 1, 1.0f, Vector2D());
-                renderedColors[y][x] = pixelColor;
+
+                glBegin(GL_POINTS);
+                glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
+                glVertex2f(x, y);
             }
         }
+
+        glEnd();
+        glFlush();
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
@@ -193,15 +202,6 @@ void drawSceneParallelized()
     /*
      * Draw pixel colors
      */
-
-    for (int y = 0; y < RES_Y; ++y) {
-        for (int x = 0; x < RES_X; ++x) {
-            Color pixelColor = renderedColors[y][x];
-            glBegin(GL_POINTS);
-            glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
-            glVertex2f(x, y);
-        }
-    }
 
     glEnd();
     glFlush();
