@@ -15,4 +15,4 @@ If you are running the program on MacOS Mojave, please look in the `main.cpp` fi
 We have implemented ways to parallelize the ray tracing algorithm. This decreases the run-time drastically for the high definition pictures. To use this, you can run the commands as before and add the tag `-fopenmp`. By default, all cores will be used. If need be, this can be changed by uncommenting a line in the `main.cpp`.
 
 ## Set input file:
-We currently only accept NFF. You can change the input file in `main.cpp` by changing `scene_path`.
+We currently only accept NFF. You can change the input file in `main.cpp` by changing `scene_path`. The scene we have made to show the depth of field and the other new features is under this path: "./scenes/dof_example.nff". This is already set as the default path for the program.

@@ -1,6 +1,4 @@
 #include <random>
-
-#include <random>
 #include <algorithm>
 #include <stdlib.h>
 #include <iostream>
@@ -28,12 +26,12 @@
  */
 
 //Compile command
-//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp Cell.cpp Grid.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++14
+//g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp Vector.cpp Cell.cpp Grid.cpp RandomSampler.cpp -o app -framework OpenGL -framework GLUT -Wno-deprecated --std=c++17
 
 //Includes
-//#include <OpenGL/gl.h>
-//#include <OpenGl/glu.h>
-//#include <GLUT/glut.h>
+// #include <OpenGL/gl.h>
+// #include <OpenGl/glu.h>
+// #include <GLUT/glut.h>
 
 bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
@@ -46,7 +44,7 @@ bool ANTIALIASING = true;
 bool SOFTSHADOWS = true;
 bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = true;
-int n = 8;
+int n = 4;
 
 //Reshape function (given)
 void reshape(int w, int h)
@@ -176,24 +174,15 @@ void drawSceneParallelized()
                     }
                 }
                 pixelColor.scale(1.f / float(n*n));
-
-                glBegin(GL_POINTS);
-                glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
-                glVertex2f(x, y);
+                renderedColors[y][x] = pixelColor;
 
 
             } else {
                 Ray ray = scene->getCamera()->getPrimaryRay(x, y);
                 Color pixelColor = rayTracing(ray, 1, 1.0f, Vector2D());
-
-                glBegin(GL_POINTS);
-                glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
-                glVertex2f(x, y);
+                renderedColors[y][x] = pixelColor;
             }
         }
-
-        glEnd();
-        glFlush();
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
@@ -202,6 +191,15 @@ void drawSceneParallelized()
     /*
      * Draw pixel colors
      */
+
+    for (int y = 0; y < RES_Y; ++y) {
+        for (int x = 0; x < RES_X; ++x) {
+            Color pixelColor = renderedColors[y][x];
+            glBegin(GL_POINTS);
+            glColor3f(pixelColor.r, pixelColor.g, pixelColor.b);
+            glVertex2f(x, y);
+        }
+    }
 
     glEnd();
     glFlush();
