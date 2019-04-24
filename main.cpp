@@ -40,12 +40,12 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 #define MAX_DEPTH 4
 
 Scene* scene = NULL;
-string scene_path = "./scenes/balls_low_row.nff";
+string scene_path = "./scenes/balls_cylinder_low.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = 1;
-bool SOFTSHADOWS = 1;
-bool DEPTH_OF_FIELD = 1;
-bool GRID_ACCELERATION = 1;
+bool ANTIALIASING = 0;
+bool SOFTSHADOWS = 0;
+bool DEPTH_OF_FIELD = 0;
+bool GRID_ACCELERATION = 0;
 int n = 4;
 
 //Reshape function (given)
