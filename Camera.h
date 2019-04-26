@@ -26,7 +26,7 @@ public:
 
     //Depth of field effects (manually set)
     float aperture = 0.04f;
-    float distanceFocalPlane = 3.f;
+    float distanceFocalPlane = 3.f; //Red carpet distances: 1.5 first | 3 middle range | 7 far
 
     Camera();
     bool completeSetup();

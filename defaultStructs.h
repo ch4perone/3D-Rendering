@@ -9,7 +9,7 @@
  * Structures are mainly used to store properties and feature no to only a few methods.
  */
 
-static float epsilon = 0.00002f;
+static float epsilon = 0.000025f;
 
 struct Vector2D {
     float x, y;

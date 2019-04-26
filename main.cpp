@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <chrono>
 #include <cassert>
+#include <FreeImage.h>
 #include "Scene.h"
 #include "RayCast.h"
 #include "Vector.h"
@@ -35,18 +36,34 @@
 //#include <OpenGl/glu.h>
 //#include <GLUT/glut.h>
 
+bool mainLoop = true;
 bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 #define MAX_DEPTH 4
-
 Scene* scene = NULL;
-string scene_path = "./scenes/dof_example.nff";
+string scene_path = "./scenes/balls_high.nff";
 int RES_X, RES_Y;
-bool ANTIALIASING = true;
-bool SOFTSHADOWS = true;
-bool DEPTH_OF_FIELD = true;
+bool ANTIALIASING = false;
+bool SOFTSHADOWS = false;
+bool DEPTH_OF_FIELD = false;
 bool GRID_ACCELERATION = true;
-int n = 8;
+int n = 4;
+
+void saveImage(const string& path, int width, int height) {
+    BYTE* pixels = new BYTE[3 * width * height];
+    // Make the BYTE array, factor of 3 because it's !!BGR!!.
+
+    glReadPixels(0, 0, width, height, GL_BGR, GL_UNSIGNED_BYTE, pixels);
+
+
+    // Convert to FreeImage format & save to file
+    FIBITMAP* image = FreeImage_ConvertFromRawBits(pixels, width, height, 3 * width, 24, 0x0000FF, 0xFF0000, 0x00FF00, false);
+    FreeImage_Save(FIF_BMP, image, path.c_str(), 0);
+
+    // Free resources
+    FreeImage_Unload(image);
+    delete [] pixels;
+}
 
 //Reshape function (given)
 void reshape(int w, int h)
@@ -137,14 +154,26 @@ Color rayTracing(Ray ray, int depth, float indexOfRefraction, Vector2D lightJitt
     return scene->getBackgroundColor();
 }
 
-void drawSceneParallelized()
+
+void drawScene()
 {
+    //Loop and save images
+    /*if(mainLoop) {
+        mainLoop = false;
+        for (float dist = 1.f; dist < 7.f; dist += 0.1f) {
+            cout << "Computing focal distance: " << dist << endl;
+            scene->getCamera()->distanceFocalPlane = dist;
+            drawScene();
+        }
+        exit(0);
+    }*/
+
     /*
      * Render pixel color (parallelized)
      */
 
     cout << "-------- Rendering ---------" << endl;
-    vector<vector<Color> > renderedColors(RES_Y, vector<Color>(RES_X, Color(1,1,1)));
+    //vector<vector<Color> > renderedColors(RES_Y, vector<Color>(RES_X, Color(1,1,1)));
     auto start = std::chrono::high_resolution_clock::now();
 
     //Select number of threads (otherwise all cores will be used)
@@ -206,17 +235,21 @@ void drawSceneParallelized()
     glEnd();
     glFlush();
     printf("Terminated!\n");
+    string img = "./export/red_carpet.soft4x4.bmp";
+    cout << "save Image to: " << img << endl;
+    saveImage(img, RES_X, RES_Y);
 
     /*
      * Fix Display Error for macOS Mojave
      */
 
-    if(MojaveWorkAround){
+    /*if(MojaveWorkAround){
         glutReshapeWindow(0.99 * RES_X,0.99 * RES_Y);
         //Necessary for Mojave. Has to be different dimensions than in glutInitWindowSize();
         // However, will result in re-rendering.
         MojaveWorkAround = false;
-    }
+    }*/
+    //exit(0);
 }
 
 
@@ -227,6 +260,9 @@ int main(int argc, char**argv)
     if(!(scene->load_nff(scene_path))) {
         return 0;
     }
+    //cout << stof(argv[1]) << endl;
+    //scene->getCamera()->aperture = stof(argv[1]) / 100.f;
+    //cout << scene->getCamera()->aperture << endl;
 
     RandomSampler::initSeed();
 
@@ -241,7 +277,7 @@ int main(int argc, char**argv)
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     glutReshapeFunc(reshape);
-    glutDisplayFunc(drawSceneParallelized);
+    glutDisplayFunc(drawScene);
     glDisable(GL_DEPTH_TEST);
     glutMainLoop();
     return 0;
