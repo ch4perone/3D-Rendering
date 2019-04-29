@@ -15,6 +15,7 @@ Camera *Scene::getCamera() {
 
 bool Scene::load_nff(string path) {
 
+    cout << "-------- Scene ---------" << endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     //initialize fields
@@ -35,7 +36,6 @@ bool Scene::load_nff(string path) {
      * Iterate over file lines
      */
 
-    cout << "-------- Scene ---------" << endl;
     while(!f.eof()) {
         //Read line from file
         string line;
@@ -77,18 +77,18 @@ bool Scene::load_nff(string path) {
             camera->ResY = static_cast<int>(values[1]);
         }
         if (label == "l") {
-            cout << "load light source" << endl;
+            //cout << "load light source" << endl;
             Vector pos(values[0], values[1], values[2]);
             Color color(values[3], values[4], values[5]);
             lightSources.push_back(Light(pos, color));
         }
         if (label == "f") {
-            cout << "load material" << endl;
+            //cout << "load material" << endl;
             Color color(values[0], values[1], values[2]);
             currentMaterial = Material(color, values[3], values[4], values[5], values[6], values[7]);
         }
         if (label == "s") {
-            cout << "load sphere" << endl;
+            //cout << "load sphere" << endl;
             Vector pos(values[0], values[1], values[2]);
             float radius = values[3];
 
@@ -97,7 +97,7 @@ bool Scene::load_nff(string path) {
         }
 
         if (label == "aabb") {
-            cout << "load axis aligned box" << endl;
+            //cout << "load axis aligned box" << endl;
             Vector upper(values[0], values[1], values[2]);
             Vector lower(values[3], values[4], values[5]);
 
@@ -106,7 +106,7 @@ bool Scene::load_nff(string path) {
         }
 
         if (label == "c") {
-            cout << "load cylinder/cone" << endl;
+            //cout << "load cylinder/cone" << endl;
             Vector pos(values[0], values[1], values[2]);
             float radius = values[3];
             Vector pos2(values[4], values[5], values[6]);
@@ -117,7 +117,7 @@ bool Scene::load_nff(string path) {
         }
 
         if (label == "pl") {
-            cout << "load plane" << endl;
+            //cout << "load plane" << endl;
             Vector pos(values[0], values[1], values[2]);
             Vector pos2(values[3], values[4], values[5]);
             Vector pos3(values[6], values[7], values[8]);
@@ -128,7 +128,7 @@ bool Scene::load_nff(string path) {
         }
         if (label == "p") {
             int numVertices = static_cast<int>(values[0]);
-            cout << "load polygone primitiv of size " << numVertices << endl;
+            //cout << "load polygone primitiv of size " << numVertices << endl;
             vector<Vector> points;
 
             for (int i = 0; i < numVertices; ++i) {
@@ -153,9 +153,9 @@ bool Scene::load_nff(string path) {
     }
 
     if(camera->completeSetup()) {
-        cout << "camera setup complete" << endl;
+        //cout << "camera setup complete" << endl;
         if(useGridAcceleration) {
-            cout << "build Grid Acceleration Structure" << endl;
+            //cout << "build Grid Acceleration Structure" << endl;
             grid = new Grid(objects);
         }
         auto end = std::chrono::high_resolution_clock::now();
