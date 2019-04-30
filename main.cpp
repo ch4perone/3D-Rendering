@@ -47,7 +47,7 @@ bool ANTIALIASING = true;
 bool SOFTSHADOWS = false;
 bool DEPTH_OF_FIELD = false;
 bool GRID_ACCELERATION = true;
-int n = 6;
+int n = 10;
 
 void saveImage(const string& path, int width, int height) {
     BYTE* pixels = new BYTE[3 * width * height];
@@ -236,7 +236,7 @@ void drawScene()
     glFlush();
     printf("Terminated!\n");
 
-    string img = "./export/mount_very_high.nice.hard.bmp";
+    string img = "./export/mount_very_high.very.nice.bmp";
     cout << "save Image to: " << img << endl;
     saveImage(img, RES_X, RES_Y);
 
@@ -269,7 +269,7 @@ int main(int argc, char**argv)
 
     RES_X = scene->getCamera()->ResX;
     RES_Y = scene->getCamera()->ResY;
-    scene->getCamera()->printCameraSetup();
+    //scene->getCamera()->printCameraSetup();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
     glutInitWindowSize(RES_X, RES_Y);

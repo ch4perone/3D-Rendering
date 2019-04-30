@@ -50,14 +50,14 @@ bool Grid::buildGrid(vector<Object *> &sceneObjects) {
      * Spatial Division
      */
 
-    float cellsPerObject = 2;
+    float cellsPerObject = 1.0f;
     float volPerObject = boundingBox->getVolume() / (float) sceneObjects.size();
     float lengthPerObject = cbrt(volPerObject);
     Nx = int(cellsPerObject * boundingBox->getDimension().x / lengthPerObject) + 1;
     Ny = int(cellsPerObject * boundingBox->getDimension().y / lengthPerObject) + 1;
     Nz = int(cellsPerObject * boundingBox->getDimension().z / lengthPerObject) + 1;
     int numCells = Nx * Ny * Nz;
-    cout << "Spatial Division into: " << numCells << " cells: " << Nx << " x " << Ny << " x " << Nz << endl;
+    //cout << "Spatial Division into: " << numCells << " cells: " << Nx << " x " << Ny << " x " << Nz << endl;
 
 
     //Init cells

@@ -54,7 +54,7 @@ bool Scene::load_nff(string path) {
 
         //Evaluate label and create Object
         if (label == "b") {
-            cout << "load background color" << endl;
+            //cout << "load background color" << endl;
             backgroundColor = Color(values[0], values[1], values[2]);
         }
         if (label == "from") {
