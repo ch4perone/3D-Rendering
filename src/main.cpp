@@ -39,12 +39,51 @@ bool MojaveWorkAround = false; //Set to true for macOS Mojave.
 
 Scene* scene = NULL;
 string scene_path = "./scenes/dof_example.nff";
-int RES_X, RES_Y;
+int RES_X = 0;
+int RES_Y = 0;
 bool ANTIALIASING = true;
 bool SOFTSHADOWS = true;
 bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = true;
 int n = 4;
+
+//Argument Parsing
+void parse_args(int argc, char* argv[]) {
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+
+        if (arg == "--scene" && i + 1 < argc) {
+            scene_path = argv[++i];
+        } else if (arg == "--res_x" && i + 1 < argc) {
+            RES_X = std::stoi(argv[++i]);
+        } else if (arg == "--res_y" && i + 1 < argc) {
+            RES_Y = std::stoi(argv[++i]);
+        } else if (arg == "--antialiasing" && i + 1 < argc) {
+            ANTIALIASING = (std::stoi(argv[++i]) != 0);
+        } else if (arg == "--softshadows" && i + 1 < argc) {
+            SOFTSHADOWS = (std::stoi(argv[++i]) != 0);
+        } else if (arg == "--depth_of_field" && i + 1 < argc) {
+            DEPTH_OF_FIELD = (std::stoi(argv[++i]) != 0);
+        } else if (arg == "--grid_acceleration" && i + 1 < argc) {
+            GRID_ACCELERATION = (std::stoi(argv[++i]) != 0);
+        } else if (arg == "--n" && i + 1 < argc) {
+            n = std::stoi(argv[++i]);
+        } else if (arg == "-h" || arg == "--help") {
+            std::cout << "Usage:\n"
+                      << "--scene [path]           : Set scene file path\n"
+                      << "--res_x [value]          : Set custom resolution width\n"
+                      << "--res_y [value]          : Set custom resolution height\n"
+                      << "--antialiasing [0/1]     : Enable or disable antialiasing\n"
+                      << "--softshadows [0/1]      : Enable or disable soft shadows\n"
+                      << "--depth_of_field [0/1]   : Enable or disable depth of field\n"
+                      << "--grid_acceleration [0/1]: Enable or disable grid acceleration\n"
+                      << "--n [value]              : Set jitter number n for antialiasing\n"
+                      << "-h                       : Display this help message\n";
+            exit(0);
+        }
+    }
+}
+
 
 //Reshape function (given)
 void reshape(int w, int h)
@@ -220,9 +259,7 @@ void drawSceneParallelized()
 
 int main(int argc, char**argv)
 {
-    if (argc > 1) {
-        scene_path = argv[1];
-    }
+    parse_args(argc, argv);
 
     scene = new Scene(GRID_ACCELERATION);
     if(!(scene->load_nff(scene_path))) {
@@ -231,8 +268,13 @@ int main(int argc, char**argv)
 
     RandomSampler::initSeed();
 
-    RES_X = scene->getCamera()->ResX;
-    RES_Y = scene->getCamera()->ResY;
+    if (RES_X != 0 && RES_Y != 0) { // Override Camera resolution with user input
+        scene->getCamera()->ResX = RES_X;
+        scene->getCamera()->ResY = RES_Y;
+    } else {
+        RES_X = scene->getCamera()->ResX;
+        RES_Y = scene->getCamera()->ResY;
+    }
     scene->getCamera()->printCameraSetup();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
