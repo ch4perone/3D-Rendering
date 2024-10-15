@@ -220,6 +220,9 @@ void drawSceneParallelized()
 
 int main(int argc, char**argv)
 {
+    if (argc > 1) {
+        scene_path = argv[1];
+    }
 
     scene = new Scene(GRID_ACCELERATION);
     if(!(scene->load_nff(scene_path))) {
