@@ -77,7 +77,7 @@ void parse_args(int argc, char* argv[]) {
                       << "--softshadows [0/1]      : Enable or disable soft shadows\n"
                       << "--depth_of_field [0/1]   : Enable or disable depth of field\n"
                       << "--grid_acceleration [0/1]: Enable or disable grid acceleration\n"
-                      << "--n [value]              : Set jitter number n for antialiasing\n"
+                      << "--n [value]              : Set number n of pixel jitter for antialiasing\n"
                       << "-h                       : Display this help message\n";
             exit(0);
         }

@@ -2,10 +2,19 @@
 
 Project done by Group 14 (Yannek Nowatzky and Ferdous Nasri)
 
-## How to run the program:
+## Installation and Usage
+
 ### Using Linux:
-The program is ready to run on linux system with the following command:
-`g++ main.cpp Scene.cpp Camera.cpp Object.cpp Sphere.cpp Plane.cpp Triangle.cpp VectorMath.cpp RayCast.cpp Cylinder.cpp AABB.cpp RandomSampler.cpp Cell.cpp Grid.cpp Vector.cpp -o app -lglut -lGLU -lGL --std=c++17`
+
+Download the repository and change (cd) into the directory. Build the project with
+
+    make
+
+This will create an executable filled, called *app*, which can be run from command line:
+
+    ./app --scene <PATH TO SCENE>
+
+Sample scenes are found in the _scenes_ directory.
 
 ### Using MacOS Mojave:
 If you are running the program on MacOS Mojave, please look in the `main.cpp` file and set `MojaveWorkAround` to `true` and uncomment the three lined with the `#include` files, while commenting out the `#include` file listed under `For Linux`. You can then run the program using the following command:
