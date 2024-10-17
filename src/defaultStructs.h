@@ -51,6 +51,10 @@ struct Ray {
     float t;
     bool interiorMedium;
 
+    Ray() {
+        
+    }
+
     Ray(Vector ori, Vector dir, bool interiorMedium = false) : ori(ori), dir(dir), interiorMedium(interiorMedium) {
         id = rayID;
         ++rayID;

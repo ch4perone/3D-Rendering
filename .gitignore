@@ -39,5 +39,6 @@ Thumbs.db
 # our data
 ######################
 .idea/
+.vscode/
 .DS_Store
 app

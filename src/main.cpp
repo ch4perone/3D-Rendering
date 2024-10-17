@@ -187,7 +187,7 @@ void drawSceneParallelized()
     //Select number of threads (otherwise all cores will be used)
     //#pragma omp parallel num_threads(4)
 
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(2)
     for (int y = 0; y < RES_Y; y++)
     {
         for (int x = 0; x < RES_X; x++)
@@ -217,7 +217,11 @@ void drawSceneParallelized()
 
 
             } else {
-                Ray ray = scene->getCamera()->getPrimaryRay(x, y);
+                Ray ray;
+                #pragma omp critical
+                {
+                    ray = scene->getCamera()->getPrimaryRay(x, y);
+                }    
                 Color pixelColor = rayTracing(ray, 1, 1.0f, Vector2D());
                 renderedColors[y][x] = pixelColor;
             }

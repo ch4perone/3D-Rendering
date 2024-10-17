@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -lglut -lGLU -lGL
+CXXFLAGS = -std=c++17 -lglut -lGLU -lGL #-fopenmp
 SRC_DIR = src
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 TARGET = app
