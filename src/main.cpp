@@ -45,6 +45,8 @@ bool ANTIALIASING = true;
 bool SOFTSHADOWS = true;
 bool DEPTH_OF_FIELD = true;
 bool GRID_ACCELERATION = true;
+float APERTURE = -1.f;
+float DISTANCE_FOCAL_PLANE = -1.f;
 int n = 4;
 
 //Argument Parsing
@@ -64,6 +66,10 @@ void parse_args(int argc, char* argv[]) {
             SOFTSHADOWS = (std::stoi(argv[++i]) != 0);
         } else if (arg == "--depth_of_field" && i + 1 < argc) {
             DEPTH_OF_FIELD = (std::stoi(argv[++i]) != 0);
+        } else if (arg == "--aperture" && i + 1 < argc) {
+            APERTURE = std::stof(argv[++i]);
+        } else if (arg == "--focal_distance" && i + 1 < argc) {
+            DISTANCE_FOCAL_PLANE = std::stof(argv[++i]);
         } else if (arg == "--grid_acceleration" && i + 1 < argc) {
             GRID_ACCELERATION = (std::stoi(argv[++i]) != 0);
         } else if (arg == "--n" && i + 1 < argc) {
@@ -74,10 +80,12 @@ void parse_args(int argc, char* argv[]) {
                       << "--res_x [value]          : Set custom resolution width\n"
                       << "--res_y [value]          : Set custom resolution height\n"
                       << "--antialiasing [0/1]     : Enable or disable antialiasing\n"
+                      << "--n [value]              : Set number n of pixel jitter for antialiasing\n"
                       << "--softshadows [0/1]      : Enable or disable soft shadows\n"
                       << "--depth_of_field [0/1]   : Enable or disable depth of field\n"
+                      << "--aperture [value]       : Aperture for depth of field (Default 0.04)\n"
+                      << "--focal_distance [value] : Distance to focal plane for depth of field (Default 3.0)\n"
                       << "--grid_acceleration [0/1]: Enable or disable grid acceleration\n"
-                      << "--n [value]              : Set number n of pixel jitter for antialiasing\n"
                       << "-h                       : Display this help message\n";
             exit(0);
         }
@@ -187,7 +195,7 @@ void drawSceneParallelized()
     //Select number of threads (otherwise all cores will be used)
     //#pragma omp parallel num_threads(4)
 
-    #pragma omp parallel for num_threads(2)
+    #pragma omp parallel for num_threads(8)
     for (int y = 0; y < RES_Y; y++)
     {
         for (int x = 0; x < RES_X; x++)
@@ -279,6 +287,13 @@ int main(int argc, char**argv)
         RES_X = scene->getCamera()->ResX;
         RES_Y = scene->getCamera()->ResY;
     }
+    if (APERTURE >= 0) {
+        scene->getCamera()->aperture = APERTURE;
+    }
+    if (DISTANCE_FOCAL_PLANE >= 0) {
+        scene->getCamera()->distanceFocalPlane = DISTANCE_FOCAL_PLANE;
+    }
+
     scene->getCamera()->printCameraSetup();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);

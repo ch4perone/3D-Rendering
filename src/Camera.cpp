@@ -59,5 +59,7 @@ void Camera::printCameraSetup() {
     cout << "df: " << df << endl;
     cout << "h: " << h << endl;
     cout << "w: " << w << endl;
+    cout << "aperture: " << aperture << endl;
+    cout << "focal: " << distanceFocalPlane << endl;
     cout << "ResX: " << ResX << " ResY: " << ResY << endl;
 }
