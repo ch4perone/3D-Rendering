@@ -19,9 +19,9 @@ The project was done as part of a 3D Programming course at the IST (University o
 ## Showcase
 
 Below is a rendered image showcasing the features of the ray tracing engine, including reflective material, soft shadows, anti-aliasing and a subtle depth of field effect.
-<div style="text-align: center;">
-    <img src="./images/red_carpet.aper.0.01.bmp" alt="Rendered Scene" width="400" height="400" style="margin: 2px; border: 2px solid black;" />
-</div>
+<p align="center">
+    <img src="./images/red_carpet.aper.0.01.bmp" alt="Rendered Scene" width="400" height="400" style="margin: 2px; border: 3px solid black;" />
+</p>
 
 ## Installation and Usage
 
