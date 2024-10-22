@@ -10,7 +10,7 @@ The project was done as part of a 3D Programming course at the IST (University o
 
 - **Raycasting & Ray Tracing**: The engine implements advanced rendering techniques that simulate the way light interacts with objects, producing high-quality images.
 - **Grid Search Acceleration**: Utilizes a grid-based acceleration structure to improve rendering performance, enabling faster ray-object intersection tests.
-- **Reflections and Soft Shadows**: Implements reflective materials (mirror-like) soft shadow effects for more realistic lighting, allowing for gradual transitions between light and shadow and bouncing light rays.
+- **Reflections, Refractions, and Soft Shadows**: Implements reflective materials (mirror-like) and soft shadow effects for more realistic lighting, allowing for gradual transitions between light and shadow and bouncing light rays. 
 - **Anti-Aliasing**: Reduces visual artifacts by smoothing edges through multi-sampling techniques, resulting in clearer and more detailed images.
 - **Depth of Field Effects**: Simulates realistic depth of field, adding a sense of focus and blur that enhances the visual quality of rendered scenes.
 - **Scene Definition**: Users can define their 3D scenes using NFF input files, allowing for easy customization of the camera position, object properties, and light sources.
@@ -18,7 +18,8 @@ The project was done as part of a 3D Programming course at the IST (University o
 
 ## Showcase
 
-Below is a rendered image showcasing the features of the ray tracing engine, including reflective material, soft shadows, anti-aliasing and a subtle depth of field effect.
+Below is a rendered image showcasing the ray tracing engine's capabilities, including reflective materials, soft shadows, and anti-aliasing. A subtle depth of field effect is applied, keeping the third sphere in focus while adding gentle blurring to the foreground and background for a slight sense of depth.
+
 <p align="center">
         <img src="./images/red_carpet.aper.0.01.bmp" alt="Rendered Scene" width="400" height="400" style="margin: 2px; border: 3px solid black;" />
 </p>
