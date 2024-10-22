@@ -43,7 +43,21 @@ This will create an executable filled, called *app*, which can be run from comma
 
     ./app --scene <PATH TO SCENE>
 
-Sample scenes are found in the _scenes_ directory.
+Sample scenes are found in the _scenes_ directory. Consult the program's help function (_-h_) for adjusting camera properties and special effects.
+
+    ./app -h
+    Usage:
+    --scene [path]           : Set scene file path
+    --res_x [value]          : Set custom resolution width
+    --res_y [value]          : Set custom resolution height
+    --antialiasing [0/1]     : Enable or disable antialiasing
+    --n [value]              : Set number n of pixel jitter for antialiasing
+    --softshadows [0/1]      : Enable or disable soft shadows
+    --depth_of_field [0/1]   : Enable or disable depth of field
+    --aperture [value]       : Aperture for depth of field (Default 0.04)
+    --focal_distance [value] : Distance to focal plane for depth of field (Default 3.0)
+    --grid_acceleration [0/1]: Enable or disable grid acceleration
+    -h  
 
 ### Using MacOS Mojave:
 If you are running the program on MacOS Mojave, please look in the `main.cpp` file and set `MojaveWorkAround` to `true` and uncomment the three lined with the `#include` files, while commenting out the `#include` file listed under `For Linux`. You can then build the program using the following command:
