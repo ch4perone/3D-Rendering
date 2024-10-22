@@ -16,11 +16,17 @@ The project was done as part of a 3D Programming course at the IST (University o
 - **Scene Definition**: Users can define their 3D scenes using NFF input files, allowing for easy customization of the camera position, object properties, and light sources.
 - **Multi-threading Support**: The rendering process is optimized for performance with multi-threading capabilities, enabling faster image generation on modern multi-core processors.
 
+## Showcase
+
+Below is a rendered image showcasing the features of the ray tracing engine, including reflective material, soft shadows, anti-aliasing and a subtle depth of field effect.
+
+<img src="./images/red_carpet.aper.0.01.bmp" alt="Rendered Scene" width="400" height="400" style="margin: 2px;" />
+
 ## Installation and Usage
 
 ### Requirement
 
-Requires GLUT
+Requires the OpenGL Utility Toolkit (GLUT)
     
     sudo apt-get install freeglut3-dev
 
